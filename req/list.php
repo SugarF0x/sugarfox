@@ -9,6 +9,14 @@
             'dls'   => 'https://www.dropbox.com/s/fri8mdybb0ueap5/TI6%20Server.rar?dl=0',
             'dlb'   => 'https://www.dropbox.com/s/goiridluk2ksqg7/TI6%20Backup.rar?dl=0'
         ],[
+            'name'  => 'ThaumCraft 5',
+            'img'   => 'img/TC5.png',
+            'desc'  => 'ThaumCraft 5 for MineCraft 1.8.9 version: magic with some graphical mods, nothing more, nothing of excess',
+            'date'  => '#',
+            'dlc'   => '#',
+            'dls'   => '#',
+            'dlb'   => '#'
+        ],[
             'name'  => 'TerraFirmaCraft Reborn',
             'img'   => 'img/TFCR.png',
             'desc'  => 'TerraFirmaCraft in its glorious days of medieval Discovery and Exploration',
