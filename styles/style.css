@@ -15,6 +15,9 @@ footer {
   box-sizing: border-box;
   font-size: 26px;
 }
+footer {
+  font-size: 16px;
+}
 section:nth-child(2n-1) {
   background-color: #ffffff;
 }
@@ -25,7 +28,7 @@ section:nth-child(2n) {
   -webkit-box-shadow: 8px 8px 35px 5px #47464A;
   box-shadow: 8px 8px 35px 5px #47464A;
 }
-.button {
+button {
   display: inline-block;
   text-decoration: none;
   color: #666;
@@ -40,11 +43,11 @@ section:nth-child(2n) {
   border-bottom-width: 3px;
   margin: 5px 10px;
 }
-.button:hover {
+button[enabled]:hover {
   background-color: #e3e3e3;
   border-color: rgba(0, 0, 0, 0.5);
 }
-.button:active {
+button:active {
   background-color: #CCC;
   border-color: rgba(0, 0, 0, 0.9);
 }
@@ -73,6 +76,9 @@ footer {
   bottom: 0;
   width: 100%;
 }
+footer p {
+  float: right;
+}
 .downloads {
   text-align: center;
   padding: 15px 30px;
@@ -96,6 +102,10 @@ footer {
   font-size: 24px;
   line-height: 26px;
   margin: 20px 0 !important;
+}
+.downloads__image img {
+  padding: 0 25px;
+  max-width: 400px;
 }
 .downloads__desc {
   margin: 10px 25px !important;
