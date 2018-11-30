@@ -1,5 +1,5 @@
 <footer>
     <p>
-        No shits are reserved, fuck you
+        No shits reserved, fuck you
     </p>
 </footer>
