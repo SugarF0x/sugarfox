@@ -27,11 +27,11 @@
         ],[
             'name'  => 'TechnoFirmaCraft',
             'img'   => 'img/TechFC.png',
-            'desc'  => '#',
-            'date'  => '#',
-            'dlc'   => '#',
-            'dls'   => '#',
-            'dlb'   => '#'
+            'desc'  => 'В Террафирму пришла индустриальная революция: долой мануфактуры - машины в массы. Моды из TFCR остались нетронуты, к ним добавился ряд виузальных аддонов и Immersive Engineering, вместе с которым подъехали соответствующие правки крафтов',
+            'date'  => '01.12.2018',
+            'dlc'   => 'https://www.dropbox.com/s/drabvqoofvpgk9a/TechFC%20Client.rar?dl=0',
+            'dls'   => 'https://www.dropbox.com/s/gkaec4dnvujqywi/TechFC%20Server.rar?dl=0',
+            'dlb'   => 'https://www.dropbox.com/s/53aagb0tg6u7rdf/TechFC%20Backup.rar?dl=0'
         ]
     ]
 ?>
