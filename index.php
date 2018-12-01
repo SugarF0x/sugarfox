@@ -52,8 +52,6 @@
         </section>
     </main>
     
-    
-    
     <?php require('req/footer.php'); ?>
 </body>
 </html>
