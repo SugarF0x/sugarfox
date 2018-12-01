@@ -1,5 +1,5 @@
 <footer>
     <p>
-        No shits reserved, fuck you
+        В процессе доработки
     </p>
 </footer>

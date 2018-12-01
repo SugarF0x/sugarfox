@@ -1,25 +1,25 @@
 <?php
     $mcDownloads = [
         [
-            'name'  => 'Immsersive Thaumcraft 6',
-            'img'   => 'img/IT6.png',
-            'desc'  => 'Thaumcraft 6, Immersive Engineering and Astral Sorcery all together with a bunch of minor mods that make life so much better',
-            'date'  => '30.11.2018',
-            'dlc'   => 'https://www.dropbox.com/s/zb1elozkdjbnhak/TI6%20Client.rar?dl=0', 
-            'dls'   => 'https://www.dropbox.com/s/fri8mdybb0ueap5/TI6%20Server.rar?dl=0',
-            'dlb'   => 'https://www.dropbox.com/s/goiridluk2ksqg7/TI6%20Backup.rar?dl=0'
-        ],[
             'name'  => 'ThaumCraft 5',
             'img'   => 'img/TC5.png',
-            'desc'  => 'ThaumCraft 5 for MineCraft 1.8.9 version: magic with some graphical mods, nothing more, nothing of excess',
+            'desc'  => 'Thaumcraft 5 на версию 1.8.9: магия и пара графических модов, ничего лишнего',
             'date'  => '#',
             'dlc'   => '#',
             'dls'   => '#',
             'dlb'   => '#'
         ],[
+            'name'  => 'Immsersive Thaumcraft 6',
+            'img'   => 'img/IT6.png',
+            'desc'  => 'Thaumcraft 6, Astral Sorcery, Immersive Engineering и пара аддонов на него вместе с десятком модификаций как графических, так и утилитарных, делающих процесс приятнее без особых изменений в геймплее',
+            'date'  => '30.11.2018',
+            'dlc'   => 'https://www.dropbox.com/s/zb1elozkdjbnhak/TI6%20Client.rar?dl=0', 
+            'dls'   => 'https://www.dropbox.com/s/fri8mdybb0ueap5/TI6%20Server.rar?dl=0',
+            'dlb'   => 'https://www.dropbox.com/s/goiridluk2ksqg7/TI6%20Backup.rar?dl=0'
+        ],[
             'name'  => 'TerraFirmaCraft Reborn',
             'img'   => 'img/TFCR.png',
-            'desc'  => 'TerraFirmaCraft in its glorious days of medieval Discovery and Exploration',
+            'desc'  => 'Террафирма времён своей славы - средневековые исследования и открытия в красивой обёртке из графических модификаций',
             'date'  => '#',
             'dlc'   => 'https://www.dropbox.com/s/oss9ijzktl6x16c/TFCR%20Client.zip?dl=0',
             'dls'   => '#',

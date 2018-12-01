@@ -3,14 +3,14 @@
         <img class="header__logo" src="img/Sugar_F0x.jpg" alt="sugar_f0x.jpg">
         
         <div class="header__name">
-            sgfx.ru
+            sgfx
         </div>
     </a>
     
     <div class="header__section">
         <?php 
             if (is_null($_GET['section'])) {
-                echo Main;
+                echo Главная;
             } else {
                 echo $_GET['section'];
             };

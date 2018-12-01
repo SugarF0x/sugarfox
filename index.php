@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles/style.css">
-    <title>Sugar Stash</title>
+    <title>Fox Lair</title>
 </head>
 <body>
     <?php require('req/header.php'); ?>
@@ -29,18 +29,18 @@
                 </li>
                 
                 <li class="downloads__date">
-                    Patch date: 
+                    Дата патча: 
                     <?php echo $ls['date'] ?>
                 </li>
                 
                 <!-- here i made it all in one line so as to avoid that fucking gap between the buttons that drove me crazy -->
                 <li class="downloads__buttons">
                     <button <?php if ($ls['dlc']=='#') { echo disabled; } else { echo enabled; } ?> onclick="window.location.href='<?php echo $ls['dlc'] ?>'">
-                        Client
+                        Клиент
                     </button><button <?php if ($ls['dls']=='#') { echo disabled; } else { echo enabled; } ?> onclick="window.location.href='<?php echo $ls['dls'] ?>'">
-                        Server
+                        Сервер
                     </button><button <?php if ($ls['dlb']=='#') { echo disabled; } else { echo enabled; } ?> onclick="window.location.href='<?php echo $ls['dlb'] ?>'">
-                        Backup
+                        Бэкап
                     </button>
                 </li>
             </ul>
