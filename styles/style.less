@@ -21,6 +21,11 @@ body,html {
   position: relative;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 .cls {
     clear: both;
 }
@@ -31,6 +36,10 @@ header, footer {
     padding: 15px 30px;
     box-sizing: border-box;
     font-size: 26px;
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 section:nth-child(2n-1) {
@@ -111,11 +120,9 @@ header {
 //-------------------- Footer --------------------\\
 
 footer {
-    position: absolute;
-    bottom: -50px;
-    left: 0;
-    width: 100%;
+    flex-shrink: 0;
     height: 50px;
+    width: 100%;
     font-size: 16px;
     p {
         line-height: 20px;
@@ -123,10 +130,6 @@ footer {
         float: right;
     }
 }
-
-#footer__margin {
-    margin: 50px 0;
-} 
 
 //-------------------- Downloads --------------------\\
 
