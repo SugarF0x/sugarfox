@@ -44,6 +44,7 @@ button {
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-bottom-width: 3px;
   margin: 5px 10px;
+  transition: .3s ease;
 }
 button[enabled]:hover {
   background-color: #e3e3e3;
@@ -78,9 +79,8 @@ button:active {
 }
 footer {
   position: absolute;
-  bottom: 0px;
+  bottom: -50px;
   left: 0;
-  right: 0;
   width: 100%;
   height: 50px;
   font-size: 16px;
@@ -90,14 +90,19 @@ footer p {
   vertical-align: middle;
   float: right;
 }
+#footer__margin {
+  margin: 50px 0;
+}
 .downloads {
-  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+  flex-wrap: wrap;
   padding: 15px 30px;
 }
 .downloads ul {
   padding: 0;
   list-style: none;
-  display: inline-block;
   min-width: 350px;
   max-width: 400px;
   vertical-align: top;
@@ -117,6 +122,11 @@ footer p {
 .downloads__image img {
   padding: 0 25px;
   max-width: 350px;
+  box-sizing: border-box;
+  transition: 1s ease;
+}
+.downloads__image img:hover {
+  transform: scale(1.1);
 }
 .downloads__desc {
   margin: 10px 25px !important;
