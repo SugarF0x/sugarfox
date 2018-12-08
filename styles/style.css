@@ -49,9 +49,11 @@ button {
 button[enabled]:hover {
   background-color: #e3e3e3;
   border-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 button[disabled] {
   background-color: #B2B2B2;
+  cursor: not-allowed;
 }
 button:active {
   background-color: #CCC;
