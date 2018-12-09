@@ -1,6 +1,6 @@
 <header>
     <a href="..">
-        <img class="header__logo" src="img/Sugar_F0x.jpg" alt="sugar_f0x.jpg">
+        <img class="header__logo" src="img/sgfx.png" alt="sugar_f0x.jpg">
         
         <div class="header__name">
             sgfx

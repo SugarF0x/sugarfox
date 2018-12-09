@@ -89,11 +89,17 @@ button:active {
   transform: scale(1.05) rotate(5deg);
   cursor: pointer;
 }
+header {
+  height: 50px;
+  box-sizing: content-box;
+}
+header > a {
+  display: inline-block;
+}
 .header__logo {
   float: left;
   width: 50px;
   height: 50px;
-  border-radius: 50%;
   margin-right: 15px;
 }
 .header__name {

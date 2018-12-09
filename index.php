@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="img/Blue%20Fox%20Paw%20Hollow.png">
+    <link rel="icon" href="img/sgfx.png">
     <link rel="stylesheet" href="styles/style.css">
     <title>Fox Lair</title>
 </head>
