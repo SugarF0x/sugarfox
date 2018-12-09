@@ -1,5 +1,5 @@
 <?php
-    $mcDownloads = [
+    $minecraft = [
         [
             'name'  => 'ThaumCraft 5',
             'img'   => 'img/TC5.png',

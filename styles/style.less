@@ -56,17 +56,17 @@ main {
     flex: 1 0 auto;
 }
 
-section:nth-child(2n-1) {
-    background-color: #ffffff;
-}
-
-section:nth-child(2n) {
-    background-color: #f5f5f5;
+section {
+    padding: 5%;
 }
 
 .popout-ul {
     -webkit-box-shadow: 8px 8px 35px 5px #47464A;
     box-shadow: 8px 8px 35px 5px #47464A;
+    padding: 15px;
+    list-style: none;
+    box-sizing: border-box;
+    display: inline-block;
 }
 
 button {
@@ -102,6 +102,14 @@ button:active {
     border-color: rgba(0,0,0,0.9);
 }
 
+.clickable-image {
+    transition: 1s ease;
+}
+
+.clickable-image:hover {
+    transform: scale(1.1);
+}
+
 //-------------------- Header --------------------\\
 
 header {
@@ -131,6 +139,18 @@ header {
     text-transform: uppercase;
 }
 
+//-------------------- Main --------------------\\
+
+main > section:nth-of-type(2n-1) {
+    background-color: #ffffff;
+}
+
+main > section:nth-of-type(2n) {
+    background-color: #f5f5f5;
+}
+
+
+
 //-------------------- Footer --------------------\\
 
 footer {
@@ -145,17 +165,15 @@ footer {
     }
 }
 
-//-------------------- Downloads --------------------\\
+//-------------------- Minecraft --------------------\\
 
-.downloads {
+.minecraft {
     display: flex;
     justify-content: space-around;
     align-items: baseline;
     flex-wrap: wrap;
     padding: 15px 30px;
     ul {
-        padding: 0;
-        list-style: none;
         min-width: 350px;
         max-width: 400px;
         vertical-align: top;
@@ -168,36 +186,24 @@ footer {
     }
 }
 
-.downloads__name {
+.minecraft__name {
     vertical-align: middle;
     font-size: 24px;
     line-height: 26px;
     margin: 20px 0 !important;
 }
 
-.downloads__image {
+.minecraft__image {
     img {
         padding: 0 25px;
         max-width: 350px;
         box-sizing: border-box;
-        transition: 1s ease;
-    }
-    img:hover {
-        transform: scale(1.1);
     }
 }
 
-.downloads__desc {
+.minecraft__desc {
     margin: 10px 25px !important;
     padding: 10px 0;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
-}
-
-.downloads__date {
-    
-}
-
-.downloads__buttons {
-    
 }

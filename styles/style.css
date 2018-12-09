@@ -42,15 +42,16 @@ footer {
 main {
   flex: 1 0 auto;
 }
-section:nth-child(2n-1) {
-  background-color: #ffffff;
-}
-section:nth-child(2n) {
-  background-color: #f5f5f5;
+section {
+  padding: 5%;
 }
 .popout-ul {
   -webkit-box-shadow: 8px 8px 35px 5px #47464A;
   box-shadow: 8px 8px 35px 5px #47464A;
+  padding: 15px;
+  list-style: none;
+  box-sizing: border-box;
+  display: inline-block;
 }
 button {
   display: inline-block;
@@ -81,6 +82,12 @@ button:active {
   background-color: #CCC;
   border-color: rgba(0, 0, 0, 0.9);
 }
+.clickable-image {
+  transition: 1s ease;
+}
+.clickable-image:hover {
+  transform: scale(1.1);
+}
 .header__logo {
   float: left;
   width: 50px;
@@ -101,6 +108,12 @@ button:active {
   vertical-align: middle;
   text-transform: uppercase;
 }
+main > section:nth-of-type(2n-1) {
+  background-color: #ffffff;
+}
+main > section:nth-of-type(2n) {
+  background-color: #f5f5f5;
+}
 footer {
   flex-shrink: 0;
   height: 50px;
@@ -112,42 +125,36 @@ footer p {
   vertical-align: middle;
   float: right;
 }
-.downloads {
+.minecraft {
   display: flex;
   justify-content: space-around;
   align-items: baseline;
   flex-wrap: wrap;
   padding: 15px 30px;
 }
-.downloads ul {
-  padding: 0;
-  list-style: none;
+.minecraft ul {
   min-width: 350px;
   max-width: 400px;
   vertical-align: top;
   background-color: #FFFFFF;
   margin: 30px 15px;
 }
-.downloads ul li {
+.minecraft ul li {
   margin: 10px 0;
   text-align: center;
 }
-.downloads__name {
+.minecraft__name {
   vertical-align: middle;
   font-size: 24px;
   line-height: 26px;
   margin: 20px 0 !important;
 }
-.downloads__image img {
+.minecraft__image img {
   padding: 0 25px;
   max-width: 350px;
   box-sizing: border-box;
-  transition: 1s ease;
 }
-.downloads__image img:hover {
-  transform: scale(1.1);
-}
-.downloads__desc {
+.minecraft__desc {
   margin: 10px 25px !important;
   padding: 10px 0;
   border-top: 1px solid black;
