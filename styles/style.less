@@ -57,7 +57,7 @@ main {
 }
 
 section {
-    padding: 5%;
+    padding: 2%;
 }
 
 .popout-ul {
@@ -107,7 +107,8 @@ button:active {
 }
 
 .clickable-image:hover {
-    transform: scale(1.1);
+    transform: scale(1.05) rotate(5deg);
+    cursor: pointer;
 }
 
 //-------------------- Header --------------------\\
@@ -141,15 +142,19 @@ header {
 
 //-------------------- Main --------------------\\
 
-main > section:nth-of-type(2n-1) {
+.main > section:nth-of-type(2n-1) {
     background-color: #ffffff;
 }
 
-main > section:nth-of-type(2n) {
+.main > section:nth-of-type(2n) {
     background-color: #f5f5f5;
 }
 
-
+.main > section > h1 {
+    margin-bottom: 2%;
+    font-size: 44px;
+    margin-left: 5%;
+}
 
 //-------------------- Footer --------------------\\
 

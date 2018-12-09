@@ -1,13 +1,21 @@
-<section class="main__general">
+<div class="main">
+    <section class="main__general">
+        <h1>Основное</h1>
 
-</section>
+    </section>
 
-<section class="main__side-projects">
-    
-</section>
+    <section class="main__side-projects">
+        <h1>Сторонние проекты</h1>
 
-<section class="main__downloads">
-    <ul class="popout-ul">
-        
-    </ul>
-</section>
+    </section>
+
+    <section class="main__downloads">
+        <h1>Загрузки</h1>
+
+        <ul class="popout-ul">
+            <a href="..?section=кубач" title="Сборки кубача">
+                <img src="img/minecraft.png" alt="minecraft.png" class="clickable-image">
+            </a>
+        </ul>
+    </section>
+</div>

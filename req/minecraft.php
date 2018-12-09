@@ -10,7 +10,7 @@
         </li>
 
         <li class="minecraft__image">
-            <img src="<?php echo $ls['img'] ?>" alt="<?php echo $ls['name'] ?>.png" class='clickable-image'>
+            <img src="<?php echo $ls['img'] ?>" alt="<?php echo $ls['name'] ?>.png">
         </li>
 
         <li class="minecraft__desc">
