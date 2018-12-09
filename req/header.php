@@ -1,5 +1,5 @@
 <header>
-    <a href="#">
+    <a href="..">
         <img class="header__logo" src="img/Sugar_F0x.jpg" alt="sugar_f0x.jpg">
         
         <div class="header__name">
