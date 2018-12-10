@@ -1,0 +1,464 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    width: 1366px;
+    height: 800px;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+.header {
+    padding: 63px 98px;
+    clear: all;
+    background-image: url(img/slider-img.jpg);
+    min-height: 84%;
+}
+
+.header .text {
+    width: 450px;
+}
+
+.header .text h3 {
+    margin-top: 235px;
+    color:  #43a047;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 48px;
+}
+
+.header .text h1 {
+    margin-top: 22px;
+    color:  #212121;
+    font-size: 62px;
+    font-weight: 100;
+    line-height: 72px;
+    text-align: left;
+}
+
+.header .text p {
+    margin-top: 34px;
+}
+
+.order_us {
+    display: block;
+    border-radius: 22px;
+    margin-top: 32px;
+    background-color:  #ffffff;
+    box-shadow: 0px 2px 4.85px 0.15px rgba(33, 33, 33, 0.35);
+    width: 212px;
+    height: 45px;
+    line-height: 45px;
+    color:  #212121;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    letter-spacing: 1.5px;
+}
+
+.order_us:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.order_us img {
+    position: relative;
+    left: 10px;
+    visibility: hidden;
+}
+
+.order_us:hover img {
+    visibility: visible;
+}
+
+.logo {
+    width: 185px;
+    height: 22px;
+}
+
+
+
+
+
+
+
+.menu {
+    float: right; 
+    margin: 0;
+    margin-right: 69px;
+}
+
+.menu li {
+    list-style-type: none;
+    display: inline-block;
+    height: 22px;
+    vertical-align: middle;
+    margin: 0 10px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color:  #8c8c8c;
+    font-size: 14px;
+    font-weight: 300; 
+}
+
+.menu li a:hover {
+    color:  #212121;
+    /*font-weight: 700;*/ /*Я так заебался пытаться сделать так, чтоб эти ебучие кнопки оставались на месте при выделении жирным, но нихуя, блядь, жопная хуйня говна, горит очко*/
+    border-bottom: 3px solid #212121;
+}
+
+
+
+
+
+
+
+.sim {
+    margin: 120px 100px;
+}
+
+.sim ul li {
+    float: left;
+    list-style-type: none;
+}
+
+.sim ul li a {
+    font-size: 36px;
+    margin-right: 15px;
+    text-decoration: none;
+    color: #6c6c6c;
+    font-weight: 700;
+    border-bottom: 1px solid #6c6c6c;
+}
+
+.sim ul li:hover a {
+    color: #212121;
+    border-bottom: 3px solid #212121;
+}
+
+.explore {
+    text-decoration: none;
+    color: #6c6c6c;
+    letter-spacing: 3px;
+    color:  #6c6c6c;
+    font-weight: 700;
+    position: relative;
+    top: 19px;
+    float: right;
+}
+
+.explore img {
+    visibility: hidden;
+}
+
+.explore:hover {
+    color: #212121;
+}
+
+.explore:hover img {
+    visibility: visible;
+}
+
+.simim {
+    padding: 50px 0;
+    margin: 0 auto;
+    clear: both;
+    margin: 120px 70px;
+}
+
+.simim ul li{    
+    height: 270px;
+    width: 270px;
+    display: inline-block;
+    margin-left: 30px;
+    outline: 1px solid black;
+    background-image: url(img/smallImgBG.jpg);
+    background-size: contain;
+}
+
+.simim ul li:hover a img {
+    visibility: hidden;
+}
+
+
+
+.promo {
+    height: 683px;
+    width: inherit;
+}
+
+.promo div {
+    height: inherit;
+    height: 683px;
+    width: 683px;
+    float: left;
+}
+
+.promo div:nth-child(1) {
+    background-image: url(img/promo-img-1.jpg);
+    background-size: contain;
+}
+
+.promo div:nth-child(2) {
+    background-image: url(img/promo-img-2.jpg);
+    background-size: contain;
+}
+
+.promo div .text {
+    background-image: none;
+    margin-top: 228px;
+    margin-left: 51px;
+    margin-right: 259px;
+    height: 119px;
+    width: 373px;
+    
+}
+
+.promo h3 {
+    color: #1e88e5;
+    font-size: 18px; /* Приближение из-за подстановки шрифтов */
+    font-weight: 700;
+    line-height: 48px; /* Приближение из-за подстановки шрифтов */
+    text-align: left;
+}
+
+.promo h1 {
+    color: #212121;
+    font-size: 36px; /* Приближение из-за подстановки шрифтов */
+    font-weight: 700;
+    text-align: left;
+}
+
+.promo p {
+    color: #6c6c6c;
+    font-size: 13.99px; /* Приближение из-за подстановки шрифтов */
+    font-weight: 300;
+    line-height: 24px; /* Приближение из-за подстановки шрифтов */
+    text-align: left;
+    transform: scaleY(1.0022); /* свойства ширины и высоты были исключены, поскольку было выполнено трансформирование */
+}
+
+
+
+
+
+
+
+.trending {
+    margin: 120px 98px;
+}
+
+.trending h1 {
+    color: #212121;
+    font-size: 36px; /* Приближение из-за подстановки шрифтов */
+    font-weight: 700;
+    float: left;
+}
+
+.trending ul {
+    clear:both;
+    padding-top: 25px;
+}
+
+.trending ul li {
+    float:left;
+    margin: 10px;
+    list-style-type: none;
+}
+
+.trending ul li:hover {
+    outline: 3px solid orange;
+}
+
+
+
+
+
+
+
+.mobile {
+    background-image: url(img/back-img.jpg);
+    clear: both;
+    height: 516px;
+}
+
+.mobile .text {
+    padding-top: 125px;
+    padding-left: 99px;
+}
+
+.mobile .text h3 {
+    color: #6c6c6c;
+    font-size: 18px; /* Приближение из-за подстановки шрифтов */
+    font-weight: 700;
+    line-height: 48px; /* Приближение из-за подстановки шрифтов */
+    text-align: left;
+}
+
+.mobile .text h1 {
+    color: #212121;
+    font-size: 62px; /* Приближение из-за подстановки шрифтов */
+    font-weight: 100;
+    line-height: 72px; /* Приближение из-за подстановки шрифтов */
+    text-align: left;
+}
+
+.mobile .text h2 {
+    color: #6c6c6c;
+    font-size: 22px; /* Приближение из-за подстановки шрифтов */
+    font-weight: 300;
+    line-height: 24px; /* Приближение из-за подстановки шрифтов */
+    text-align: left;
+    margin-bottom: 33px;
+}
+
+
+
+
+
+
+.footer {
+    float: left;
+    background-color: #f7f7f7;
+}
+
+.contacts {
+    clear: both;
+    position: relative;
+    height: 384px;
+    width: 1366px;
+    background: url(img/footerImgBG.jpg) no-repeat;
+    margin: 0;
+}
+
+.contacts h3 {
+    font-family: Montserrat;
+    color: #6c6c6c;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    margin: 0 0 24px 0;
+}
+
+.contacts p {
+    font-family: Montserrat;
+    color: #212121;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    margin: 0;
+}
+
+.useful {
+    position: absolute;
+    margin: 0;
+    top: 120px;
+    left: 399px;
+    width: 466px;
+}
+
+.useful ul {
+    padding: 0;
+}
+
+.useful ul li {
+    float: left;
+    width: 233px;
+    list-style-type: none;
+    margin: 0;
+}
+
+.useful ul li a {
+    float: left;
+    text-decoration: none;
+    font-family: Montserrat;
+    color: #212121;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 26px;
+    margin: 0;
+}
+
+.useful ul li:hover a {
+    color: #6c6c6c;
+}
+
+.contactUs {
+    position: absolute;
+    margin: 0;
+    top: 120px;
+    left: 99px;
+    width: 221px;
+}
+
+.letStay {
+    position: absolute;
+    margin: 0;
+    top: 120px;
+    left: 899px;
+    width: 370px;
+}
+
+.letStay input {
+    margin: 26px 0 0;
+    width: 370px;
+    height: 48px;
+    font-family: Montserrat;
+    color: #6c6c6c;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    padding-left: 19px;
+}
+
+.letStay input:hover {
+    color: #212121;
+    outline: 2px solid #6c6c6c;
+}
+
+.letStay input:focus {
+    font-weight: 700;
+    outline: 2px solid #6c6c6c;
+}
+
+.copyright {
+    position: absolute;
+    width: 362px;
+    bottom: 39px;
+    left: 98px;
+}
+
+.terms {
+    position: absolute;
+    width: 350px;
+    bottom: 38px;
+    right: 97px;
+}
+
+.copyright p,
+.terms p {
+    font-family: Montserrat;
+    color: #6c6c6c;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 26px;
+}
+
+.social img {
+    position: absolute;
+    bottom: 30px;
+    right: 619px;
+}

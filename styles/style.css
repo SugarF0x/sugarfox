@@ -62,6 +62,9 @@ section {
   align-items: center;
   flex-direction: column;
 }
+.popout-ul li {
+  margin: 5px 0;
+}
 button {
   display: inline-block;
   text-decoration: none;
@@ -143,15 +146,15 @@ header > a {
 }
 .main > section > h1 {
   margin-bottom: 30px;
-  font-size: 44px;
+  font-size: 28px;
   margin-left: 45px;
 }
 .main > section > p {
   margin: 15px 0;
-  font-size: 28px;
+  font-size: 20px;
 }
 .main > section > li {
-  font-size: 28px;
+  font-size: 20px;
 }
 footer {
   flex-shrink: 0;
@@ -199,6 +202,12 @@ footer p {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 }
-.geekbrains ul li {
-  font-size: 28px;
+.gb__name {
+  font-size: 24px;
+  line-height: 26px;
+}
+.gb__img img {
+  max-height: 180px;
+  max-width: 320px;
+  margin: 15px;
 }

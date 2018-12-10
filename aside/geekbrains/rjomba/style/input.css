@@ -1,0 +1,27 @@
+.form-group {
+    position: relative;
+    padding-top: 1.5rem;
+    display: inline-block;
+    margin-right: 25px;
+}
+
+label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: var(--font-size-small);
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.2s ease-out;
+}
+
+input:placeholder-shown + label {
+    opacity: 0;
+    transform: translateY(1rem);
+}
+
+.ip {
+    width: 120px;
+    height: 20px;
+    font-size: 13px;
+}

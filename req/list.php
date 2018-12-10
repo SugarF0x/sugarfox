@@ -40,22 +40,22 @@
             'name'  => 'Магазин ржомб',
             'img'   => 'img/geekbrains/rjomba.png',
             'psd'   => '#',
-            'site'  => '#'
+            'site'  => '../aside/geekbrains/rjomba'
         ],[
-            'name'  => 'Furniture',
-            'img'   => 'img/geekbrains/furniture.png',
+            'name'  => 'IPhone Resale',
+            'img'   => 'img/geekbrains/iphone.png',
             'psd'   => '#',
-            'site'  => '#'
+            'site'  => '../aside/geekbrains/iphone'
         ],[
-            'name'  => 'Jazz man',
-            'img'   => 'img/geekbrains/jazz.png',
-            'psd'   => '#',
-            'site'  => '#'
+            'name'  => 'Epic Sax Guy',
+            'img'   => 'img/geekbrains/sax.jpg',
+            'psd'   => 'https://www.dropbox.com/s/r8uescknuaa1r7r/epic%20sax%20guy.psd?dl=0',
+            'site'  => '../aside/geekbrains/epic-sax'
         ],[
-            'name'  => 'waxom',
+            'name'  => 'Waxom',
             'img'   => 'img/geekbrains/waxom.png',
-            'psd'   => '#',
-            'site'  => '#'
+            'psd'   => 'https://www.dropbox.com/s/g63g435ufp0rudk/Waxom%20Hemepage.psd?dl=0',
+            'site'  => '../aside/geekbrains/waxom'
         ]
     ];
 ?>
