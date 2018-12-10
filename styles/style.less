@@ -69,9 +69,13 @@ section {
     -webkit-box-shadow: 8px 8px 35px 5px #47464A;
     box-shadow: 8px 8px 35px 5px #47464A;
     padding: 15px;
+    margin: 15px;
     list-style: none;
     box-sizing: border-box;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 button {
@@ -122,6 +126,12 @@ button:active {
     height: 125px;
 }
 
+.wrapper-section {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
 //-------------------- Header --------------------\\
 
 header {
@@ -166,9 +176,19 @@ header > a {
 }
 
 .main > section > h1 {
-    margin-bottom: 2%;
+    margin-bottom: 30px;
     font-size: 44px;
-    margin-left: 5%;
+    margin-left: 45px;
+}
+
+.main > section {
+    > p {
+    margin: 15px 0;
+    font-size: 28px;
+    }
+    > li {
+        font-size: 28px;
+    }
 }
 
 //-------------------- Footer --------------------\\
@@ -226,4 +246,18 @@ footer {
     padding: 10px 0;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
+}
+
+//-------------------- Geekbrains --------------------\\
+
+.geekbrains {
+        ul {
+            li {
+                font-size: 28px;
+            }
+        }
+    }
+
+.gb__img {
+    
 }

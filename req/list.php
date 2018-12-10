@@ -35,14 +35,14 @@
         ]
     ];
 
-    $geekbrains = [
+    $geekbrainsWEB = [
         [
             'name'  => 'Магазин ржомб',
             'img'   => 'img/geekbrains/rjomba.png',
             'psd'   => '#',
             'site'  => '#'
         ],[
-            'name'  => 'FUrniture',
+            'name'  => 'Furniture',
             'img'   => 'img/geekbrains/furniture.png',
             'psd'   => '#',
             'site'  => '#'

@@ -12,11 +12,11 @@
     <main>
         <?php
             if (is_null($_GET['section'])) {
-                require('req/main.php');
-            } elseif ($_GET['section']=='minecraft') {
-                require('req/minecraft.php');
+                require('req/main__sections/main.php');
+            }  elseif (file_exists('req/main__sections/' . $_GET['section'] . '.php')) {
+                require('req/main__sections/' . $_GET['section'] . '.php');
             } else {
-                require('req/404.php');
+                require('req/main__sections/404.php');
             };
         ?>
     </main>

@@ -1,4 +1,4 @@
-<section class="minecraft">
+<section class="main minecraft">
     <?php
         require('req/list.php');
         foreach($minecraft as $ls):
