@@ -8,7 +8,7 @@
         <h1>Сторонние проекты</h1>
         
         <ul class="popout-ul">
-            <a href="..?section=кубач" title="Проекты с Geekbrains">
+            <a href="..?section=geekbrains" title="Проекты с Geekbrains">
                 <img src="img/geekbrains.png" alt="geekbrains.png" class="clickable-image button-image">
             </a>
         </ul>
