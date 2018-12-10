@@ -89,6 +89,10 @@ button:active {
   transform: scale(1.05) rotate(5deg);
   cursor: pointer;
 }
+.button-image {
+  width: 125px;
+  height: 125px;
+}
 header {
   height: 50px;
   box-sizing: content-box;

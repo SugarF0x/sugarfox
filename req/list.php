@@ -33,5 +33,14 @@
             'dls'   => 'https://www.dropbox.com/s/gkaec4dnvujqywi/TechFC%20Server.rar?dl=0',
             'dlb'   => 'https://www.dropbox.com/s/53aagb0tg6u7rdf/TechFC%20Backup.rar?dl=0'
         ]
-    ]
+    ];
+
+    $geekbrains = [
+        [
+            'name'  => '#',
+            'img'   => '#',
+            'psd'   => '#',
+            'site'  => '#'
+        ]
+    ];
 ?>
