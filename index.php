@@ -13,7 +13,7 @@
         <?php
             if (is_null($_GET['section'])) {
                 require('req/main.php');
-            } elseif ($_GET['section']=='кубач') {
+            } elseif ($_GET['section']=='minecraft') {
                 require('req/minecraft.php');
             } else {
                 require('req/404.php');
