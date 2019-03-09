@@ -32,6 +32,14 @@
             'dlc'   => 'https://www.dropbox.com/s/drabvqoofvpgk9a/TechFC%20Client.rar?dl=0',
             'dls'   => 'https://www.dropbox.com/s/gkaec4dnvujqywi/TechFC%20Server.rar?dl=0',
             'dlb'   => 'https://www.dropbox.com/s/53aagb0tg6u7rdf/TechFC%20Backup.rar?dl=0'
+        ],[
+            'name'  => 'Immersive Shit',
+            'img'   => 'img/minecraft/IS.png',
+            'desc'  => 'Immersive с нефтью, поездами, блэкджэком и шлюхами',
+            'date'  => '09.03.2019',
+            'dlc'   => 'https://www.dropbox.com/s/u01j2kf7x45vk0q/client.rar?dl=0',
+            'dls'   => 'https://www.dropbox.com/s/2fw6dkzbfovptoz/server.rar?dl=0',
+            'dlb'   => 'https://www.dropbox.com/s/qdeoz22pg47p7z7/backup.rar?dl=0'
         ]
     ];
 
