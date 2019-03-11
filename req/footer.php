@@ -1,8 +1,8 @@
 <footer>
     <p>
-        <?php
-            require('req/list.php');
-            echo $frupQuotes[rand(0,count($frupQuotes)-1)];
+        <?php 
+            $quotes = file("req/listings/quotes.txt");
+            echo $quotes[rand(0,count($quotes)-1)];
         ?>
     </p>
 </footer>
