@@ -38,7 +38,7 @@
             'desc'  => 'Immersive с нефтью, поездами, блэкджэком и шлюхами',
             'date'  => '09.03.2019',
             'dlc'   => 'https://www.dropbox.com/s/u01j2kf7x45vk0q/client.rar?dl=0',
-            'dls'   => 'https://www.dropbox.com/s/2fw6dkzbfovptoz/server.rar?dl=0',
+            'dls'   => 'https://www.dropbox.com/s/a8x56t52f8f686a/server.rar?dl=0',
             'dlb'   => 'https://www.dropbox.com/s/qdeoz22pg47p7z7/backup.rar?dl=0'
         ]
     ];
