@@ -9,40 +9,9 @@
 </head>
 <body>
     <?php
-        function extractElementsFromWebPage($webPage, $tagName) {
-            //Creating a DOMDocument Object.
-            $dom = new DOMDocument;
+        include "lib/simple_html_dom.php";
 
-            //Parsing the HTML from the web page
-            if ($dom->loadHTML($webPage)) {
-                // Extracting the specified elements from the web page
-                @$elements = $dom->getElementsByTagName($tagName);
-                return $elements;
-            }
-            return FALSE;
-        }
-
-        function downloadURL($URL) {
-            $webPage = file_get_contents ($URL);
-            return $webPage;
-        }
-
-        $webPage = downloadURL("http://www.mozilla.org/");
-        if ($webPage ) {
-            $imageURLURLs = extractElementsFromWebPage($webPage, 'img');
-            if ($imageURLURLs) {
-                foreach ($imageURLURLs as $imageURL){
-                    // Extracting the URLs
-                    echo $imageURL->getAttribute('src'), "n";
-                }
-            }
-            else {
-                echo "Error in parsing the webPagen";
-            }
-        }
-        else {
-            echo "Error in downloading the webPagen";
-        }
+        
     ?>
 </body>
 </html>
