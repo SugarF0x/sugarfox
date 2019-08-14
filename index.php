@@ -14,12 +14,14 @@
     <script src="js/elements.js"></script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
 
-    <header>
-        <div class="col-6 d-flex align-items-center" id="logo">
-            <img src="img/sgfx_line_blue.png" alt="sgfx-logo">
-            <span>SGFX</span>
+    <header class="container-fluid">
+        <div class="row">
+            <div class="col-6 d-flex align-items-center" id="logo">
+                <img src="img/sgfx_line_blue.png" alt="sgfx-logo">
+                <span>SGFX</span>
+            </div>
+            <div class="col-6" id="section"></div>
         </div>
-        <div class="col-6" id="section"></div>
     </header>
 
     <div class="container-fluid p-0 main">
@@ -31,7 +33,13 @@
         <section class="row">ass</section>
     </div>
 
-    <footer></footer>
+    <footer class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-center">
+                ass
+            </div>
+        </div>
+    </footer>
 
     <script>
         let elements = null;
