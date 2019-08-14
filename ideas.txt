@@ -1,0 +1,8 @@
+clickable icons are pertagons with random data-rotate values
+css uses attr('data-rotate) as value to transform() to slightly rotate pentagons
+data-rotate is randomly assigned upon element geenration in js
+the pentagon rotates back to transform(0) aligned state upon hover
+
+pentagons can be replaces with an 'egg' with random bordr-radius so as to make it look like splash
+(see shapes of css in bookmarks)
+--

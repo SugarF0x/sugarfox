@@ -1,0 +1,26 @@
+[
+	{
+		"img" : "img/main/minecraft.png",
+		"url" : "#",
+		"desc": "Minecraft",
+		"id"  : "insert-projects"
+	},
+	{
+		"img" : "img/main/geekbrains.png",
+		"url" : "#",
+		"desc": "Geekbrains",
+		"id"  : "insert-projects"
+	},
+	{
+		"img" : "img/main/wedding.png",
+		"url" : "#",
+		"desc": "Машина свадьба",
+		"id"  : "insert-projects"
+	},
+	{
+		"img" : "img/main/community-chest.png",
+		"url" : "#",
+		"desc": "Общественная казна",
+		"id"  : "insert-projects"
+	}
+]

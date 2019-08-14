@@ -2,25 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="img/sgfx.png">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" href="img/sgfx_line.png">
     <title>Fox Lair</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-reboot.css">
 </head>
 <body>
-    <?php require('req/header.php'); ?>
-    
-    <main>
-        <?php
-            if (is_null($_GET['section'])) {
-                require('req/main__sections/main.php');
-            }  elseif (file_exists('req/main__sections/' . $_GET['section'] . '.php')) {
-                require('req/main__sections/' . $_GET['section'] . '.php');
-            } else {
-                require('req/main__sections/404.php');
-            };
-        ?>
-    </main>
-    
-    <?php require('req/footer.php'); ?>
+    <script src="js/elements.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+
+    <header>
+        <div class="col-6 d-flex align-items-center" id="logo">
+            <img src="img/sgfx_line_blue.png" alt="sgfx-logo">
+            <span>SGFX</span>
+        </div>
+        <div class="col-6" id="section"></div>
+    </header>
+
+    <div class="container-fluid p-0 main">
+        <section class="row">
+            <h3 class="col-12">Основа</h3>
+            <div class='col-12' id="insert-projects"></div>
+        </section>
+        <section class="row">ass</section>
+        <section class="row">ass</section>
+    </div>
+
+    <footer></footer>
+
+    <script>
+        let elements = null;
+        // $.get('lists/main-page.json', data => {
+        //     elements = new PentaLink(JSON.parse(data));
+        //     elements.render()
+        // }, 'text');
+        $.get('lists/main-page.json', data => {
+            elements = new PentaLink(data);
+            elements.render()
+        }, 'json');
+    </script>
 </body>
 </html>
