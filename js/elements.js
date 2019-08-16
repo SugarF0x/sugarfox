@@ -32,9 +32,11 @@ class PentaLink {
 
         let a = document.createElement('a');
             a.classList.add('pentaLink');
-            a.setAttribute('href',element.url);    // link
-            a.setAttribute('title',element.desc);  // hover hint
-                // TODO: change default hover hints to Popper.js ones with time delay ^^^
+            a.setAttribute('href',element.url);
+            a.setAttribute('data-toggle','tooltip');
+            a.setAttribute('data-placement','top');
+            a.setAttribute('data-delay','{ "show": 500, "hide": 100 }');
+            a.setAttribute('title',element.desc);
 
                 // i didnt figure out how to properly create SVG element, so here is my little work-around
             let pentagon = `<svg viewBox="0 0 58 64" class="pL__bg" style="transform: rotate(${tilt}deg);">

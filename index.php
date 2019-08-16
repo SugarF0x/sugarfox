@@ -5,15 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="icon" href="img/sgfx_line.png">
     <title>Fox Lair</title>
+
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-grid.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-reboot.css">
+
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+    <script src="js/elements.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 </head>
 <body>
-    <script src="js/elements.js"></script>
-    <script src="node_modules/jquery/dist/jquery.js"></script>
-
     <header class="container-fluid">
         <div class="row">
             <div class="col-6 d-flex align-items-center" id="logo">
@@ -36,8 +44,8 @@
 
     <footer class="container-fluid">
         <div class="row">
-            <div class="col-12 text-center">
-                ass
+            <div class="col-12 text-right">
+                [Цитатки]
             </div>
         </div>
     </footer>

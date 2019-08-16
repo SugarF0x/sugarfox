@@ -7,6 +7,29 @@
   src: url('../fonts/Jura-Regular.ttf');
 }
 
+//------------------------------------------------------------------------------------tooltip-settings------------------
+
+@tooltip-background: #0046ff;
+
+.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+  border-bottom-color: @tooltip-background !important;
+}
+.bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+  border-top-color: @tooltip-background !important;
+}
+.bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+  border-left-color: @tooltip-background !important;
+}
+.bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+  border-right-color: @tooltip-background !important;
+}
+
+.tooltip > .tooltip-inner {
+  background-color: @tooltip-background;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
 html,body {
   // Small devices (landscape phones, 576px and up)
   @media (min-width: 576px) {
@@ -76,8 +99,6 @@ footer {
   position: absolute;
   bottom: 0;
 }
-
-// TODO: fiddle around with the pentagon and make it more even >:C
 
 .pentaLink {
   display: inline-block;

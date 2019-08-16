@@ -6,6 +6,25 @@
   font-family: 'Jura';
   src: url('../fonts/Jura-Regular.ttf');
 }
+.bs-tooltip-auto[x-placement^=bottom] .arrow::before,
+.bs-tooltip-bottom .arrow::before {
+  border-bottom-color: #0046ff !important;
+}
+.bs-tooltip-auto[x-placement^=top] .arrow::before,
+.bs-tooltip-top .arrow::before {
+  border-top-color: #0046ff !important;
+}
+.bs-tooltip-auto[x-placement^=left] .arrow::before,
+.bs-tooltip-left .arrow::before {
+  border-left-color: #0046ff !important;
+}
+.bs-tooltip-auto[x-placement^=right] .arrow::before,
+.bs-tooltip-right .arrow::before {
+  border-right-color: #0046ff !important;
+}
+.tooltip > .tooltip-inner {
+  background-color: #0046ff;
+}
 @media (min-width: 576px) {
   html,
   body {
