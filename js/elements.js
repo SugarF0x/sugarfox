@@ -31,22 +31,23 @@ class PentaLink {
         let tilt = this._getTiltDeg(30,60);
 
         let a = document.createElement('a');
-        a.classList.add('pentaLink');
-        a.setAttribute('href',element.url);    // link
-        a.setAttribute('title',element.desc);  // hover hint
+            a.classList.add('pentaLink');
+            a.setAttribute('href',element.url);    // link
+            a.setAttribute('title',element.desc);  // hover hint
+                // TODO: change default hover hints to Popper.js ones with time delay ^^^
 
-        let pentagon = document.createElement("img");
-        pentagon.classList.add('pL__bg');
-        pentagon.setAttribute('src',"svg/pentagon.svg");
-        pentagon.setAttribute('style', 'transform: rotate(' + tilt + 'deg)');  // setting random tilt for css transform()
-        a.appendChild(pentagon);
+                // i didnt figure out how to properly create SVG element, so here is my little work-around
+            let pentagon = `<svg viewBox="0 0 58 64" class="pL__bg" style="transform: rotate(${tilt}deg);">
+                                <polygon points="46.954,57.792 11,57.792 -1,24.544 29.039,0.208 59,24.792"/>
+                            </svg>`;
+            a.insertAdjacentHTML('afterbegin',pentagon);
 
-        let img = document.createElement('img');
-        img.classList.add('pL__fg');
-        img.setAttribute('src',element.img);
-        img.setAttribute('style', 'transform: rotate(' + (Math.floor(tilt/2)*(-1)) + 'deg)');  // setting random tilt for css transform()
-        img.setAttribute('alt',element.desc + '.png');
-        a.appendChild(img);
+            let img = document.createElement('img');
+                img.classList.add('pL__fg');
+                img.setAttribute('src',element.img);
+                img.setAttribute('style', 'transform: rotate(' + (Math.floor(tilt/2)*(-1)) + 'deg)');  // setting random tilt for css transform()
+                img.setAttribute('alt',element.desc + '.png');
+            a.appendChild(img);
 
         return a;
     }

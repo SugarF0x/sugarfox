@@ -24,6 +24,7 @@
         </div>
     </header>
 
+		<!-- TODO: make each row of this a horizontal-scroller -->
     <div class="container-fluid p-0 main">
         <section class="row">
             <h3 class="col-12">Основа</h3>
@@ -43,10 +44,6 @@
 
     <script>
         let elements = null;
-        // $.get('lists/main-page.json', data => {
-        //     elements = new PentaLink(JSON.parse(data));
-        //     elements.render()
-        // }, 'text');
         $.get('lists/main-page.json', data => {
             elements = new PentaLink(data);
             elements.render()
