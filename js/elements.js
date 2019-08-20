@@ -1,33 +1,27 @@
-class PentaLink {
-    // constructor(img = '#',url = '#',desc = '#', dest='#') {
-    //     this.img = img;     // the image displayed
-    //     this.url = url;     // the link of the button
-    //     this.desc = desc;   // tooptip
-    //     this.dest = dest;   // destination of where to append class
-    //
-    //     if (this.dest === '#') {
-    //         console.log('ERROR: Please specify where to append element!');
-    //         return null;
-    //     }
-    // }
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
+class PentaLink {
     constructor(list = [{img: '#', url:'#', desc:'#', id:'#'}]) {
         this.array = [];
 
         list.forEach((each) => {
             this.array.push(each);
-        })
+        });
+
+        this.render();
     }
 
-    _getTiltDeg(min, max) {
-        let number = Math.floor(Math.random() * (max - min)) + min;
+    static _getTiltDeg(min, max) {
+        let number = randomInt(min,max);
         if (Math.random() < 0.5) {
             number*=-1;
         }
         return number;
     }
 
-    _generate(element) {
+    static _generate(element) {
         let tilt = this._getTiltDeg(30,60);
 
         let a = document.createElement('a');
@@ -58,8 +52,32 @@ class PentaLink {
         this.array.forEach(each => {
             if (each.id !== '#') {
                 let doc = document.getElementById(each.id);
-                doc.appendChild(this._generate(each));
+                doc.appendChild(PentaLink._generate(each));
             }
         })
+    }
+}
+
+class Quotes {
+    constructor() {
+        $.get('lists/quotes.txt', data => {
+            this.quotes = data.split("\n");
+            document.getElementById('quotes').addEventListener('click', () => {this.render()});
+            this.render();
+        }, 'text');
+    }
+
+    render() {
+        let id = randomInt(0,this.quotes.length-1);
+
+        let q = document.getElementById('quotes');
+            q.innerHTML = '';
+            q.innerText = this.quotes[id];
+            q.innerHTML = q.innerHTML.replace('<br>','');
+
+            let i = document.createElement('span');
+                i.innerText = ` [${id+1}/${this.quotes.length}] `;
+            q.appendChild(i);
+        // end q document
     }
 }

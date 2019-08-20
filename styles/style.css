@@ -8,22 +8,23 @@
 }
 .bs-tooltip-auto[x-placement^=bottom] .arrow::before,
 .bs-tooltip-bottom .arrow::before {
-  border-bottom-color: #0046ff !important;
+  border-bottom-color: aliceblue !important;
 }
 .bs-tooltip-auto[x-placement^=top] .arrow::before,
 .bs-tooltip-top .arrow::before {
-  border-top-color: #0046ff !important;
+  border-top-color: aliceblue !important;
 }
 .bs-tooltip-auto[x-placement^=left] .arrow::before,
 .bs-tooltip-left .arrow::before {
-  border-left-color: #0046ff !important;
+  border-left-color: aliceblue !important;
 }
 .bs-tooltip-auto[x-placement^=right] .arrow::before,
 .bs-tooltip-right .arrow::before {
-  border-right-color: #0046ff !important;
+  border-right-color: aliceblue !important;
 }
 .tooltip > .tooltip-inner {
-  background-color: #0046ff;
+  background-color: aliceblue;
+  color: black;
 }
 @media (min-width: 576px) {
   html,
@@ -87,8 +88,16 @@ header #logo span {
 }
 footer {
   height: 2rem;
+  line-height: 1rem;
   position: absolute;
   bottom: 0;
+}
+footer #quotes span {
+  font-size: 0.65em;
+  opacity: 0.5;
+}
+footer #quotes:hover {
+  cursor: pointer;
 }
 .pentaLink {
   display: inline-block;

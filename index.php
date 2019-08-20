@@ -32,7 +32,7 @@
         </div>
     </header>
 
-		<!-- TODO: make each row of this a horizontal-scroller -->
+		<!-- TODO: make each row of this a horizontal-scroller (or not :hmmm:) -->
     <div class="container-fluid p-0 main">
         <section class="row">
             <h3 class="col-12">Основа</h3>
@@ -44,7 +44,7 @@
 
     <footer class="container-fluid">
         <div class="row">
-            <div class="col-12 text-right">
+            <div class="col-12 text-right" id="quotes">
                 [Цитатки]
             </div>
         </div>
@@ -54,8 +54,10 @@
         let elements = null;
         $.get('lists/main-page.json', data => {
             elements = new PentaLink(data);
-            elements.render()
         }, 'json');
+        elements = null;
+
+        let quotes = new Quotes();
     </script>
 </body>
 </html>

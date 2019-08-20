@@ -9,7 +9,8 @@
 
 //------------------------------------------------------------------------------------tooltip-settings------------------
 
-@tooltip-background: #0046ff;
+//@tooltip-background: #006aff;
+@tooltip-background: aliceblue;
 
 .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
   border-bottom-color: @tooltip-background !important;
@@ -26,6 +27,7 @@
 
 .tooltip > .tooltip-inner {
   background-color: @tooltip-background;
+  color: black;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -96,8 +98,18 @@ header {
 
 footer {
   height: 2rem;
+  line-height: 1rem;
   position: absolute;
   bottom: 0;
+  #quotes {
+    span {
+      font-size: 0.65em;
+      opacity: 0.5;
+    }
+  }
+  #quotes:hover {
+    cursor: pointer;
+  }
 }
 
 .pentaLink {
