@@ -55,7 +55,7 @@ body {
   position: relative;
 }
 * {
-  font-family: Jura;
+  font-family: Jura, sans-serif;
 }
 .main > * {
   padding: 1rem 1.5rem;
@@ -83,7 +83,7 @@ header #logo img {
   height: 2.5rem;
 }
 header #logo span {
-  font-family: Kurbanistika;
+  font-family: Kurbanistika, sans-serif;
   font-size: 2.5rem;
 }
 footer {
@@ -92,7 +92,13 @@ footer {
   position: absolute;
   bottom: 0;
 }
+footer #quotes {
+  opacity: 0;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.25s;
+}
 footer #quotes span {
+  color: white;
   font-size: 0.65em;
   opacity: 0.5;
 }

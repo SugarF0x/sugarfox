@@ -65,19 +65,25 @@ class Quotes {
             document.getElementById('quotes').addEventListener('click', () => {this.render()});
             this.render();
         }, 'text');
+        setInterval(() => {this.render()},5000);
     }
 
     render() {
         let id = randomInt(0,this.quotes.length-1);
 
         let q = document.getElementById('quotes');
+            q.setAttribute('style','color: steelblue;');
+        setTimeout(() => {
             q.innerHTML = '';
             q.innerText = this.quotes[id];
             q.innerHTML = q.innerHTML.replace('<br>','');
+            q.setAttribute('style','color: white;');
+            q.setAttribute('style','opacity: 1;');
 
             let i = document.createElement('span');
                 i.innerText = ` [${id+1}/${this.quotes.length}] `;
             q.appendChild(i);
+        }, 250);
         // end q document
     }
 }

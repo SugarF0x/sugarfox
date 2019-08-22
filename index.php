@@ -46,6 +46,9 @@
         <div class="row">
             <div class="col-12 text-right" id="quotes">
                 [Цитатки]
+                <span>
+                    [num/ber]
+                </span>
             </div>
         </div>
     </footer>
