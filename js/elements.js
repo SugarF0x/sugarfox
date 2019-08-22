@@ -78,7 +78,6 @@ class Quotes {
             q.innerText = this.quotes[id];
             q.innerHTML = q.innerHTML.replace('<br>','');
             q.setAttribute('style','color: white;');
-            q.setAttribute('style','opacity: 1;');
 
             let i = document.createElement('span');
                 i.innerText = ` [${id+1}/${this.quotes.length}] `;

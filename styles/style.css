@@ -93,7 +93,6 @@ footer {
   bottom: 0;
 }
 footer #quotes {
-  opacity: 0;
   transition-timing-function: ease-in-out;
   transition-duration: 0.25s;
 }

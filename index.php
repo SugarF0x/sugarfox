@@ -44,12 +44,7 @@
 
     <footer class="container-fluid">
         <div class="row">
-            <div class="col-12 text-right" id="quotes">
-                [Цитатки]
-                <span>
-                    [num/ber]
-                </span>
-            </div>
+            <div class="col-12 text-right" id="quotes"></div>
         </div>
     </footer>
 
