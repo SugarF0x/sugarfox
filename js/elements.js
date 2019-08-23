@@ -69,7 +69,7 @@ class Quotes {
     }
 
     render() {
-        let id = randomInt(0,this.quotes.length-1);
+        let id = randomInt(0,this.quotes.length);
 
         let q = document.getElementById('quotes');
             q.setAttribute('style','color: steelblue;');
