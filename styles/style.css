@@ -88,7 +88,7 @@ header #logo span {
 }
 footer {
   min-height: 2rem;
-  line-height: 1rem;
+  line-height: 0.8rem;
   position: absolute;
   bottom: 0;
 }
