@@ -19,7 +19,7 @@
 	},
 	{
 		"img" : "img/main/community-chest.png",
-		"url" : "#",
+		"url" : "?page=bank",
 		"desc": "Общественная казна",
 		"id"  : "insert-projects"
 	}

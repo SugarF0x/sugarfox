@@ -31,6 +31,11 @@ class PentaLink {
             a.setAttribute('data-placement','top');
             a.setAttribute('data-delay','{ "show": 500, "hide": 100 }');
             a.setAttribute('title',element.desc);
+            if (element.url === '#') {
+                a.setAttribute('disabled','');
+                a.setAttribute('data-html','true');
+                a.setAttribute('title',element.desc + '\n<b>временно недоступно</b>');
+            }
 
                 // i didnt figure out how to properly create SVG element, so here is my little work-around
             let pentagon = `<svg viewBox="0 0 58 64" class="pL__bg" style="transform: rotate(${tilt}deg);">
@@ -60,7 +65,7 @@ class PentaLink {
 
 class Quotes {
     constructor() {
-        $.get('lists/quotes.txt', data => {
+        $.get('data/quotes.txt', data => {
             this.quotes = data.split("\n");
             document.getElementById('quotes').addEventListener('click', () => {this.render()});
             this.render();
@@ -84,5 +89,31 @@ class Quotes {
             q.appendChild(i);
         }, 250);
         // end q document
+    }
+}
+
+class Bank {
+    constructor() {
+
+    }
+
+    update(state) {
+        let today = new Date();
+        let date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date+' '+time;
+
+        $.ajax({
+            type: "POST",
+            url: "handlers/bank.php",
+            data: {
+                "time": dateTime,
+                "change": document.getElementById('input').value,
+                "state": state
+            },
+            success: () => {
+                location.reload()
+            }
+        });
     }
 }

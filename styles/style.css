@@ -8,34 +8,28 @@
 }
 .bs-tooltip-auto[x-placement^=bottom] .arrow::before,
 .bs-tooltip-bottom .arrow::before {
-  border-bottom-color: aliceblue !important;
+  border-bottom-color: #c5dbff !important;
 }
 .bs-tooltip-auto[x-placement^=top] .arrow::before,
 .bs-tooltip-top .arrow::before {
-  border-top-color: aliceblue !important;
+  border-top-color: #c5dbff !important;
 }
 .bs-tooltip-auto[x-placement^=left] .arrow::before,
 .bs-tooltip-left .arrow::before {
-  border-left-color: aliceblue !important;
+  border-left-color: #c5dbff !important;
 }
 .bs-tooltip-auto[x-placement^=right] .arrow::before,
 .bs-tooltip-right .arrow::before {
-  border-right-color: aliceblue !important;
+  border-right-color: #c5dbff !important;
 }
 .tooltip > .tooltip-inner {
-  background-color: aliceblue;
+  background-color: #c5dbff;
   color: black;
 }
-@media (min-width: 576px) {
+@media (min-width: 320px) {
   html,
   body {
-    font-size: 42px;
-  }
-}
-@media (min-width: 768px) {
-  html,
-  body {
-    font-size: 24px;
+    font-size: 16px;
   }
 }
 @media (min-width: 992px) {
@@ -54,16 +48,21 @@ body {
   min-height: 100vh;
   position: relative;
 }
+body:after {
+  content: '';
+  height: 2rem;
+  display: block;
+}
 * {
   font-family: Jura, sans-serif;
 }
-.main > * {
+#main > * {
   padding: 1rem 1.5rem;
 }
-.main > .row {
+#main > .row {
   margin: 0;
 }
-.main > section:nth-of-type(2n) {
+#main > section:nth-of-type(2n) {
   background-color: aliceblue;
 }
 header,
@@ -78,6 +77,8 @@ header {
 header #logo {
   height: 100%;
   line-height: 3rem;
+  text-decoration: none;
+  color: white;
 }
 header #logo img {
   height: 2.5rem;
@@ -86,15 +87,26 @@ header #logo span {
   font-family: Kurbanistika, sans-serif;
   font-size: 2.5rem;
 }
+header #page-title {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
 footer {
-  min-height: 2rem;
-  line-height: 0.8rem;
+  height: 2rem;
+  line-height: 1rem;
   position: absolute;
   bottom: 0;
 }
 footer #quotes {
   transition-timing-function: ease-in-out;
   transition-duration: 0.25s;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 footer #quotes span {
   color: white;
@@ -130,8 +142,12 @@ footer #quotes:hover {
   transform: rotate(0deg);
   fill: #00BFFF;
 }
-.pentaLink:hover .pL__bg,
-.pentaLink:hover .pL__fg {
+.pentaLink[disabled] .pL__bg,
+.pentaLink[disabled] .pL__fg {
+  fill: gray;
+}
+.pentaLink:not([disabled]):hover .pL__bg,
+.pentaLink:not([disabled]):hover .pL__fg {
   transform: rotate(0deg) !important;
   fill: #0086ff;
 }

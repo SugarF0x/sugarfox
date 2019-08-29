@@ -10,7 +10,7 @@
 //------------------------------------------------------------------------------------tooltip-settings------------------
 
 //@tooltip-background: #006aff;
-@tooltip-background: aliceblue;
+@tooltip-background: #c5dbff;
 
 .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
   border-bottom-color: @tooltip-background !important;
@@ -33,15 +33,20 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 html,body {
-  // Small devices (landscape phones, 576px and up)
-  @media (min-width: 576px) {
-    font-size: 42px;
+  // vertical phones
+  @media (min-width: 320px) {
+    font-size: 16px;
   }
 
-  // Medium devices (tablets, 768px and up)
-  @media (min-width: 768px) {
-    font-size: 24px;
-  }
+  //// Small devices (landscape phones, 576px and up)
+  //@media (min-width: 576px) {
+  //  font-size: 16px;
+  //}
+  //
+  //// Medium devices (tablets, 768px and up)
+  //@media (min-width: 768px) {
+  //  font-size: 16px;
+  //}
 
   // Large devices (desktops, 992px and up)
   @media (min-width: 992px) {
@@ -59,11 +64,17 @@ body {
   position: relative;
 }
 
+body:after {
+  content: '';
+  height: 2rem;
+  display: block;
+}
+
 * {
   font-family: Jura, sans-serif;
 }
 
-.main {
+#main {
   > * {
     padding: 1rem 1.5rem;
   }
@@ -86,6 +97,8 @@ header {
   #logo {
     height: 100%;
     line-height: 3rem;
+    text-decoration: none;
+    color: white;
     img {
       height: 2.5rem;
     }
@@ -94,16 +107,27 @@ header {
       font-size: 2.5rem;
     }
   }
+  #page-title {
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
 }
 
 footer {
-  min-height: 2rem;
-  line-height: 0.8rem;
+  height: 2rem;
+  line-height: 1rem;
   position: absolute;
   bottom: 0;
   #quotes {
     transition-timing-function: ease-in-out;
     transition-duration: 0.25s;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     span {
       color: white;
       font-size: 0.65em;
@@ -141,7 +165,13 @@ footer {
   }
 }
 
-.pentaLink:hover {
+.pentaLink[disabled] {
+  .pL__bg, .pL__fg {
+    fill: gray;
+  }
+}
+
+.pentaLink:not([disabled]):hover {
   .pL__bg, .pL__fg {
     transform: rotate(0deg) !important;
     fill: #0086ff;
