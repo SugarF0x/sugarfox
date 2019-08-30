@@ -1,1 +1,12 @@
-{"amount":4110894,"log":[{"time":"29-8-2019 21:54:10","change":"9","state":"-"},{"time":"29-8-2019 21:55:17","change":"9000","state":"+"},{"time":"29-8-2019 21:56:9","change":"6287","state":"-"},{"time":"29-8-2019 21:56:18","change":"88005553535","state":"+"},{"time":"29-8-2019 21:56:26","change":"999999","state":"-"},{"time":"29-8-2019 21:56:44","change":"88000000000","state":"-"},{"time":"29-8-2019 21:59:29","change":"445353","state":"-"},{"time":"29-8-2019 22:0:24","change":"10","state":"+"}]}
+{
+			"amount":0,
+			"log":[
+				{"time":null,"change":null,"state":null},
+				{"time":null,"change":null,"state":null},
+				{"time":null,"change":null,"state":null},
+				{"time":null,"change":null,"state":null},
+				{"time":null,"change":null,"state":null},
+				{"time":null,"change":null,"state":null},
+				{"time":null,"change":null,"state":null},
+				{"time":null,"change":null,"state":null}
+			]}
