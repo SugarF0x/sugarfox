@@ -1,12 +1,1 @@
-{
-			"amount":0,
-			"log":[
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null}
-			]}
+{"amount":0,"log":[{"time":null,"change":null,"state":null},{"time":null,"change":null,"state":null},{"time":null,"change":null,"state":null},{"time":null,"change":null,"state":null},{"time":null,"change":null,"state":null},{"time":null,"change":null,"state":null},{"time":"4-9-2019 10:45:25","change":"223","state":"+"},{"time":"4-9-2019 10:45:29","change":"223","state":"-"}]}

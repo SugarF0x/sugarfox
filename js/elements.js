@@ -73,6 +73,8 @@ class Quotes {
         setInterval(() => {this.render()},5000);
     }
 
+    // TODO: make ajax each and every quote
+
     render() {
         let id = randomInt(0,this.quotes.length);
 

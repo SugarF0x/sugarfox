@@ -22,5 +22,11 @@
 		"url" : "?page=bank",
 		"desc": "Общественная казна",
 		"id"  : "insert-projects"
+	},
+	{
+		"img" : "img/main/snake.png",
+		"url" : "#",
+		"desc": "Змейка",
+		"id"  : "insert-projects"
 	}
 ]
