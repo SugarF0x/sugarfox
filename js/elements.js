@@ -108,15 +108,26 @@ class Bank {
 
     update(state) {
         let today = new Date();
-        let date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        let dateTime = date+' - '+time;
+        let date = '';
+        let time = '';
+        if (today.getDate() < 10) date += '0';
+        date += today.getDate() + '/';
+        if (today.getMonth() < 10) date += '0';
+        date += today.getMonth() + '/';
+        date += today.getFullYear();
+        if (today.getHours() < 10) time += '0';
+        time += today.getHours() + ':';
+        if (today.getMinutes() < 10) time += '0';
+        time += today.getMinutes() + ':';
+        if (today.getSeconds() < 10) time += '0';
+        time += today.getSeconds();
 
         $.ajax({
             type: "POST",
             url: "handlers/bank.php",
             data: {
-                "time": dateTime,
+                "date": date,
+                "time": time,
                 "change": document.getElementById('input').value,
                 "state": state
             },

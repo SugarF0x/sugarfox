@@ -23,10 +23,11 @@
                 } else {
                     $color = 'red';
                 }
-                echo   '<div class="row">
-                            <div class="col-5 text-right"><span style="color: darkgray">' . $data['log'][$i]['ip'] . '</span> - ' . $data['log'][$i]['time'] . '</div>
-                            <div class="col-2 text-center">-</div>
-                            <div class="col-5 text-left" style="color:' . $color . '">' . number_format($data['log'][$i]['change']) . '</div>
+                echo   '<div class="row text-center" style="color:' . $color . '">
+                            <div class="col p-0">' . $data['log'][$i]['ip'] . '</div>
+                            <div class="col p-0">' . $data['log'][$i]['date'] . '</div>
+                            <div class="col p-0">' . $data['log'][$i]['time'] . '</div>
+                            <div class="col p-0">' . number_format($data['log'][$i]['change']) . '</div>
                         </div>';
             }
         }
