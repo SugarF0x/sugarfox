@@ -34,7 +34,7 @@ class PentaLink {
             if (element.url === '#') {
                 a.setAttribute('disabled','');
                 a.setAttribute('data-html','true');
-                a.setAttribute('title',element.desc + '\n<b>временно недоступно</b>');
+                a.setAttribute('title',element.desc + '<br><b>временно недоступно</b>');
             }
 
                 // i didnt figure out how to properly create SVG element, so here is my little work-around
@@ -101,9 +101,9 @@ class Bank {
 
     update(state) {
         let today = new Date();
-        let date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+        let date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        let dateTime = date+' '+time;
+        let dateTime = date+' - '+time;
 
         $.ajax({
             type: "POST",
@@ -113,8 +113,12 @@ class Bank {
                 "change": document.getElementById('input').value,
                 "state": state
             },
-            success: () => {
-                location.reload()
+            success: (result) => {
+                if (result === 'SUCCESS') {
+                    location.reload()
+                } else {
+                    alert(result);
+                }
             }
         });
     }

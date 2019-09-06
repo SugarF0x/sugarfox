@@ -4,19 +4,20 @@ if (isset($_POST['change']) && (is_numeric($_POST['change']) || $_POST['change']
 		file_put_contents('../data/bank.json', '{
 			"amount":0,
 			"log":[
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null},
-				{"time":null,"change":null,"state":null}
+				{"ip":null,"time":null,"change":null,"state":null},
+				{"ip":null,"time":null,"change":null,"state":null},
+				{"ip":null,"time":null,"change":null,"state":null},
+				{"ip":null,"time":null,"change":null,"state":null},
+				{"ip":null,"time":null,"change":null,"state":null},
+				{"ip":null,"time":null,"change":null,"state":null},
+				{"ip":null,"time":null,"change":null,"state":null},
+				{"ip":null,"time":null,"change":null,"state":null}
 			]}');		
 	} else {		
 		$change = $_POST['change'];
 		$time = $_POST['time'];
 		$state = $_POST['state'];
+		$ip = $_SERVER['REMOTE_ADDR'];
 
 		$data = json_decode(file_get_contents('../data/bank.json'), true);
 		if ($state == '+') {
@@ -25,9 +26,13 @@ if (isset($_POST['change']) && (is_numeric($_POST['change']) || $_POST['change']
 			$data['amount'] -= $change;
 		}
 		array_shift($data['log']);
-		array_push($data['log'], ["time" => $time, "change" => $change, "state" => $state]);
+		array_push($data['log'], ["ip" => $ip, "time" => $time, "change" => $change, "state" => $state]);
 
 		$json = JSON_encode($data);
 		file_put_contents('../data/bank.json', $json);
 	}
+
+    echo 'SUCCESS';
+} else {
+    echo 'Отправляемые данные должны быть числом';
 }

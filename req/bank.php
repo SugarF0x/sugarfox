@@ -24,7 +24,7 @@
                     $color = 'red';
                 }
                 echo   '<div class="row">
-                            <div class="col-5 text-right">' . $data['log'][$i]['time'] . '</div>
+                            <div class="col-5 text-right"><span style="color: darkgray">' . $data['log'][$i]['ip'] . '</span> - ' . $data['log'][$i]['time'] . '</div>
                             <div class="col-2 text-center">-</div>
                             <div class="col-5 text-left" style="color:' . $color . '">' . number_format($data['log'][$i]['change']) . '</div>
                         </div>';
