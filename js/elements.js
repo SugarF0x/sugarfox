@@ -67,10 +67,17 @@ class Quotes {
     constructor() {
         $.get('data/quotes.txt', data => {
             this.quotes = data.split("\n");
-            document.getElementById('quotes').addEventListener('click', () => {this.render()});
+            document.getElementById('quotes').addEventListener('click', () => {
+                this.render();
+                this.manualRender = true;
+            });
             this.render();
         }, 'text');
-        setInterval(() => {this.render()},5000);
+        this.manualRender = false;
+        setInterval(() => {
+            if (!this.manualRender) this.render();
+            this.manualRender = false;
+        },5000);
     }
 
     // TODO: make ajax each and every quote
