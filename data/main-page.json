@@ -13,7 +13,7 @@
 	},
 	{
 		"img" : "img/main/wedding.png",
-		"url" : "#",
+		"url" : "archive/wedding",
 		"desc": "Машина свадьба",
 		"id"  : "insert-archive"
 	},
@@ -25,7 +25,7 @@
 	},
 	{
 		"img" : "img/main/snake.png",
-		"url" : "#",
+		"url" : "archive/snake",
 		"desc": "Змейка",
 		"id"  : "insert-archive"
 	}
