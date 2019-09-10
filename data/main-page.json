@@ -15,7 +15,7 @@
 		"img" : "img/main/wedding.png",
 		"url" : "#",
 		"desc": "Машина свадьба",
-		"id"  : "insert-projects"
+		"id"  : "insert-archive"
 	},
 	{
 		"img" : "img/main/community-chest.png",
@@ -27,6 +27,6 @@
 		"img" : "img/main/snake.png",
 		"url" : "#",
 		"desc": "Змейка",
-		"id"  : "insert-projects"
+		"id"  : "insert-archive"
 	}
 ]

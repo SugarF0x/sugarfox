@@ -22,7 +22,7 @@ class PentaLink {
     }
 
     static _generate(element) {
-        let tilt = this._getTiltDeg(30,60);
+        let tilt = this._getTiltDeg(15,60);
 
         let a = document.createElement('a');
             a.classList.add('pentaLink');
