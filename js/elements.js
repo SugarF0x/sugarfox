@@ -77,7 +77,7 @@ class Quotes {
         setInterval(() => {
             if (!this.manualRender) this.render();
             this.manualRender = false;
-        },5000);
+        },3500);
     }
 
     // TODO: make ajax each and every quote
@@ -86,18 +86,16 @@ class Quotes {
         let id = randomInt(0,this.quotes.length);
 
         let q = document.getElementById('quotes');
-            q.setAttribute('style','color: steelblue;');
-        setTimeout(() => {
-            q.innerHTML = '';
-            q.innerText = this.quotes[id];
-            q.innerHTML = q.innerHTML.replace('<br>','');
-            q.setAttribute('style','color: white;');
+        let t = document.getElementById('quotes-text');
+            t.setAttribute('style','opacity: 0;');
+        let i = document.getElementById('quotes-number');
 
-            let i = document.createElement('span');
-                i.innerText = ` [${id+1}/${this.quotes.length}] `;
-            q.appendChild(i);
+        setTimeout(() => {
+            t.innerText = this.quotes[id];
+            i.innerText = ` [${id+1}/${this.quotes.length}] `;
+            t.setAttribute('style','opacity: 1;');
+            t.innerHTML = t.innerHTML.replace('<br>','');
         }, 250);
-        // end q document
     }
 }
 

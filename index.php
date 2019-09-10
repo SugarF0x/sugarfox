@@ -52,7 +52,10 @@
 
     <footer class="container-fluid">
         <div class="row">
-            <div class="col-12 text-right" id="quotes"></div>
+            <div class="col-12 text-right" id="quotes">
+                <span id="quotes-text"></span>
+                <span id="quotes-number">[0/0]</span>
+            </div>
         </div>
         <script>
             let quotes = new Quotes();

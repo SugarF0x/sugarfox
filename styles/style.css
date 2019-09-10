@@ -101,14 +101,14 @@ footer {
   position: absolute;
   bottom: 0;
 }
-footer #quotes {
+footer #quotes #quotes-text {
   transition-timing-function: ease-in-out;
   transition-duration: 0.25s;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-footer #quotes span {
+footer #quotes #quotes-number {
   color: white;
   font-size: 0.65em;
   opacity: 0.5;

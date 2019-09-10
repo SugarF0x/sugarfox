@@ -123,12 +123,14 @@ footer {
   position: absolute;
   bottom: 0;
   #quotes {
-    transition-timing-function: ease-in-out;
-    transition-duration: 0.25s;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    span {
+    #quotes-text {
+      transition-timing-function: ease-in-out;
+      transition-duration: 0.25s;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    #quotes-number {
       color: white;
       font-size: 0.65em;
       opacity: 0.5;
