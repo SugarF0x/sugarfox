@@ -1,11 +1,11 @@
 <section class="row">
-    <h3 class="col-12">Основа</h3>
-    <div class='col-12' id="insert-projects"></div>
+    <h3>Основа</h3>
+    <div class='col-12 insert' id="insert-projects"></div>
 </section>
 
 <section class="row">
-    <h3 class="col-12">Архив</h3>
-    <div class="col-12" id="insert-archive"></div>
+    <h3>Архив</h3>
+    <div class="col-12 insert" id="insert-archive"></div>
 </section>
 
 <script>

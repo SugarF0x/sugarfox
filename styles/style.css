@@ -31,11 +31,21 @@
   body {
     font-size: 16px;
   }
+  html .insert,
+  body .insert {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 @media (min-width: 992px) {
   html,
   body {
     font-size: 18px;
+  }
+  html .insert,
+  body .insert {
+    justify-content: left;
   }
 }
 @media (min-width: 1200px) {
