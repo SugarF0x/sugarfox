@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link rel="icon" href="img/sgfx_line_blue.png">
+    <link rel="icon" href="img/sgfx_line_blue.webp">
     <title>Fox Lair</title>
 
     <link rel="stylesheet" href="styles/style.css">
@@ -15,9 +15,12 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 
     <script src="js/elements.js"></script>
+
     <script>
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
+        $(document).ready(() => {
+            setTimeout(() => {
+                $('[data-toggle="tooltip"]').tooltip();
+            },250);
         });
     </script>
 </head>
@@ -25,7 +28,7 @@
     <header class="container-fluid">
         <div class="row">
             <a href='/' class="col-6 d-flex align-items-center" id="logo">
-                <img src="img/sgfx_line_blue.png" alt="sgfx-logo">
+                <img src="img/sgfx_line_blue.webp" alt="sgfx-logo">
                 <span>SGFX</span>
             </a>
             <div class="col-6" id="page-title">

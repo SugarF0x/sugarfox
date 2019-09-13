@@ -1,30 +1,30 @@
 [
 	{
-		"img" : "img/main/minecraft.png",
+		"img" : "img/main/minecraft.webp",
 		"url" : "#",
 		"desc": "Minecraft",
 		"id"  : "insert-projects"
 	},
 	{
-		"img" : "img/main/geekbrains.png",
+		"img" : "img/main/geekbrains.webp",
 		"url" : "#",
 		"desc": "Geekbrains",
 		"id"  : "insert-projects"
 	},
 	{
-		"img" : "img/main/wedding.png",
+		"img" : "img/main/wedding.webp",
 		"url" : "archive/wedding",
 		"desc": "Машина свадьба",
 		"id"  : "insert-archive"
 	},
 	{
-		"img" : "img/main/community-chest.png",
+		"img" : "img/main/community-chest.webp",
 		"url" : "?page=bank",
 		"desc": "Общественная казна",
 		"id"  : "insert-projects"
 	},
 	{
-		"img" : "img/main/snake.png",
+		"img" : "img/main/snake.webp",
 		"url" : "archive/snake",
 		"desc": "Змейка",
 		"id"  : "insert-archive"
