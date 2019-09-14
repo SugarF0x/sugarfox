@@ -8,8 +8,8 @@
 
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-grid.css">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-reboot.css">
+<!--    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-grid.css">-->
+<!--    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-reboot.css">-->
 
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
