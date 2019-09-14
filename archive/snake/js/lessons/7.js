@@ -210,7 +210,6 @@ let render = {
         table.appendChild(row);
 */
         /*
-                TODO - cleanup
             make checkboxes a for loop just like other settings in the beginning
          */
 
