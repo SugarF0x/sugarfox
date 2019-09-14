@@ -85,16 +85,16 @@ class Quotes {
     render() {
         let id = randomInt(0,this.quotes.length);
 
-        let q = document.getElementById('quotes');
         let t = document.getElementById('quotes-text');
             t.setAttribute('style','opacity: 0;');
         let i = document.getElementById('quotes-number');
 
         setTimeout(() => {
-            t.innerText = this.quotes[id];
+            t.innerText = this.quotes[id].replace(/(\r\n|\n|\r)/gm, "");
             i.innerText = ` [${id+1}/${this.quotes.length}] `;
-            t.setAttribute('style','opacity: 1;');
-            t.innerHTML = t.innerHTML.replace('<br>','');
+            setTimeout(() => {
+                t.setAttribute('style','opacity: 1;');
+            },50);
         }, 250);
     }
 }
