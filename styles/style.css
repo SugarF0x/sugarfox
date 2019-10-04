@@ -152,6 +152,9 @@ footer #quotes:hover {
   transform: rotate(0deg);
   fill: #00BFFF;
 }
+.pentaLink[disabled] {
+  cursor: not-allowed;
+}
 .pentaLink[disabled] .pL__bg,
 .pentaLink[disabled] .pL__fg {
   fill: gray;

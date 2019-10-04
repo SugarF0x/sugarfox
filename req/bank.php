@@ -1,5 +1,6 @@
 <script>
     let bank = new Bank();
+    // TODO: allow access to this page only to athorised frup members
 </script>
 
 <div class="row">

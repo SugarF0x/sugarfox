@@ -10,17 +10,29 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
 <!--    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-grid.css">-->
 <!--    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-reboot.css">-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+          crossorigin="anonymous">
 
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 
     <script src="js/elements.js"></script>
 
+    <script src="https://vk.com/js/api/openapi.js?162" type="text/javascript"></script> <!-- VK API -->
+
+
     <script>
         $(document).ready(() => {
             setTimeout(() => {
                 $('[data-toggle="tooltip"]').tooltip();
             },250);
+        });
+    </script>
+
+    <script type="text/javascript">
+        VK.init({
+            apiId: 7123145
         });
     </script>
 </head>

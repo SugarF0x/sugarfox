@@ -1,4 +1,5 @@
 <?php
+    // TODO: allow change to authorised frup members only
 if (isset($_POST['change']) && (is_numeric($_POST['change']) || $_POST['change']=='CLEAR') && $_POST['change'] && isset($_POST['time']) && $_POST['time'] && isset($_POST['date']) && $_POST['date'] && isset($_POST['state']) && $_POST['state']) {
     if ($_POST['change']=='CLEAR') {
 		file_put_contents('../data/bank.json', '{

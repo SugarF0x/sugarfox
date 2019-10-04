@@ -3,30 +3,37 @@
 		"img" : "img/main/minecraft.webp",
 		"url" : "#",
 		"desc": "Minecraft",
-		"id"  : "insert-projects"
+		"id"  : "insert-projects",
+		"misc": null
 	},
 	{
 		"img" : "img/main/geekbrains.webp",
 		"url" : "#",
 		"desc": "Geekbrains",
-		"id"  : "insert-projects"
+		"id"  : "insert-projects",
+		"misc": null
 	},
 	{
 		"img" : "img/main/wedding.webp",
 		"url" : "archive/wedding",
 		"desc": "Машина свадьба",
-		"id"  : "insert-archive"
+		"id"  : "insert-archive",
+		"misc": null
 	},
 	{
 		"img" : "img/main/community-chest.webp",
 		"url" : "?page=bank",
 		"desc": "Общественная казна",
-		"id"  : "insert-projects"
+		"id"  : "insert-frup",
+		"misc": {
+			"check-frup-access": true
+		}
 	},
 	{
 		"img" : "img/main/snake.webp",
 		"url" : "archive/snake",
 		"desc": "Змейка",
-		"id"  : "insert-archive"
+		"id"  : "insert-archive",
+		"misc": null
 	}
 ]
