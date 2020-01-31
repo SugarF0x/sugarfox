@@ -1,7 +1,3 @@
-function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
-
 class PentaLink {
     constructor(list = [{img: '#', url:'#', desc:'#', id:'#', misc:null}]) {
         this.array = [];
@@ -37,15 +33,14 @@ class PentaLink {
                 a.setAttribute('title',element.desc + '<br><b>временно недоступно</b>');
             }
             // TODO: make these available only when frup members are quthorised
-            if (element.misc !== null && element.misc["check-frup-access"]) {
-                VK.Auth.getLoginStatus(c => {
-                    if (c.status !== "connected") {
-                        a.setAttribute('disabled','');
-                        a.setAttribute('data-html','true');
-                        a.setAttribute('title',element.desc + '<br><b>авторизируйтесь для доступа</b>');
-                    }
-                })
-            }
+            // if (element.misc !== null && element.misc["check-frup-access"]) {
+            //         if (!vk.isAuthorised) {
+            //             a.setAttribute('disabled', '');
+            //             a.setAttribute('data-html', 'true');
+            //             a.setAttribute('title', element.desc + '<br><b>авторизируйтесь для доступа</b>');
+            //             a.setAttribute('href','#');
+            //         }
+            // }
 
                 // i didnt figure out how to properly create SVG element, so here is my little work-around
             let pentagon = `<svg viewBox="0 0 58 64" class="pL__bg" style="transform: rotate(${tilt}deg);">
@@ -74,7 +69,7 @@ class PentaLink {
 }
 
 class Quotes {
-    // TODO: censor quotes for unauthorised users
+    //TODO: censor quotes for unauthorised users
     // alternatively can make it so that onauthorised users can only see family friendly quotes
     // this however will need me to refactor the whole quotes file and turn it to json with data, determining it's state
     // or make two separate files - family friendly quotes and not, where the latter shall only be injected after authorisation

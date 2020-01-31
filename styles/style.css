@@ -99,11 +99,23 @@ header #logo span {
 }
 header #page-title {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   font-size: 2rem;
   text-transform: uppercase;
   font-weight: bold;
+}
+header #header-login button {
+  border: none;
+  background-color: #00BFFF;
+  color: white;
+  transition: ease-in-out;
+  transition-duration: 0.25s;
+  outline: 1px solid white;
+}
+header #header-login button:hover {
+  background-color: #0086ff;
+  outline: 2px solid white;
 }
 footer {
   height: 2rem;

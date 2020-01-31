@@ -16,10 +16,10 @@ if (isset($_POST['change']) && (is_numeric($_POST['change']) || $_POST['change']
 			]}');		
 	} else {		
 		$change = $_POST['change'];
-		$time = $_POST['time'];
-		$date = $_POST['date'];
-		$state = $_POST['state'];
-		$ip = $_SERVER['REMOTE_ADDR'];
+		$time   = $_POST['time'];
+		$date   = $_POST['date'];
+		$state  = $_POST['state'];
+		$ip     = $_SERVER['REMOTE_ADDR'];
 
 		$data = json_decode(file_get_contents('../data/bank.json'), true);
 		if ($state == '+') {

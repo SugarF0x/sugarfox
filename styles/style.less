@@ -7,10 +7,11 @@
   src: url('../fonts/Jura-Regular.ttf');
 }
 
-//------------------------------------------------------------------------------------tooltip-settings------------------
-
-//@tooltip-background: #006aff;
+@actionColor: #00BFFF;
 @tooltip-background: #c5dbff;
+@actionColorInteract: #0086ff;
+
+//------------------------------------------------------------------------------------tooltip-settings------------------
 
 .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
   border-bottom-color: @tooltip-background !important;
@@ -107,11 +108,25 @@ header {
   }
   #page-title {
     display:flex;
-    justify-content:flex-end;
+    justify-content:center;
     align-items:center;
     font-size: 2rem;
     text-transform: uppercase;
     font-weight: bold;
+  }
+  #header-login {
+    button {
+      border: none;
+      background-color: @actionColor;
+      color: white;
+      transition: ease-in-out;
+      transition-duration: .25s;
+      outline: 1px solid white;
+    }
+    button:hover {
+      background-color: @actionColorInteract;
+      outline: 2px solid white;
+    }
   }
 }
 
@@ -161,7 +176,7 @@ footer {
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
     transform: rotate(0deg);
-    fill: #00BFFF;
+    fill: @actionColor;
   }
 }
 
@@ -175,6 +190,6 @@ footer {
 .pentaLink:not([disabled]):hover {
   .pL__bg, .pL__fg {
     transform: rotate(0deg) !important;
-    fill: #0086ff;
+    fill: @actionColorInteract;
   }
 }
