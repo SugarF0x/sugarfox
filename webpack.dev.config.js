@@ -8,7 +8,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'dist/public/'),
         publicPath: "",
-        filename: "js/[name].js"
+        filename: "js/[name].bundle.js"
     },
     target: "web",
     module: {
@@ -18,6 +18,13 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: "babel-loader"
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf|txt)$/i,
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'fonts'
+                }
             },
             {
                 test: /\.html$/,
