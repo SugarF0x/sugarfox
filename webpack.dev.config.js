@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -27,6 +28,13 @@ module.exports = {
                 }
             },
             {
+                test: /\.webp$/i,
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'img'
+                }
+            },
+            {
                 test: /\.html$/,
                 use: [
                     {
@@ -45,6 +53,13 @@ module.exports = {
             template: "src/public/index.html",
             filename: "index.html",
             excludeChunks: ['server']
-        })
+        }),
+        new CopyPlugin([
+            {
+                from: 'src/public/img',
+                to: 'img/[path][name].[ext]',
+                toType: 'template'
+            }
+        ])
     ]
 };
