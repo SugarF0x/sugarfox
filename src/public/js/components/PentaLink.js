@@ -1,9 +1,28 @@
+// TODO:
+//     > Move styles to the component itself
+//          now im not that sure i can actually do that without .vue components
+//              (failed miserably when trying to install them)
+//          but i should give it another look since i gotta to the further tasks
+//     > Add default values to [props]
+//     > Add colors to [props]
+//         colors should all have default values set to what there is now
+//         should be able to set custom :color-start :color-end :color-disabled
+
 export const pentaLink = {
-    props: [
-        'img',
-        'link',
-        'desc'
-    ],
+    props: {
+        img: {
+            type: String,
+            default: 'img/utils/missing-image.webp'
+        },
+        link: {
+            type: String,
+            default: '#'
+        },
+        desc: {
+            type: String,
+            default: 'Description missing'
+        }
+    },
     data() {
         return {
             tilt: ''
@@ -16,23 +35,23 @@ export const pentaLink = {
         }
     },
     template: `
-        <a 
-            class="pentaLink" 
-            :href=link 
-            data-toggle="tooltip" 
-            data-placement="top" 
-            data-delay="{ &quot;show&quot;: 500, &quot;hide&quot;: 100 }" 
-            title="" 
+        <a
+            class="pentaLink"
+            :href=link
+            data-toggle="tooltip"
+            data-placement="top"
+            data-delay="{ &quot;show&quot;: 500, &quot;hide&quot;: 100 }"
+            title=""
             :data-original-title=desc
         >
-            <svg 
-                viewBox="0 0 58 64" 
-                class="pL__bg" 
+            <svg
+                viewBox="0 0 58 64"
+                class="pL__bg"
                 :style="'transform: rotate(' + tilt + 'deg)'"
             >
                 <polygon points="46.954,57.792 11,57.792 -1,24.544 29.039,0.208 59,24.792"></polygon>
             </svg>
-            <img 
+            <img
                 class="pL__fg"
                 :src=img
                 :style="'transform: rotate(' + Math.floor(tilt/2)*(-1) + 'deg)'"

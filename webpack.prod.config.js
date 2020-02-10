@@ -4,6 +4,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+// TODO: Update prod.config to par with dev.config
+
 module.exports = {
     entry: {
         main: ["@babel/polyfill", "whatwg-fetch", "./src/public/index.js"]
