@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "buildDev": "rmdir /Q /S dist && webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.dev.config.js",
     "buildProd": "rmdir /Q /S dist && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
-    "start": "node dist/server/server.js"
+    "start": "nodemon dist/server/server.js"
   },
   "nodemonConfig": {
     "ignore": [
@@ -20,7 +20,6 @@
     "@babel/polyfill": "^7.8.3",
     "express": "^4.17.1",
     "moment": "^2.24.0",
-    "vue": "^2.6.11",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {

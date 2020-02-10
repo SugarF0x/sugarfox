@@ -3,6 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+    watch: true,
+    watchOptions: {
+        aggregateTimeout: 300,
+        ignored: [/node_modules/,/db/]
+    },
     entry: {
         main: ["@babel/polyfill", "whatwg-fetch", "./src/public/index.js"]
     },
@@ -44,7 +49,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader'],
             }
         ]
     },

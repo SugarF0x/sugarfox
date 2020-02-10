@@ -10,14 +10,6 @@ export const pentaLink = {
         }
     },
     created() {
-        // this.tilt = () => {
-        //     let number = Math.floor(Math.random() * (60 - 15)) + 15;
-        //     if (Math.random() < 0.5) {
-        //         number *= -1;
-        //     }
-        //     return `transform: rotate(${number}deg)`;
-        // }
-
         this.tilt = Math.floor(Math.random() * (60 - 15)) + 15;
         if (Math.random() < 0.5) {
             this.tilt *= -1;
