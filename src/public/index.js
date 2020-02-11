@@ -1,7 +1,13 @@
-import '@babel/polyfill'
-import 'whatwg-fetch'
-import {app} from './js/main'
-import './styles/normalize.css'
-import './styles/main.css'
+import Vue from 'vue'
+import App from './App.vue';
 
-const mainApp = new Vue(app);
+// const mainAPp = new Vue({
+//     el: '#app',
+//     components: {
+//         App
+//     }
+// });
+
+new Vue({
+    render: h => h(App),
+}).$mount('#app');

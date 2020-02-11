@@ -138,42 +138,4 @@ footer #quotes #quotes-number {
 footer #quotes:hover {
   cursor: pointer;
 }
-.pentaLink {
-  display: inline-block;
-  position: relative;
-  height: 6rem;
-  width: 6rem;
-  margin: 0.5rem;
-  border-radius: 50%;
-}
-.pentaLink img,
-.pentaLink object,
-.pentaLink svg {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-.pentaLink .pL__fg {
-  padding: 20%;
-  transition-duration: 0.5s;
-  transition-timing-function: ease-in-out;
-}
-.pentaLink .pL__bg {
-  transition-duration: 0.5s;
-  transition-timing-function: ease-in-out;
-  transform: rotate(0deg);
-  fill: #00BFFF;
-}
-.pentaLink[disabled] {
-  cursor: not-allowed;
-}
-.pentaLink[disabled] .pL__bg,
-.pentaLink[disabled] .pL__fg {
-  fill: gray;
-}
-.pentaLink:not([disabled]):hover .pL__bg,
-.pentaLink:not([disabled]):hover .pL__fg {
-  transform: rotate(0deg) !important;
-  fill: #0086ff;
-}
 /*# sourceMappingURL=main.css.map */
