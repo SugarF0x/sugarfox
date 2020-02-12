@@ -2,10 +2,7 @@
     <div class="container pt-5 text-center">
         {{msg}}
         <br>
-        <PentaLink
-            img="img/main/geekbrains.webp"
-            desc="Geekbrains"
-        ></PentaLink>
+        <PentaLink disabled></PentaLink>
         <br>
         <Quotes></Quotes>
     </div>

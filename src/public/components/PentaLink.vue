@@ -1,14 +1,4 @@
 <template>
-    <!-- TODO:
-         > Move styles to the component itself
-              now im not that sure i can actually do that without .vue components
-                  (failed miserably when trying to install them)
-              but i should give it another look since i gotta to the further tasks
-         > Add default values to [props]
-         > Add colors to [props]
-             colors should all have default values set to what there is now
-             should be able to set custom :color-start :color-end :color-disabled
-     -->
     <a
         class="pentaLink"
         :href=link
@@ -17,11 +7,12 @@
         data-delay="{ &quot;show&quot;: 500, &quot;hide&quot;: 100 }"
         title=""
         :data-original-title=desc
+        :style="{width: size + 'rem', height: size + 'rem'}"
     >
         <svg
             viewBox="0 0 58 64"
             class="pL__bg"
-            :style="'transform: rotate(' + tilt + 'deg)'"
+            :style="{transform: 'rotate(' + tilt + 'deg)', fill: color}"
         >
             <polygon points="46.954,57.792 11,57.792 -1,24.544 29.039,0.208 59,24.792"></polygon>
         </svg>
@@ -35,7 +26,14 @@
 </template>
 
 <script>
+    /* TODO:
+        > Add <disabled> state support for styles
+            for now disabled state can only be used by styles from element tags
+            but in order to be computed or what not there should be a this.isDisabled state in data()
+     */
+
     export default {
+        name: 'PentaLink',
         props: {
             img: {
                 type: String,
@@ -48,6 +46,14 @@
             desc: {
                 type: String,
                 default: 'Description missing'
+            },
+            color: {
+                type: String,
+                default: '#00BFFF'
+            },
+            size: {
+                type: String,
+                default: '6'
             }
         },
         data() {
@@ -68,10 +74,7 @@
     .pentaLink {
         display: inline-block;
         position: relative;
-        height: 6rem;
-        width: 6rem;
         margin: 0.5rem;
-        //background-color: cyan;
         border-radius: 50%;
         img, object, svg {
             position: absolute;
@@ -80,22 +83,18 @@
             height: 100%;
             width: 100%;
         }
-        .pL__fg {
-            padding: 20%;
+        .pL__bg, .pL__fg {
             transition-duration: 0.5s;
             transition-timing-function: ease-in-out;
         }
-        .pL__bg {
-            transition-duration: 0.5s;
-            transition-timing-function: ease-in-out;
-            transform: rotate(0deg);
-            fill: #00BFFF;
+        .pL__fg {
+            padding: 20%;
         }
     }
 
     .pentaLink[disabled] {
         .pL__bg, .pL__fg {
-            fill: gray;
+            fill: gray !important;
         }
         cursor: not-allowed;
     }
