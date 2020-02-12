@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "clean": "IF EXIST dist rmdir /Q /S dist ",
-    "buildDev": "npm run clean && webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.dev.config.js",
+    "buildDev": "webpack --mode development --config webpack.dev.config.js",
     "buildProd": "npm run clean && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
-    "start": "nodemon dist/server/server.js"
+    "buildServer": " webpack --mode development --config webpack.server.config.js ",
+    "start": "nodemon --delay 2 dist/server/server.js"
   },
   "nodemonConfig": {
     "ignore": [

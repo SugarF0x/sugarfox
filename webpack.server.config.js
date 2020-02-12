@@ -3,6 +3,11 @@ const nodeExternals = require('webpack-node-externals');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+    watch: true,
+    watchOptions: {
+        aggregateTimeout: 300,
+        ignored: [/node_modules/,/db/]
+    },
     entry: {
         server: path.join(__dirname, 'src/server/server.js')
     },
