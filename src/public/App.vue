@@ -6,11 +6,14 @@
             img="img/main/geekbrains.webp"
             desc="Geekbrains"
         ></PentaLink>
+        <br>
+        <Quotes></Quotes>
     </div>
 </template>
 
 <script>
     import PentaLink from './components/PentaLink.vue'
+    import Quotes from './components/Quotes.vue'
 
     export default {
         data() {
@@ -19,7 +22,8 @@
             }
         },
         components: {
-            PentaLink
+            PentaLink,
+            Quotes
         },
         methods: {
             getJson(url){
