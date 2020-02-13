@@ -4,12 +4,21 @@
             {{quote}}
         </span>
         <span class="quote__number">
+            <font-awesome-icon icon="sync-alt" />
+            <br>
             [{{id}} / {{max}}]
         </span>
     </div>
 </template>
 
 <script>
+    /* TODO:
+        > Make a checkbox near quote__number that triggers auto refresh
+            try to make it a nice looking one, not the default with a cross
+            perhaps make it a refresh symbol that is grayed out when disabled
+            and bright main text color when active
+     */
+
     export default {
         name: "Quotes",
         data() {

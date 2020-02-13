@@ -9,5 +9,5 @@ app.use('/api/quotes', routerQuotes);
 
 app.listen(3000, () => {
     console.log('--------------------------------------');
-    console.log(`[${moment().format('HH:mm:ss')}] Server started at Port 3000`);
+    console.log(`[${moment().format('HH:mm:ss')}] Server started at Port 3000\n`);
 });

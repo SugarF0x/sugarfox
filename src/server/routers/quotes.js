@@ -2,6 +2,14 @@ const express = require('express');
 const fs = require('fs');
 const router = express.Router();
 
+/* TODO:
+    > Make JSON instead of txt file for quotes
+        make it an array of objects each having three attributes
+            quote: quote itself
+            lore: the origin of a quote or some shit
+            source: link to the source if any
+ */
+
 router.get('/', (req, res) => {
     fs.readFile('dist/server/db/quotes.txt', 'utf8', (err, data) => {
         if(err){
