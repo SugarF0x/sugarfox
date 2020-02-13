@@ -1,24 +1,33 @@
 <template>
-    <div class="quote" @click="getQuote(true)" :style="{'color': color}">
-        <span class="quote__text" :style="{opacity: opacity}">
+    <div
+            class="quote d-inline-flex align-items-center">
+        <div
+                class="quote__text"
+                :style="{opacity: opacity}"
+                @click="getQuote(true)">
             {{quote}}
-        </span>
-        <span class="quote__number">
-            <font-awesome-icon icon="sync-alt" />
-            <br>
+        </div>
+        <div class="quote__number">
             [{{id}} / {{max}}]
-        </span>
+        </div>
+        <div
+                class="quote__refresh">
+            <input type="checkbox" id="checkbox" v-model="autoRefresh" v-show="false">
+            <label
+                    for="checkbox"
+                    data-toggle="tooltip"
+                    title="Авто обновление цитат"
+                    data-delay='{ "show": 500, "hide": 100 }'>
+                <font-awesome-icon
+                        icon="sync-alt"
+                        style="font-size: 0.65em"
+                        :class="{quote__number : !autoRefresh}"/>
+            </label>
+        </div>
     </div>
 </template>
 
 <script>
-    /* TODO:
-        > Make a checkbox near quote__number that triggers auto refresh
-            try to make it a nice looking one, not the default with a cross
-            perhaps make it a refresh symbol that is grayed out when disabled
-            and bright main text color when active
-     */
-
     export default {
         name: "Quotes",
         data() {
@@ -27,13 +36,8 @@
                 id: 0,
                 max: 0,
                 autoUpdate: true,
-                opacity: 1
-            }
-        },
-        props: {
-            color: {
-                type: String,
-                default: ''
+                opacity: 1,
+                autoRefresh: true
             }
         },
         methods: {
@@ -48,9 +52,13 @@
             }
         },
         mounted() {
+            /* TODO:
+                > make sure it only updates after having recieved another quote
+                    perhaps this can be achieved via callback or .then() function of our beloved getJson()
+             */
             this.getQuote();
             setInterval( () => {
-                if (this.autoUpdate) {
+                if (this.autoUpdate && this.autoRefresh) {
                     this.opacity = 0;
                     setTimeout( () => {
                         this.getQuote();
@@ -68,6 +76,20 @@
 
 <style scoped lang="less">
     .quote {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        > * {
+            display: inline-block;
+            padding: 0.2rem;
+        }
+        .quote__text:hover, .quote__refresh > label:hover {
+            cursor: pointer;
+        }
         .quote__text {
             transition-timing-function: ease-in-out;
             transition-duration: 0.25s;
@@ -79,8 +101,12 @@
             font-size: 0.65em;
             opacity: 0.5;
         }
-    }
-    .quote:hover {
-        cursor: pointer;
+        .quote__refresh {
+            label {
+                margin: 0;
+                display: flex;
+                align-items: center;
+            }
+        }
     }
 </style>
