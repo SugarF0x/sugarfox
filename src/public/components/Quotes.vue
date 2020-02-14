@@ -42,7 +42,7 @@
         },
         methods: {
             getQuote(auto) {
-                this.$parent.getJson('/api/quotes/random')
+                this.$root.getJson('/api/quotes/random')
                     .then(data => {
                         this.quote = data.quote;
                         this.id    = data.id;
@@ -55,6 +55,8 @@
             /* TODO:
                 > make sure it only updates after having recieved another quote
                     perhaps this can be achieved via callback or .then() function of our beloved getJson()
+                > make autoRefresh false state actually break cycle and start it again when set back to true
+                    there is no need for setInterval() to go running over and over again with no updates
              */
             this.getQuote();
             setInterval( () => {
@@ -76,6 +78,7 @@
 
 <style scoped lang="less">
     .quote {
+            // these :none parameters disable drag selection
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
@@ -85,7 +88,7 @@
         user-select: none;
         > * {
             display: inline-block;
-            padding: 0.2rem;
+            padding: 0rem 0.2rem;
         }
         .quote__text:hover, .quote__refresh > label:hover {
             cursor: pointer;

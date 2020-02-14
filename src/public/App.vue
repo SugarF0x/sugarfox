@@ -1,16 +1,21 @@
 <template>
-    <div class="container pt-5 text-center">
-        {{msg}}
-        <br>
-        <PentaLink disabled></PentaLink>
-        <br>
-        <Quotes></Quotes>
+    <div>
+        <Header></Header>
+        <div id="main" class="container pt-5 text-center">
+            {{msg}}
+            <br>
+            <PentaLink></PentaLink>
+            <br>
+            <Quotes></Quotes>
+        </div>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
     import PentaLink from './components/PentaLink.vue'
-    import Quotes from './components/Quotes.vue'
+    import Header from './components/Header.vue'
+    import Footer from './components/Footer.vue'
 
     export default {
         data() {
@@ -20,46 +25,8 @@
         },
         components: {
             PentaLink,
-            Quotes
-        },
-        methods: {
-            getJson(url){
-                return fetch(url)
-                    .then(result => result.json())
-                    .catch(error => console.log(error))
-            },
-            postJson(url, data){
-                return fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                })
-                    .then(result => result.json())
-                    .catch(error => console.log(error))
-            },
-            putJson(url, data){
-                return fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                })
-                    .then(result => result.json())
-                    .catch(error => console.log(error))
-            },
-            deleteJson(url){
-                return fetch(url, {
-                    method: 'DELETE',
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                    .then(result => result.json())
-                    .catch(error => console.log(error))
-            }
+            Header,
+            Footer
         }
     }
 </script>
