@@ -1,7 +1,7 @@
 {
-  "name": "express_app",
-  "version": "1.0.0",
-  "description": "",
+  "name": "fox_lair",
+  "version": "0.1.0",
+  "description": "My webpage at sugarfox.ru",
   "main": "index.js",
   "scripts": {
     "clean": "IF EXIST dist rmdir /Q /S dist ",
@@ -15,7 +15,7 @@
       "*.json"
     ]
   },
-  "author": "",
+  "author": "Sugar_F0x",
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
