@@ -5,8 +5,6 @@
             {{msg}}
             <br>
             <PentaLink></PentaLink>
-            <br>
-            <Quotes></Quotes>
         </div>
         <Footer></Footer>
     </div>

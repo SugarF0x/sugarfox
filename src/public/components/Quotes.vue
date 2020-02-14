@@ -1,6 +1,6 @@
 <template>
     <div
-            class="quote d-inline-flex align-items-center">
+            class="quote noHighlight d-inline-flex align-items-center">
         <div
                 class="quote__text"
                 :style="{opacity: opacity}"
@@ -53,16 +53,18 @@
         },
         mounted() {
             /* TODO:
-                > make sure it only updates after having recieved another quote
+                > make sure it only updates after having received another quote
                     perhaps this can be achieved via callback or .then() function of our beloved getJson()
                 > make autoRefresh false state actually break cycle and start it again when set back to true
                     there is no need for setInterval() to go running over and over again with no updates
+                    perhaps i can do that through computed: elements
+                        make them go round with while(this.autoRefresh) {this.getQuote()}
              */
             this.getQuote();
             setInterval( () => {
                 if (this.autoUpdate && this.autoRefresh) {
                     this.opacity = 0;
-                    setTimeout( () => {
+                    setTimeout(() => {
                         this.getQuote();
                         setTimeout(() => {
                             this.opacity = 1;
@@ -78,17 +80,9 @@
 
 <style scoped lang="less">
     .quote {
-            // these :none parameters disable drag selection
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        -o-user-select: none;
-        user-select: none;
         > * {
             display: inline-block;
-            padding: 0rem 0.2rem;
+            padding: 0 0.2rem;
         }
         .quote__text:hover, .quote__refresh > label:hover {
             cursor: pointer;

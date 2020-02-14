@@ -1,6 +1,6 @@
 <template>
     <a
-            class="pentaLink"
+            class="pentaLink noHighlight"
             :href=link
             data-toggle="tooltip"
             data-placement="top"
