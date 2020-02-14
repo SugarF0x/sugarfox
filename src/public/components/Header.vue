@@ -1,20 +1,21 @@
 <template>
-    <header class="container-fluid">
-        <div class="row d-flex justify-content-between">
-            <a href='/' class="d-flex align-items-center" id="logo">
-                <img src="img/sgfx_line_blue.webp" alt="sgfx-logo">
-                <span>SGFX</span>
-            </a>
-            <div class="col-6 text-right" id="page-title">
-                Main
-            </div>
-        </div>
+    <header class="container-fluid d-flex justify-content-between">
+        <a href='/' class="d-flex align-items-center" id="logo">
+            <img src="img/sgfx_line_blue.webp" alt="sgfx-logo">
+            <span>SGFX</span>
+        </a>
+        <Login></Login>
     </header>
 </template>
 
 <script>
+    import Login from './Login.vue'
+
     export default {
-        name: "Header"
+        name: "Header",
+        components: {
+            Login
+        }
     }
 </script>
 
@@ -24,7 +25,6 @@
             height: 3rem;
             text-decoration: none;
             color: white;
-            padding: 0.5rem;
             img {
                 height: 2.5rem;
             }
@@ -32,11 +32,6 @@
                 font-family: Kurbanistika, sans-serif;
                 font-size: 2.5rem;
             }
-        }
-        #page-title {
-            font-size: 2rem;
-            text-transform: uppercase;
-            font-weight: bold;
         }
     }
 </style>

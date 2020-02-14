@@ -2,9 +2,7 @@
     <div>
         <Header></Header>
         <div id="main" class="container pt-5 text-center">
-            {{msg}}
-            <br>
-            <PentaLink></PentaLink>
+
         </div>
         <Footer></Footer>
     </div>
@@ -18,7 +16,7 @@
     export default {
         data() {
             return {
-                msg: 'TEST MESSAGE OF GAY'
+
             }
         },
         components: {
