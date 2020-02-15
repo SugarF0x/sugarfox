@@ -50,6 +50,10 @@
                     });
                 if (auto) this.autoUpdate = false;
             }
+            /* TODO:
+                > make another method for updating the quote that fades out, fetches and only then fades in
+                    if no data is fetched within update window - insert error and stop auto update
+             */
         },
         mounted() {
             /* TODO:
@@ -59,6 +63,8 @@
                     there is no need for setInterval() to go running over and over again with no updates
                     perhaps i can do that through computed: elements
                         make them go round with while(this.autoRefresh) {this.getQuote()}
+                    now that i think about it - computes is a bad idea
+                        i should rather sow quto refresh into the method itself
              */
             this.getQuote();
             setInterval( () => {

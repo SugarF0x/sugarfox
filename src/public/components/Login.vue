@@ -31,6 +31,11 @@
             return {
                 show: true
             }
+        },
+        methods: {
+            validator() {
+
+            }
         }
     }
 </script>
