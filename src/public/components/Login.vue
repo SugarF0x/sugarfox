@@ -5,23 +5,23 @@
         </div>
         <div class="cover" v-if="show">
             <div class="wrap container text-center">
-                <span @click="show=!show" class="closeLogin">&times;</span>
+                <button @click="show=!show" class="closeLogin">&times;</button>
                 <h3>Войти</h3>
                 <form class="d-flex flex-column align-items-center noHighlight">
                     <input type="text" class="inputField" name="login" placeholder="логин">
                     <input type="password" class="inputField" name="password" placeholder="пароль">
                     <div>
                         <input type="submit" class="loginButton" value="Вход">
-                        <span class="loginButton">Регистрация</span>
+                        <button class="loginButton">Регистрация</button>
                     </div>
                 </form>
                 <span class="or">или</span>
                 <h5>Войти через сторонний сайт:</h5>
                 <div class="d-flex justify-content-between p-2 third-party noHighlight">
-                    <font-awesome-icon :icon="['fab', 'vk']" title="Вконтакте"/>
-                    <font-awesome-icon :icon="['fab', 'facebook']" title="Facebook"/>
-                    <font-awesome-icon :icon="['fab', 'twitter']" title="Twitter"/>
-                    <span title="placeholder">&times;</span>
+                    <button><font-awesome-icon :icon="['fab', 'vk']" title="Вконтакте"/></button>
+                    <button><font-awesome-icon :icon="['fab', 'facebook']" title="Facebook"/></button>
+                    <button><font-awesome-icon :icon="['fab', 'twitter']" title="Twitter"/></button>
+                    <button><span title="placeholder">&times;</span></button>
                 </div>
             </div>
         </div>
@@ -113,6 +113,12 @@
                 border-radius: 1rem;
                 width: 25rem;
                 padding: .8rem 2.5rem;
+                button {
+                    border: none;
+                    background-color: transparent;
+                    padding: 0;
+                    margin: 0;
+                }
                 .closeLogin {
                     position: absolute;
                     top: 1rem;
@@ -144,9 +150,6 @@
                     border-radius: .4rem;
                     margin: .7rem .4rem;
                 }
-                .loginButton:focus {
-                    outline: none;
-                }
                 .or {
                     opacity: .5;
                 }
@@ -162,19 +165,21 @@
                     margin: 0 3rem;
                 }
                 .third-party > * {
-                    background-color: steelblue;
-                    font-weight: bold;
-                    color: white;
-                    cursor: pointer;
-                    font-size: 2rem;
-                    border: 1px solid transparent;
-                    border-radius: .4rem;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 2rem;
-                    width: 2rem;
-                    padding: .3rem;
+                    > * {
+                        background-color: steelblue;
+                        font-weight: bold;
+                        color: white;
+                        cursor: pointer;
+                        font-size: 2rem;
+                        border: 1px solid transparent;
+                        border-radius: .4rem;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 2rem;
+                        width: 2rem;
+                        padding: .3rem;
+                    }
                 }
                 input {
                     margin: .2rem 0;
