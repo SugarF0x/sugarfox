@@ -4,15 +4,19 @@
             Войти
         </div>
         <div class="cover" v-if="show">
-            <div class="wrap container text-center">
+            <div v-if="reg===false" class="wrap container text-center">
                 <button @click="show=!show" class="closeLogin">&times;</button>
                 <h3>Войти</h3>
-                <form class="d-flex flex-column align-items-center noHighlight">
-                    <input type="text" class="inputField" name="login" placeholder="логин">
-                    <input type="password" class="inputField" name="password" placeholder="пароль">
+                <form class="d-flex flex-column align-items-center noHighlight" @submit.prevent>
+                    <input type="text" class="inputField" :class="{inputError : loginError}" name="login" placeholder="логин">
+                    <input type="password" class="inputField" :class="{inputError : loginError}" name="password" placeholder="пароль">
+                            <span v-if="loginError" class="errorText">
+                                <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
+                                Неверно введён логин или пароль
+                            </span>
                     <div>
                         <input type="submit" class="loginButton" value="Вход">
-                        <button class="loginButton">Регистрация</button>
+                        <button class="loginButton" @click="reg=true">Регистрация</button>
                     </div>
                 </form>
                 <span class="or">или</span>
@@ -24,23 +28,55 @@
                     <button><span title="placeholder">&times;</span></button>
                 </div>
             </div>
+            <div v-else class="wrap container text-center">
+                <button @click="show=!show" class="closeLogin">&times;</button>
+                <h3>Регистрация</h3>
+                <form class="d-flex flex-column align-items-center noHighlight" @submit.prevent>
+                    <input type="email" class="inputField" :class="{inputError : regMailError}" name="email" placeholder="e-mail">
+                            <span v-if="regMailError" class="errorText">
+                                <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
+                                E-mail недопустим или уже используется
+                            </span>
+                    <input type="text" class="inputField" :class="{inputError : regLoginError}" name="login" placeholder="логин">
+                            <span v-if="regLoginError" class="errorText">
+                                <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
+                                Логин недопустим или уже занят
+                            </span>
+                    <input type="password" class="inputField" :class="{inputError : regPassError}" name="password1" placeholder="пароль">
+                    <input type="password" class="inputField" :class="{inputError : regPassError}" name="password2" placeholder="подтвердить пароль">
+                            <span v-if="regPassError" class="errorText">
+                                <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
+                                Пароли не совпадают
+                            </span>
+                    <div>
+                        <button class="loginButton" @click="reg=false">Вход</button>
+                        <input type="submit" class="loginButton" value="Регистрация">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    /* TODO: Jesus this will be a barge
-        > Finish tweaking CSS and make it actually look descent
+    /* TODO:
         > Add validation methods
             both client and server-side
-        > Add registration form
      */
 
     export default {
         name: "Login",
         data() {
             return {
-                show: false
+                    /* TODO:
+                        > change these back to false after finished with this section
+                     */
+                show: true,
+                reg: true,
+                loginError: true,
+                regLoginError: true,
+                regPassError: true,
+                regMailError: true
             }
         },
         methods: {
@@ -113,6 +149,12 @@
                 border-radius: 1rem;
                 width: 25rem;
                 padding: .8rem 2.5rem;
+                .inputError {
+                    border-color: red;
+                }
+                .errorText {
+                    color: red;
+                }
                 button {
                     border: none;
                     background-color: transparent;
