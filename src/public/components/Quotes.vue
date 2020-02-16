@@ -64,7 +64,8 @@
                     perhaps i can do that through computed: elements
                         make them go round with while(this.autoRefresh) {this.getQuote()}
                     now that i think about it - computes is a bad idea
-                        i should rather sow quto refresh into the method itself
+                        i should rather sew quote refresh into the method itself
+                > Fix display on too long quotes
              */
             this.getQuote();
             setInterval( () => {

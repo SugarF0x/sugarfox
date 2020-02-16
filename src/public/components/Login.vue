@@ -1,17 +1,28 @@
 <template>
     <div class="login">
         <div class="button noHighlight" @click="show=!show">
-            Login
+            Войти
         </div>
         <div class="cover" v-if="show">
             <div class="wrap container text-center">
                 <span @click="show=!show" class="closeLogin">&times;</span>
-                <h3>Login</h3>
-                <form>
-                    <input type="text" class="loginField" name="login" placeholder="login">
-                    <input type="text" class="passwordField" name="password" placeholder="password">
-                    <input type="submit" value="Log In">
+                <h3>Войти</h3>
+                <form class="d-flex flex-column align-items-center noHighlight">
+                    <input type="text" class="inputField" name="login" placeholder="логин">
+                    <input type="password" class="inputField" name="password" placeholder="пароль">
+                    <div>
+                        <input type="submit" class="loginButton" value="Вход">
+                        <span class="loginButton">Регистрация</span>
+                    </div>
                 </form>
+                <span class="or">или</span>
+                <h5>Войти через сторонний сайт:</h5>
+                <div class="d-flex justify-content-between p-2 third-party noHighlight">
+                    <font-awesome-icon :icon="['fab', 'vk']" title="Вконтакте"/>
+                    <font-awesome-icon :icon="['fab', 'facebook']" title="Facebook"/>
+                    <font-awesome-icon :icon="['fab', 'twitter']" title="Twitter"/>
+                    <span title="placeholder">&times;</span>
+                </div>
             </div>
         </div>
     </div>
@@ -29,7 +40,7 @@
         name: "Login",
         data() {
             return {
-                show: true
+                show: false
             }
         },
         methods: {
@@ -100,8 +111,8 @@
                 position: relative;
                 background-color: white;
                 border-radius: 1rem;
-                max-width: 30vw;
-                padding: .8rem;
+                width: 25rem;
+                padding: .8rem 2.5rem;
                 .closeLogin {
                     position: absolute;
                     top: 1rem;
@@ -116,24 +127,58 @@
                 .closeLogin:hover {
                     opacity: 1;
                 }
-            }
-            input {
-                margin: .2rem 0;
-            }
-            input[type=submit] {
-                background-color: steelblue;
-                border: none;
-                color: white;
-                cursor: pointer;
-                padding: .6rem 3rem;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                text-transform: uppercase;
-                border-radius: .4rem;
-            }
-            input:focus {
-                outline: none;
+                .inputField {
+                    width: 80%;
+                    padding: .1rem .4rem;
+                }
+                .loginButton {
+                    background-color: steelblue;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    padding: .6rem 1.2rem;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    text-transform: uppercase;
+                    border-radius: .4rem;
+                    margin: .7rem .4rem;
+                }
+                .loginButton:focus {
+                    outline: none;
+                }
+                .or {
+                    opacity: .5;
+                }
+                .or::before, .or::after {
+                    opacity: .5;
+                    content: '';
+                    display: inline-block;
+                    width: 40%;
+                    margin: .3rem;
+                    border-bottom: 1px solid black;
+                }
+                .third-party {
+                    margin: 0 3rem;
+                }
+                .third-party > * {
+                    background-color: steelblue;
+                    font-weight: bold;
+                    color: white;
+                    cursor: pointer;
+                    font-size: 2rem;
+                    border: 1px solid transparent;
+                    border-radius: .4rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 2rem;
+                    width: 2rem;
+                    padding: .3rem;
+                }
+                input {
+                    margin: .2rem 0;
+                }
             }
         }
     }
