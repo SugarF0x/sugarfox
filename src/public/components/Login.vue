@@ -1,7 +1,13 @@
 <template>
     <div class="login">
-        <div class="button noHighlight" @click="show=!show">
-            Войти
+        <div class="d-flex align-items-center">
+            <span class="mr-2">{{ status.login }}</span>
+            <button type="button" v-if="!status.connected" class="button noHighlight" @click="show=!show">
+                Войти
+            </button>
+            <button type="button" v-else class="button noHighlight" @click="logout">
+                Выйти
+            </button>
         </div>
         <div class="cover" v-if="show">
             <div v-if="reg===false" class="wrap container text-center">
@@ -60,11 +66,6 @@
 </template>
 
 <script>
-    /* TODO:
-        > Add validation methods
-            both client and server-side
-     */
-
     export default {
         name: "Login",
         data() {
@@ -72,7 +73,7 @@
                     /* TODO:
                         > change these back to false after finished with this section
                      */
-                show: true,
+                show: false,
                 reg: false,
                 loginError: false,
                 regLoginError: false,
@@ -82,13 +83,36 @@
                 email: '',
                 password: '',
                 password1: '',
-                password2: ''
+                password2: '',
+                status: {
+                    connected: false,
+                    login: ''
+                }
             }
         },
         methods: {
             validate() {
-
+                /* TODO:
+                    > Add validation methods
+                 */
+            },
+            logout() {
+                this.$root.deleteJson('/api/passport/logout')
+                    .then(data => {
+                        if(data.result){
+                            document.location.reload(true);
+                        }
+                    })
             }
+        },
+        mounted() {
+            this.$root.getJson('/api/passport/status')
+                .then(data => {
+                    if (data) {
+                        this.status.connected = true;
+                        this.status.login = data.login;
+                    }
+                });
         }
     }
 </script>
@@ -97,6 +121,7 @@
     .login {
         .button {
             cursor: pointer;
+            color: white;
             position: relative;
             background: none;
             text-transform: uppercase;

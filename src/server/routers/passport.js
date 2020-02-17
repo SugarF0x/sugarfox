@@ -47,9 +47,14 @@ function checkNotAuthenticated(req, res, next) {
     next()
 }
 
+/* TODO:
+    > Add validation methods
+    > Add FS write to JSON for user data
+*/
+
 // ---------- ---------- ---------- ---------- ---------- \\
 
-const users = [{"id":"1581940179723","login":"w","email":"w@w","password":"123"}];
+const users = [];
 const SESSION_SECRET = 'qkmvGXke3owxWHUMOH1m07sscHsBv3iR7Noy23qoVXC5Lajy5OsCJG27Xde9OR6M';
 
 initialize(
@@ -70,14 +75,24 @@ router.use(passport.session());
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
+router.get('/status', (req,res) => {
+    res.json(req.user)
+});
+
+router.get('/getUsers', (req,res) => {
+    res.json(users)
+});
+
+router.delete('/logout', (req, res) => {
+    req.logOut();
+    res.status(200).send(JSON.stringify({result: 1, text: 'Logged out'}));
+});
+
 router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/success',
-    failureRedirect: '/fail',
+    successRedirect: '/',
+    failureRedirect: '/',
     failureFlash: true
-    }),
-    (req, res) => {
-        res.send('success')
-    }
+    })
 );
 
 router.post('/register', (req, res) => {
@@ -88,9 +103,9 @@ router.post('/register', (req, res) => {
             email: req.body.email,
             password: req.body.password1
         });
-        res.json(users);
+        res.redirect('/');
     } catch {
-        res.redirect('/register')
+
     }
 });
 
