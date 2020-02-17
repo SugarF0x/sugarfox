@@ -8,11 +8,11 @@ const flash = require('express-flash');
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
-function initialize(passport, getUserByLogin, getUserById) {
-    const authenticateUser = (login, password, done) => {
-        const user = getUserByLogin(login);
+function initialize(passport, getUserByEmail, getUserById) {
+    const authenticateUser = (email, password, done) => {
+        const user = getUserByEmail(email);
         if (user == null) {
-            return done(null, false, { message: 'No user with that login' })
+            return done(null, false, { message: 'No user with that email' })
         }
 
         try {
@@ -26,7 +26,7 @@ function initialize(passport, getUserByLogin, getUserById) {
         }
     };
 
-    passport.use(new LocalStrategy({ usernameField: 'login' }, authenticateUser));
+    passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser));
     passport.serializeUser((user, done) => done(null, user.id));
     passport.deserializeUser((id, done) => {
         return done(null, getUserById(id))
@@ -59,7 +59,7 @@ const SESSION_SECRET = 'qkmvGXke3owxWHUMOH1m07sscHsBv3iR7Noy23qoVXC5Lajy5OsCJG27
 
 initialize(
     passport,
-    login => users.find(user => user.login === login),
+    email => users.find(user => user.email === email),
     id => users.find(user => user.id === id)
 );
 

@@ -14,11 +14,11 @@
                 <button @click="show=!show" class="closeLogin">&times;</button>
                 <h3>Войти</h3>
                 <form class="d-flex flex-column align-items-center noHighlight" action="/api/passport/login" method="POST">
-                    <input required type="text" class="inputField" :class="{inputError : loginError}" name="login" :model="login" placeholder="логин">
+                    <input required type="text" class="inputField" :class="{inputError : loginError}" name="email" :model="email" placeholder="почта">
                     <input required type="password" class="inputField" :class="{inputError : loginError}" name="password" :model="password" placeholder="пароль">
                             <span v-if="loginError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
-                                Неверно введён логин или пароль
+                                Неверно введена почта или пароль
                             </span>
                     <div>
                         <input type="submit" class="loginButton" value="Вход">
