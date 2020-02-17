@@ -10,6 +10,12 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 new Vue({
     render: h => h(App),
+    data: {
+        connection: {
+            connected: false,
+            login: ''
+        }
+    },
     methods: {
         getJson(url){
             return fetch(url)
@@ -48,5 +54,14 @@ new Vue({
                 .then(result => result.json())
                 .catch(error => console.log(error))
         }
+    },
+    mounted() {
+        this.getJson('/api/passport/status')
+            .then(data => {
+                if (data) {
+                    this.connection.connected = true;
+                    this.connection.login = data.login;
+                }
+            });
     }
 }).$mount('#app');
