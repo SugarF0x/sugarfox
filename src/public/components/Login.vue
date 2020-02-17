@@ -7,16 +7,16 @@
             <div v-if="reg===false" class="wrap container text-center">
                 <button @click="show=!show" class="closeLogin">&times;</button>
                 <h3>Войти</h3>
-                <form class="d-flex flex-column align-items-center noHighlight" @submit.prevent>
-                    <input type="text" class="inputField" :class="{inputError : loginError}" name="login" placeholder="логин">
-                    <input type="password" class="inputField" :class="{inputError : loginError}" name="password" placeholder="пароль">
+                <form class="d-flex flex-column align-items-center noHighlight" action="/api/passport/login" method="POST">
+                    <input required type="text" class="inputField" :class="{inputError : loginError}" name="login" :model="login" placeholder="логин">
+                    <input required type="password" class="inputField" :class="{inputError : loginError}" name="password" :model="password" placeholder="пароль">
                             <span v-if="loginError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
                                 Неверно введён логин или пароль
                             </span>
                     <div>
                         <input type="submit" class="loginButton" value="Вход">
-                        <button class="loginButton" @click="reg=true">Регистрация</button>
+                        <button type="button" class="loginButton" @click="reg=true">Регистрация</button>
                     </div>
                 </form>
                 <span class="or">или</span>
@@ -28,28 +28,29 @@
                     <button><span title="placeholder">&times;</span></button>
                 </div>
             </div>
+
             <div v-else class="wrap container text-center">
                 <button @click="show=!show" class="closeLogin">&times;</button>
                 <h3>Регистрация</h3>
-                <form class="d-flex flex-column align-items-center noHighlight" @submit.prevent>
-                    <input type="email" class="inputField" :class="{inputError : regMailError}" name="email" placeholder="e-mail">
+                <form class="d-flex flex-column align-items-center noHighlight" action="/api/passport/register" method="POST">
+                    <input required type="email" class="inputField" :class="{inputError : regMailError}" name="email" v-model.lazy="email" placeholder="e-mail">
                             <span v-if="regMailError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
                                 E-mail недопустим или уже используется
                             </span>
-                    <input type="text" class="inputField" :class="{inputError : regLoginError}" name="login" placeholder="логин">
+                    <input required type="text" class="inputField" :class="{inputError : regLoginError}" name="login" v-model.lazy="login" placeholder="логин">
                             <span v-if="regLoginError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
                                 Логин недопустим или уже занят
                             </span>
-                    <input type="password" class="inputField" :class="{inputError : regPassError}" name="password1" placeholder="пароль">
-                    <input type="password" class="inputField" :class="{inputError : regPassError}" name="password2" placeholder="подтвердить пароль">
+                    <input required type="password" class="inputField" :class="{inputError : regPassError}" name="password1" v-model.lazy="password1" placeholder="пароль">
+                    <input required type="password" class="inputField" :class="{inputError : regPassError}" name="password2" v-model.lazy="password2" placeholder="подтвердить пароль">
                             <span v-if="regPassError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
                                 Пароли не совпадают
                             </span>
                     <div>
-                        <button class="loginButton" @click="reg=false">Вход</button>
+                        <button type="button" class="loginButton" @click="reg=false">Вход</button>
                         <input type="submit" class="loginButton" value="Регистрация">
                     </div>
                 </form>
@@ -72,15 +73,20 @@
                         > change these back to false after finished with this section
                      */
                 show: true,
-                reg: true,
-                loginError: true,
-                regLoginError: true,
-                regPassError: true,
-                regMailError: true
+                reg: false,
+                loginError: false,
+                regLoginError: false,
+                regPassError: false,
+                regMailError: false,
+                login: '',
+                email: '',
+                password: '',
+                password1: '',
+                password2: ''
             }
         },
         methods: {
-            validator() {
+            validate() {
 
             }
         }

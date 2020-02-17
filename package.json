@@ -23,8 +23,13 @@
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/vue-fontawesome": "^0.1.9",
+    "bcrypt": "^3.0.8",
     "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.0",
     "moment": "^2.24.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
