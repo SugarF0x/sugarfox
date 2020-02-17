@@ -55,6 +55,12 @@ function checkNotAuthenticated(req, res, next) {
 // ---------- ---------- ---------- ---------- ---------- \\
 
 const users = [];
+fs.readFile('dist/server/db/user-data.json', 'utf8', (err, data) => {
+    if(!err) {
+        JSON.parse(data).forEach((entry) => {users.push(entry)})
+    }
+});
+
 const SESSION_SECRET = 'qkmvGXke3owxWHUMOH1m07sscHsBv3iR7Noy23qoVXC5Lajy5OsCJG27Xde9OR6M';
 
 initialize(
@@ -90,18 +96,23 @@ router.delete('/logout', (req, res) => {
 
 router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/',
+    failureRedirect: '/fail',
     failureFlash: true
     })
 );
 
 router.post('/register', (req, res) => {
     try {
-        users.push({
+        let newUser = {
             id: Date.now().toString(),
             login: req.body.login,
             email: req.body.email,
-            password: req.body.password1
+            password: req.body.password1,
+            role: 'default'
+        };
+        users.push(newUser);
+        fs.writeFile("dist/server/db/user-data.json", JSON.stringify(users), 'utf8', () => {
+            console.log('user-data updated')
         });
         res.redirect('/');
     } catch {
