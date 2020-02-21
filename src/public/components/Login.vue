@@ -75,9 +75,6 @@
                 show: false,
                 reg: false,
                 loginError: false,
-                regLoginError: false,
-                regPassError: false,
-                regMailError: false,
                 login: '',
                 email: '',
                 password: '',
@@ -85,13 +82,60 @@
                 password2: ''
             }
         },
-        methods: {
-            validate() {
-                /* TODO:
-                    > Add validation methods
-                 */
+        computed: {
+            /* TODO:
+                > Make validation results Strings with Error text instead of boolean
+            */
+            regLoginError: () => {
+                const loginRegExp = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9-_]{2,20}$/;
+                    /*
+                        > Length bust range from 3 to 20 symbols
+                        > First symbol must be a letter (either Cyrillic or Latin)
+                        > Every other symbol can be: Cyrillic and Latin letters, numbers as well as '-' and '_' symbols
+                     */
+                if (!this.login) {
+                    return !loginRegExp.test(this.login);
+                } else {
+                    return false;
+                }
             },
-        }
+            regPassError: () => {
+                //      // This is just a harder password control which i dont think i need now
+                // const loginRegExp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}$/;
+                //     /*
+                //         > A digit must occur at least once
+                //         > A lower case letter must occur at least once
+                //         > An upper case letter must occur at least once
+                //         > A special character must occur at least once
+                //         > No whitespace allowed in the entire string
+                //         > Anything, at least eight places though
+                //      */
+                const passRegExp = /^(?=\\S+$).{8,}$/;
+                    /*
+                        > No whitespace allowed in the entire string
+                        > Anything, at least eight places though
+                     */
+                if (!this.password1) {
+                    /* TODO:
+                        > Make it also test for whether the passwords match
+                    */
+                    return !passRegExp.test(this.password1);
+                } else {
+                    return false;
+                }
+            },
+            regMailError: () => {
+                const mailRegExp = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/;
+                    /*
+                        Honestly, dunno :shrug:
+                     */
+                if (!this.email) {
+                    return !mailRegExp.test(this.email);
+                } else {
+                    return false;
+                }
+            },
+        },
     }
 </script>
 
@@ -128,6 +172,7 @@
                 left: 20%;
                 bottom: -0.25em;
                 transform: skewX(45deg);
+                    //noinspection CssInvalidPropertyValue
                 -webkit-transition: all 0.45 cubic-bezier(0.86, 0, 0.07, 1);
                 transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
             }
