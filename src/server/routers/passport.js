@@ -49,7 +49,6 @@ function checkNotAuthenticated(req, res, next) {
 
 /* TODO:
     > Add validation methods
-    > Add FS write to JSON for user data
 */
 
 // ---------- ---------- ---------- ---------- ---------- \\
@@ -91,7 +90,7 @@ router.get('/getUsers', (req,res) => {
 
 router.delete('/logout', (req, res) => {
     req.logOut();
-    res.status(200).send(JSON.stringify({result: 1, text: 'Logged out'}));
+    res.redirect('/');
 });
 
 router.post('/login', checkNotAuthenticated, passport.authenticate('local', {

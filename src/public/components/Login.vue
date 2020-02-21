@@ -5,9 +5,11 @@
             <button type="button" v-if="!$root.connection.connected" class="button noHighlight" @click="show=!show">
                 Войти
             </button>
-            <button type="button" v-else class="button noHighlight" @click="logout">
-                Выйти
-            </button>
+            <form v-else action="/api/passport/logout?_method=DELETE" method="POST">
+                <button class="button noHighlight" type="submit">
+                    Выйти
+                </button>
+            </form>
         </div>
         <div class="cover" v-if="show">
             <div v-if="reg===false" class="wrap container text-center">
@@ -70,9 +72,6 @@
         name: "Login",
         data() {
             return {
-                    /* TODO:
-                        > change these back to false after finished with this section
-                     */
                 show: false,
                 reg: false,
                 loginError: false,
@@ -92,14 +91,6 @@
                     > Add validation methods
                  */
             },
-            logout() {
-                this.$root.deleteJson('/api/passport/logout')
-                    .then(data => {
-                        if(data.result){
-                            document.location.reload(true);
-                        }
-                    })
-            }
         }
     }
 </script>
