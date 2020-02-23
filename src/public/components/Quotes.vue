@@ -66,6 +66,9 @@
                     now that i think about it - computes is a bad idea
                         i should rather sew quote refresh into the method itself
                 > Fix display on too long quotes
+                > Add a * symbol to quotes with harsh language in src file
+                    make it so that they are rendered as [CENSORED] unless the user is logged in
+                    and, perhaps, of a specific role (say, mod or frup member)
              */
             this.getQuote();
             setInterval( () => {

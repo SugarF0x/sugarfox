@@ -12,7 +12,7 @@
             </form>
         </div>
         <div class="cover" v-if="show">
-            <div v-if="reg===false" class="wrap container text-center">
+            <div v-if="!reg" class="wrap container text-center">
                 <button @click="show=!show" class="closeLogin">&times;</button>
                 <h3>Войти</h3>
                 <form class="d-flex flex-column align-items-center noHighlight" action="/api/passport/login" method="POST">
@@ -38,24 +38,24 @@
             </div>
 
             <div v-else class="wrap container text-center">
-                <button @click="show=!show" class="closeLogin">&times;</button>
+                <button @click="show=!show; reg=false" class="closeLogin">&times;</button>
                 <h3>Регистрация</h3>
-                <form class="d-flex flex-column align-items-center noHighlight" action="/api/passport/register" method="POST">
+                <form class="d-flex flex-column align-items-center noHighlight" @submit="validateReg" action="/api/passport/register" method="POST">
                     <input required type="email" class="inputField" :class="{inputError : regMailError}" name="email" v-model.lazy="email" placeholder="e-mail">
                             <span v-if="regMailError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
-                                E-mail недопустим или уже используется
+                                {{regMailError}}
                             </span>
                     <input required type="text" class="inputField" :class="{inputError : regLoginError}" name="login" v-model.lazy="login" placeholder="логин">
                             <span v-if="regLoginError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
-                                Логин недопустим или уже занят
+                                {{regLoginError}}
                             </span>
                     <input required type="password" class="inputField" :class="{inputError : regPassError}" name="password1" v-model.lazy="password1" placeholder="пароль">
                     <input required type="password" class="inputField" :class="{inputError : regPassError}" name="password2" v-model.lazy="password2" placeholder="подтвердить пароль">
                             <span v-if="regPassError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
-                                Пароли не совпадают
+                                {{regPassError}}
                             </span>
                     <div>
                         <button type="button" class="loginButton" @click="reg=false">Вход</button>
@@ -74,68 +74,83 @@
             return {
                 show: false,
                 reg: false,
-                loginError: false,
+                regLoginError: '',
+                regPassError: '',
+                regMailError: '',
+                loginError: '',
                 login: '',
                 email: '',
                 password: '',
                 password1: '',
-                password2: ''
+                password2: '',
             }
         },
-        computed: {
-            /* TODO:
-                > Make validation results Strings with Error text instead of boolean
-            */
-            regLoginError: () => {
+        methods: {
+            validateLogin() {
+
+            },
+            validateReg(event) {
+                /* TODO:
+                    > Make more specific checks and error messages
+                        so that user could see what exactly went wrong during the checks
+                        that means i will have to part ways with my RegExp consts and use just inline // checks
+                */
                 const loginRegExp = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9-_]{2,20}$/;
                     /*
                         > Length bust range from 3 to 20 symbols
                         > First symbol must be a letter (either Cyrillic or Latin)
                         > Every other symbol can be: Cyrillic and Latin letters, numbers as well as '-' and '_' symbols
-                     */
-                if (!this.login) {
-                    return !loginRegExp.test(this.login);
-                } else {
-                    return false;
-                }
-            },
-            regPassError: () => {
-                //      // This is just a harder password control which i dont think i need now
-                // const loginRegExp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}$/;
-                //     /*
-                //         > A digit must occur at least once
-                //         > A lower case letter must occur at least once
-                //         > An upper case letter must occur at least once
-                //         > A special character must occur at least once
-                //         > No whitespace allowed in the entire string
-                //         > Anything, at least eight places though
-                //      */
-                const passRegExp = /^(?=\\S+$).{8,}$/;
+                    */
+                const passRegExp = /^(?=\S+$).{8,}$/;
                     /*
                         > No whitespace allowed in the entire string
                         > Anything, at least eight places though
-                     */
-                if (!this.password1) {
-                    /* TODO:
-                        > Make it also test for whether the passwords match
                     */
-                    return !passRegExp.test(this.password1);
-                } else {
-                    return false;
-                }
-            },
-            regMailError: () => {
                 const mailRegExp = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/;
                     /*
                         Honestly, dunno :shrug:
-                     */
-                if (!this.email) {
-                    return !mailRegExp.test(this.email);
+                    */
+
+                if (this.login) {
+                    if (!loginRegExp.test(this.login)) {
+                        this.regLoginError = 'Логин должен содержать от 3 до 20 символов и не содержать пробелов и специальных символов кроме - и _'
+                    } else {
+                        this.regLoginError = '';
+                    }
                 } else {
-                    return false;
+                    this.regLoginError = '';
                 }
-            },
-        },
+
+                if (this.password1) {
+                    if (this.password1 === this.password2) {
+                        if (!passRegExp.test(this.password1)) {
+                            this.regPassError = 'Пароль должен быть от 8 символов и больше и не содержать в себе пробелов'
+                        } else {
+                            this.regPassError = ''
+                        }
+                    } else {
+                        this.regPassError = 'Пароли должны совпадать';
+                    }
+                } else {
+                    this.regPassError = '';
+                }
+
+                if (this.email) {
+                    if (!mailRegExp.test(this.email)) {
+                        this.regMailError = 'Неправильно введена почта'
+                    } else {
+                        this.regMailError = '';
+                    }
+                } else {
+                    this.regMailError = '';
+                }
+
+                if (this.regMailError || this.regPassError || this.regLoginError) {
+                    event.preventDefault();
+                    console.log('prevented')
+                }
+            }
+        }
     }
 </script>
 

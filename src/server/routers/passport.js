@@ -4,7 +4,6 @@ const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
-const flash = require('express-flash');
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
@@ -69,7 +68,6 @@ initialize(
 );
 
 router.use(express.urlencoded({ extended: false }));
-router.use(flash());
 router.use(session({
     secret: SESSION_SECRET,
     resave: false,
@@ -95,8 +93,7 @@ router.delete('/logout', (req, res) => {
 
 router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/fail',
-    failureFlash: true
+    failureRedirect: '/fail'
     })
 );
 
@@ -111,7 +108,7 @@ router.post('/register', (req, res) => {
         };
         users.push(newUser);
         fs.writeFile("dist/server/db/user-data.json", JSON.stringify(users), 'utf8', () => {
-            console.log('user-data updated')
+            console.log(`New user registered: ${newUser.login}`)
         });
         res.redirect('/');
     } catch {
