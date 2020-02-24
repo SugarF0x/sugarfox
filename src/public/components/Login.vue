@@ -87,7 +87,11 @@
         },
         methods: {
             validateLogin() {
-
+                /* TODO:
+                    > Login validation
+                        this one will have to be done via fetch requests but im not yet sure of how to implement it
+                        most likely i will have to restructure the whole thing and make something similar in validateReg()
+                */
             },
             validateReg(event) {
                 /* TODO:
@@ -96,20 +100,27 @@
                         that means i will have to part ways with my RegExp consts and use just inline // checks
                 */
                 const loginRegExp = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9-_]{2,20}$/;
-                    /*
+                    /* Rules:
                         > Length bust range from 3 to 20 symbols
                         > First symbol must be a letter (either Cyrillic or Latin)
                         > Every other symbol can be: Cyrillic and Latin letters, numbers as well as '-' and '_' symbols
                     */
                 const passRegExp = /^(?=\S+$).{8,}$/;
-                    /*
+                    /* Rules:
                         > No whitespace allowed in the entire string
                         > Anything, at least eight places though
                     */
                 const mailRegExp = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/;
-                    /*
-                        Honestly, dunno :shrug:
+                    /* TODO:
+                        > Make it to lower case
+                        > First symbol must be either a letter or a number
+                        > Out of special symbols allow only . _ and -
+                            Do i actually need these? After all, the actual emil validation will require mail confirmation
                     */
+
+                    /* TODO:
+                        > Document rules
+                     */
 
                 if (this.login) {
                     if (!loginRegExp.test(this.login)) {
