@@ -97,12 +97,85 @@ router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     })
 );
 
+router.get('/register', (req, res) => {
+    let errors = {
+        email: [],
+        login: [],
+        password: [],
+        misc: []
+    };
+    const rex = {
+        email: [
+            /^[a-z0-9]([a-z0-9]+[a-z0-9._-])+[a-z0-9]@([a-z0-9][-a-z0-9]+\.)+[a-z]{2,4}$/i, // full expression
+            /^[a-z0-9].*$/i,                    // must start with a latin latter or a number
+            /^.([a-z0-9]+[a-z0-9._-])+.*$/i,    // can only have single special symbol sequence (.. -- and __ are forbidden)
+            /^.*@.*$/,                          // must have a @
+            /^.*[a-z0-9]@.*$/i,                 // must have a latin letter or a number before @
+            /^.*@([a-z0-9][-a-z0-9]+\.)+.*$/i,  // must have a single dot after (sub)domain name
+            /^.*\.[a-z]{2,4}$/i,                // must end with region of 2-4 latin letters
+        ],
+        login: [
+            /^[а-яёa-z0-9][а-яёa-z0-9-_]{1,19}[а-яёa-z0-9]$/i, // full expression
+            /^[а-яёa-z0-9].*$/i,      // must start with a letter or a number
+            /^.[а-яёa-z0-9-_]*$/i,    // other characters are to be letters, numbers or - and _ symbols
+            /^.*[а-яёa-z0-9]$/i,      // must end with a letter or a number
+            /^.{3,21}$/               // must be the length of 3 or more upto 21
+        ],
+        password: [
+            /^(?=\S+$).{8,}$/, // full expression
+            /^\S+$/,    // no white spaces allowed
+            /^.{8,}$/   // must be 8 character or longer
+        ]
+    };
+    let newUser = {
+        email: req.body.email.toLowerCase(),
+        login: req.body.login,
+        password1: req.body.password1,
+        password2: req.body.password2
+    };
+
+    const loginRegExp = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9-_]{2,20}$/;
+    const passRegExp = /^(?=\S+$).{8,}$/;
+    const mailRegExp = /^[a-zA-Z0-9]([a-zA-Z0-9]+[a-zA-Z0-9._-])+[a-zA-Z0-9]@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/;
+
+    users.forEach((data) => {
+        if (data.email === newUser.email) {
+            errors.email.push('Эта почта уже зарегистрирована')
+        }
+    });
+
+    if (newUser.password1 !== newUser.password2) {
+        errors.password.push('Пароли не совпадают')
+    }
+
+    /* TODO:
+        > Make these validations check for each individual case
+        > Split the error message into different texts so as to be more clear with error description
+     */
+
+    if (!loginRegExp.test(newUser.login)) {
+        errors.login.push('Логин должен содержать от 3 до 20 символов и не содержать пробелов и специальных символов кроме - и _')
+    }
+
+    if (!passRegExp.test(newUser.password1)) {
+        errors.password.push('Пароль должен быть от 8 символов и больше и не содержать в себе пробелов')
+    }
+
+    if (!mailRegExp.test(newUser.email)) {
+        errors.email.push('Неправильно введена почта')
+    }
+
+    /* TODO:
+        > Send errors in response if any
+     */
+});
+
 router.post('/register', (req, res) => {
     try {
         let newUser = {
             id: Date.now().toString(),
             login: req.body.login,
-            email: req.body.email,
+            email: req.body.email.toLowerCase(),
             password: req.body.password1,
             role: 'default'
         };
@@ -112,7 +185,7 @@ router.post('/register', (req, res) => {
         });
         res.redirect('/');
     } catch {
-
+        console.log('Registration error caught (???)')
     }
 });
 
