@@ -92,6 +92,7 @@
     .pentaLink[disabled] {
         .pL__bg, .pL__fg {
             fill: gray !important;
+            transform: rotate(0deg) !important;
         }
         cursor: not-allowed;
     }

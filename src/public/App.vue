@@ -2,7 +2,11 @@
     <div>
         <Header></Header>
         <div id="main" class="container pt-5 text-center">
-
+            <PentaLink disabled img="img/main/community-chest.webp" desc="Общественная казна"></PentaLink>
+            <PentaLink disabled img="img/main/geekbrains.webp" desc="Geekbrains"></PentaLink>
+            <PentaLink disabled img="img/main/minecraft.webp" desc="Minecraft"></PentaLink>
+            <PentaLink disabled img="img/main/snake.webp" desc="Змейка"></PentaLink>
+            <PentaLink disabled img="img/main/wedding.webp" desc="Свадьба"></PentaLink>
         </div>
         <Footer></Footer>
     </div>
