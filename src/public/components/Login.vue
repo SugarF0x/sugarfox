@@ -15,12 +15,12 @@
             <div v-if="!reg" class="wrap container text-center">
                 <button @click="show=!show" class="closeLogin">&times;</button>
                 <h3>Войти</h3>
-                <form class="d-flex flex-column align-items-center noHighlight" action="/api/passport/login" method="POST">
-                    <input required type="text" class="inputField" :class="{inputError : loginError}" name="email" :model="email" placeholder="почта">
-                    <input required type="password" class="inputField" :class="{inputError : loginError}" name="password" :model="password" placeholder="пароль">
-                            <span v-if="loginError" class="errorText">
+                <form class="d-flex flex-column align-items-center noHighlight" @submit="validateLogin" action="/api/passport/login" method="POST">
+                    <input required type="text" class="inputField" :class="{inputError : loginError.length}" name="email" :model="email" placeholder="почта">
+                    <input required type="password" class="inputField" :class="{inputError : loginError.length}" name="password" :model="password" placeholder="пароль">
+                            <span v-for="error in loginError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
-                                Неверно введена почта или пароль
+                                {{error}}
                             </span>
                     <div>
                         <input type="submit" class="loginButton" value="Вход">
@@ -40,22 +40,22 @@
             <div v-else class="wrap container text-center">
                 <button @click="show=!show; reg=false" class="closeLogin">&times;</button>
                 <h3>Регистрация</h3>
-                <form class="d-flex flex-column align-items-center noHighlight" @submit="validateReg" action="/api/passport/register" method="POST">
-                    <input required type="email" class="inputField" :class="{inputError : regMailError}" name="email" v-model.lazy="email" placeholder="e-mail">
-                            <span v-if="regMailError" class="errorText">
+                <form class="d-flex flex-column align-items-center noHighlight" @submit.prevent="validateReg" action="/api/passport/register" method="POST">
+                    <input required type="email" class="inputField" :class="{inputError : regMailError.length}" name="email" v-model.lazy="email" placeholder="e-mail">
+                            <span v-for="error in regMailError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
-                                {{regMailError}}
+                                {{error}}
                             </span>
-                    <input required type="text" class="inputField" :class="{inputError : regLoginError}" name="login" v-model.lazy="login" placeholder="логин">
-                            <span v-if="regLoginError" class="errorText">
+                    <input required type="text" class="inputField" :class="{inputError : regLoginError.length}" name="login" v-model.lazy="login" placeholder="логин">
+                            <span v-for="error in regLoginError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
-                                {{regLoginError}}
+                                {{error}}
                             </span>
-                    <input required type="password" class="inputField" :class="{inputError : regPassError}" name="password1" v-model.lazy="password1" placeholder="пароль">
-                    <input required type="password" class="inputField" :class="{inputError : regPassError}" name="password2" v-model.lazy="password2" placeholder="подтвердить пароль">
-                            <span v-if="regPassError" class="errorText">
+                    <input required type="password" class="inputField" :class="{inputError : regPassError.length}" name="password1" v-model.lazy="password1" placeholder="пароль">
+                    <input required type="password" class="inputField" :class="{inputError : regPassError.length}" name="password2" v-model.lazy="password2" placeholder="подтвердить пароль">
+                            <span v-for="error in regPassError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
-                                {{regPassError}}
+                                {{error}}
                             </span>
                     <div>
                         <button type="button" class="loginButton" @click="reg=false">Вход</button>
@@ -74,10 +74,13 @@
             return {
                 show: false,
                 reg: false,
-                regLoginError: '',
-                regPassError: '',
-                regMailError: '',
-                loginError: '',
+                    /* TODO:
+                        > Jeez, I do have to compile these errors into a single object like it is on server the server side
+                    */
+                regLoginError: [],
+                regPassError: [],
+                regMailError: [],
+                loginError: [],
                 login: '',
                 email: '',
                 password: '',
@@ -93,73 +96,21 @@
                         most likely i will have to restructure the whole thing and make something similar in validateReg()
                 */
             },
-            validateReg(event) {
-                /* TODO:
-                    > Make more specific checks and error messages
-                        so that user could see what exactly went wrong during the checks
-                        that means i will have to part ways with my RegExp consts and use just inline // checks
-                */
-                const loginRegExp = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9-_]{2,20}$/;
-                    /* Rules:
-                        > Length bust range from 3 to 20 symbols
-                        > First symbol must be a letter (either Cyrillic or Latin)
-                        > Every other symbol can be: Cyrillic and Latin letters, numbers as well as '-' and '_' symbols
-                    */
-                const passRegExp = /^(?=\S+$).{8,}$/;
-                    /* Rules:
-                        > No whitespace allowed in the entire string
-                        > Anything, at least eight places though
-                    */
-                const mailRegExp = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/;
-                    /* TODO:
-                        > Make it to lower case
-                        > First symbol must be either a letter or a number
-                        > Out of special symbols allow only . _ and -
-                            Do i actually need these? After all, the actual emil validation will require mail confirmation
-                    */
-
-                    /* TODO:
-                        > Document rules
-                     */
-
-                if (this.login) {
-                    if (!loginRegExp.test(this.login)) {
-                        this.regLoginError = 'Логин должен содержать от 3 до 20 символов и не содержать пробелов и специальных символов кроме - и _'
-                    } else {
-                        this.regLoginError = '';
-                    }
-                } else {
-                    this.regLoginError = '';
-                }
-
-                if (this.password1) {
-                    if (this.password1 === this.password2) {
-                        if (!passRegExp.test(this.password1)) {
-                            this.regPassError = 'Пароль должен быть от 8 символов и больше и не содержать в себе пробелов'
+            validateReg() {
+                this.$root.postJson('/api/passport/register', {
+                    email: this.email,
+                    login: this.login,
+                    password1: this.password1,
+                    password2: this.password2,})
+                    .then(response => {
+                        if (response.result) {
+                            window.location.reload();
                         } else {
-                            this.regPassError = ''
+                            this.regMailError = response.msg.email;
+                            this.regPassError = response.msg.password;
+                            this.regLoginError = response.msg.login;
                         }
-                    } else {
-                        this.regPassError = 'Пароли должны совпадать';
-                    }
-                } else {
-                    this.regPassError = '';
-                }
-
-                if (this.email) {
-                    if (!mailRegExp.test(this.email)) {
-                        this.regMailError = 'Неправильно введена почта'
-                    } else {
-                        this.regMailError = '';
-                    }
-                } else {
-                    this.regMailError = '';
-                }
-
-                if (this.regMailError || this.regPassError || this.regLoginError) {
-                    event.preventDefault();
-                    console.log('prevented')
-                }
+                    });
             }
         }
     }

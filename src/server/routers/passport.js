@@ -97,7 +97,7 @@ router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     })
 );
 
-router.get('/register', (req, res) => {
+router.post('/register', (req, res) => {
     let errors = {
         email: [],
         login: [],
@@ -106,12 +106,14 @@ router.get('/register', (req, res) => {
     };
     const rex = {
         email: [
-            /^[a-z0-9]([a-z0-9]+[a-z0-9._-])+[a-z0-9]@([a-z0-9][-a-z0-9]+\.)+[a-z]{2,4}$/i, // full expression
+            /^([a-z0-9]+[a-z0-9.-]?)*[a-z0-9]@([a-z0-9][-.a-z0-9]?)*[a-z0-9]\.[a-z]{2,4}$/i, // full expression
+            [/^[a-z0-9.-]*$/i,                  'Разрешены только латинские буквы, цифры и знаки . и -'],
             [/^[a-z0-9].*$/i,                   'Почта должна начинаться с латинской буквы или цифры'],
-            [/^.([a-z0-9]+[a-z0-9._-])+.*$/i,   'Запрещены повторы специальных символов (.. -- __)'],
-            [/^.*@.*$/,                         'Почта должна содержать @'],
+            [/^([a-z0-9]+[-.]?)*@.*$/i,         'Повторы специальных знаков в имени запрещены'],
+            [/^.*@.*$/i,                        'Почта должна содержать @'],
             [/^.*[a-z0-9]@.*$/i,                'Перед @ должна стоять латинская буква или цифра'],
-            [/^.*@([a-z0-9][-a-z0-9]+\.)+.*$/i, 'Поле домена не должно содержать специальных смволов и повторов точек (..)'],
+            [/^.*@[a-z0-9].*$/i,                'Имя домена должно начинаться с латинской буквы или цифры'],
+            [/^.*@([a-z0-9]+[-.]?)*.[a-z]*$/i,  'Повторы специальных знаков в домене запрещены'],
             [/^.*\.[a-z]{2,4}$/i,               'Регион должен состоять из 2-4 латинских букв']
         ],
         login: [
@@ -134,62 +136,55 @@ router.get('/register', (req, res) => {
         password2: req.body.password2
     };
 
-    const loginRegExp = /^[а-яА-ЯёЁa-zA-Z][а-яА-ЯёЁa-zA-Z0-9-_]{2,20}$/;
-    const passRegExp = /^(?=\S+$).{8,}$/;
-    const mailRegExp = /^[a-zA-Z0-9]([a-zA-Z0-9]+[a-zA-Z0-9._-])+[a-zA-Z0-9]@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/;
-
-    users.forEach((data) => {
+    users.forEach(data => {
         if (data.email === newUser.email) {
             errors.email.push('Эта почта уже зарегистрирована')
         }
     });
-
     if (newUser.password1 !== newUser.password2) {
         errors.password.push('Пароли не совпадают')
     }
+    if (!rex.email[0].test(newUser.email)) {
+        rex.email.slice(1).forEach((regexp) => {
+            if (!regexp[0].test(newUser.email)) {
+                errors.email.push(regexp[1]);
+            }
+        })
+    }
+    if (!rex.login[0].test(newUser.login)) {
+        rex.login.slice(1).forEach((regexp) => {
+            if (!regexp[0].test(newUser.login)) {
+                errors.login.push(regexp[1]);
+            }
+        })
+    }
+    if (!rex.password[0].test(newUser.password)) {
+        rex.password.slice(1).forEach((regexp) => {
+            if (!regexp[0].test(newUser.password)) {
+                errors.password.push(regexp[1]);
+            }
+        })
+    }
 
-    /* TODO:
-        > Make these validations check for each individual case
-        > Split the error message into different texts so as to be more clear with error description
-     */
-
-    // if (!loginRegExp.test(newUser.login)) {
-    //     errors.login.push('Логин должен содержать от 3 до 20 символов и не содержать пробелов и специальных символов кроме - и _')
-    // }
-    //
-    // if (!passRegExp.test(newUser.password1)) {
-    //     errors.password.push('Пароль должен быть от 8 символов и больше и не содержать в себе пробелов')
-    // }
-    //
-    // if (!mailRegExp.test(newUser.email)) {
-    //     errors.email.push('Неправильно введена почта')
-    // }
-
-    rex.email.forEach((regexp) => {
-
-    })
-
-    /* TODO:
-        > Send errors in response if any
-     */
-});
-
-router.post('/register', (req, res) => {
-    try {
-        let newUser = {
+    if (errors.email.length || errors.login.length || errors.password.length || errors.misc.length) {
+        console.log(errors);
+        res.json({
+            result: 0,
+            msg: errors
+        });
+    } else {
+        let user = {
             id: Date.now().toString(),
-            login: req.body.login,
-            email: req.body.email.toLowerCase(),
-            password: req.body.password1,
+            login: newUser.login,
+            email: newUser.email.toLowerCase(),
+            password: newUser.password1,
             role: 'default'
         };
-        users.push(newUser);
+        users.push(user);
         fs.writeFile("dist/server/db/user-data.json", JSON.stringify(users), 'utf8', () => {
-            console.log(`New user registered: ${newUser.login}`)
+            console.log(`New user registered: ${user.login}`)
         });
-        res.redirect('/');
-    } catch {
-        console.log('Registration error caught (???)')
+        res.json({result: 1, msg:'SUCCESS'});
     }
 });
 
