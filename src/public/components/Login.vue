@@ -15,12 +15,12 @@
             <div v-if="!reg" class="wrap container text-center">
                 <button @click="show=!show" class="closeLogin">&times;</button>
                 <h3>Войти</h3>
-                <form class="d-flex flex-column align-items-center noHighlight" @submit="validateLogin" action="/api/passport/login" method="POST">
-                    <input required type="text" class="inputField" :class="{inputError : loginError.length}" name="email" :model="email" placeholder="почта">
-                    <input required type="password" class="inputField" :class="{inputError : loginError.length}" name="password" :model="password" placeholder="пароль">
-                            <span v-for="error in loginError" class="errorText">
+                <form class="d-flex flex-column align-items-center noHighlight" @submit.prevent="validateLogin" action="/api/passport/login" method="POST">
+                    <input required type="text" class="inputField" :class="{inputError : loginError.length}" name="email" v-model="email" placeholder="почта">
+                    <input required type="password" class="inputField" :class="{inputError : loginError.length}" name="password" v-model="password" placeholder="пароль">
+                            <span v-if="loginError" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
-                                {{error}}
+                                {{loginError}}
                             </span>
                     <div>
                         <input type="submit" class="loginButton" value="Вход">
@@ -80,7 +80,7 @@
                 regLoginError: [],
                 regPassError: [],
                 regMailError: [],
-                loginError: [],
+                loginError: '',
                 login: '',
                 email: '',
                 password: '',
@@ -90,24 +90,30 @@
         },
         methods: {
             validateLogin() {
-                /* TODO:
-                    > Login validation
-                        this one will have to be done via fetch requests but im not yet sure of how to implement it
-                        most likely i will have to restructure the whole thing and make something similar in validateReg()
-                */
+                console.log(this.email, this.password);
+                this.$root.postJson('/api/passport/login', {
+                    email: this.email,
+                    password: this.password})
+                    .then(response => {
+                        if (response.result) {
+                            window.location.reload();
+                        } else {
+                            this.loginError = response.msg;
+                        }
+                    });
             },
             validateReg() {
                 this.$root.postJson('/api/passport/register', {
                     email: this.email,
                     login: this.login,
                     password1: this.password1,
-                    password2: this.password2,})
+                    password2: this.password2})
                     .then(response => {
                         if (response.result) {
                             window.location.reload();
                         } else {
-                            this.regMailError = response.msg.email;
-                            this.regPassError = response.msg.password;
+                            this.regMailError  = response.msg.email;
+                            this.regPassError  = response.msg.password;
                             this.regLoginError = response.msg.login;
                         }
                     });

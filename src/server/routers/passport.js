@@ -46,10 +46,6 @@ function checkNotAuthenticated(req, res, next) {
     next()
 }
 
-/* TODO:
-    > Add validation methods
-*/
-
 // ---------- ---------- ---------- ---------- ---------- \\
 
 const users = [];
@@ -86,16 +82,27 @@ router.get('/getUsers', (req,res) => {
     res.json(users)
 });
 
-router.delete('/logout', (req, res) => {
+router.delete('/logout', checkAuthenticated, (req, res) => {
     req.logOut();
     res.redirect('/');
 });
 
-router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/fail'
-    })
-);
+router.post('/login', checkNotAuthenticated, (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.json({result: 0, msg: 'Неправильно введена почта или пароль'});
+        }
+        req.logIn(user, err => {
+            if (err) {
+                return next(err);
+            }
+            return res.json({result: 1, msg: 'SUCCESS'});
+        });
+    })(req, res, next);
+});
 
 router.post('/register', (req, res) => {
     let errors = {
