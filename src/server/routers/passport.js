@@ -107,24 +107,24 @@ router.get('/register', (req, res) => {
     const rex = {
         email: [
             /^[a-z0-9]([a-z0-9]+[a-z0-9._-])+[a-z0-9]@([a-z0-9][-a-z0-9]+\.)+[a-z]{2,4}$/i, // full expression
-            /^[a-z0-9].*$/i,                    // must start with a latin latter or a number
-            /^.([a-z0-9]+[a-z0-9._-])+.*$/i,    // can only have single special symbol sequence (.. -- and __ are forbidden)
-            /^.*@.*$/,                          // must have a @
-            /^.*[a-z0-9]@.*$/i,                 // must have a latin letter or a number before @
-            /^.*@([a-z0-9][-a-z0-9]+\.)+.*$/i,  // must have a single dot after (sub)domain name
-            /^.*\.[a-z]{2,4}$/i,                // must end with region of 2-4 latin letters
+            [/^[a-z0-9].*$/i,                   'Почта должна начинаться с латинской буквы или цифры'],
+            [/^.([a-z0-9]+[a-z0-9._-])+.*$/i,   'Запрещены повторы специальных символов (.. -- __)'],
+            [/^.*@.*$/,                         'Почта должна содержать @'],
+            [/^.*[a-z0-9]@.*$/i,                'Перед @ должна стоять латинская буква или цифра'],
+            [/^.*@([a-z0-9][-a-z0-9]+\.)+.*$/i, 'Поле домена не должно содержать специальных смволов и повторов точек (..)'],
+            [/^.*\.[a-z]{2,4}$/i,               'Регион должен состоять из 2-4 латинских букв']
         ],
         login: [
             /^[а-яёa-z0-9][а-яёa-z0-9-_]{1,19}[а-яёa-z0-9]$/i, // full expression
-            /^[а-яёa-z0-9].*$/i,      // must start with a letter or a number
-            /^.[а-яёa-z0-9-_]*$/i,    // other characters are to be letters, numbers or - and _ symbols
-            /^.*[а-яёa-z0-9]$/i,      // must end with a letter or a number
-            /^.{3,21}$/               // must be the length of 3 or more upto 21
+            [/^[а-яёa-z0-9].*$/i,   'Логин должен начинаться с буквы или цифры'],
+            [/^.[а-яёa-z0-9-_]*$/i, 'Логин должен состоять из букв, цифр и символов - и _'],
+            [/^.*[а-яёa-z0-9]$/i,   'Логин должен заканчиваться на букву или цифру'],
+            [/^.{3,21}$/,           'Логин должен быть от 3 до 21 символов']
         ],
         password: [
             /^(?=\S+$).{8,}$/, // full expression
-            /^\S+$/,    // no white spaces allowed
-            /^.{8,}$/   // must be 8 character or longer
+            [/^\S+$/,   'Пробелы недопустимы'],
+            [/^.{8,}$/, 'Пароль должен быть от 8 символов']
         ]
     };
     let newUser = {
@@ -153,17 +153,21 @@ router.get('/register', (req, res) => {
         > Split the error message into different texts so as to be more clear with error description
      */
 
-    if (!loginRegExp.test(newUser.login)) {
-        errors.login.push('Логин должен содержать от 3 до 20 символов и не содержать пробелов и специальных символов кроме - и _')
-    }
+    // if (!loginRegExp.test(newUser.login)) {
+    //     errors.login.push('Логин должен содержать от 3 до 20 символов и не содержать пробелов и специальных символов кроме - и _')
+    // }
+    //
+    // if (!passRegExp.test(newUser.password1)) {
+    //     errors.password.push('Пароль должен быть от 8 символов и больше и не содержать в себе пробелов')
+    // }
+    //
+    // if (!mailRegExp.test(newUser.email)) {
+    //     errors.email.push('Неправильно введена почта')
+    // }
 
-    if (!passRegExp.test(newUser.password1)) {
-        errors.password.push('Пароль должен быть от 8 символов и больше и не содержать в себе пробелов')
-    }
+    rex.email.forEach((regexp) => {
 
-    if (!mailRegExp.test(newUser.email)) {
-        errors.email.push('Неправильно введена почта')
-    }
+    })
 
     /* TODO:
         > Send errors in response if any
