@@ -167,11 +167,7 @@ router.post('/register', (req, res) => {
     }
 
     if (errors.email.length || errors.login.length || errors.password.length || errors.misc.length) {
-        console.log(errors);
-        res.json({
-            result: 0,
-            msg: errors
-        });
+        res.json({result: 0, msg: errors});
     } else {
         let user = {
             id: Date.now().toString(),
