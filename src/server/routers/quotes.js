@@ -2,6 +2,10 @@ const express = require('express');
 const fs = require('fs');
 const router = express.Router();
 
+/* TODO:
+    > Add a check for whether the user is logged in or not in order to be entitled to receiving quotes
+ */
+
 router.get('/', (req, res) => {
     fs.readFile('dist/server/db/quotes.txt', 'utf8', (err, data) => {
         if(err){

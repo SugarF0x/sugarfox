@@ -1,6 +1,5 @@
 <template>
-    <div
-            class="quote noHighlight d-inline-flex align-items-center">
+    <div class="quote noHighlight d-inline-flex align-items-center">
         <div
                 class="quote__text"
                 :style="{opacity: opacity}"
@@ -32,7 +31,7 @@
         name: "Quotes",
         data() {
             return {
-                quote: 'undefined',
+                quote: 'Цитаты только для зарегистрированных пользователей',
                 id: 0,
                 max: 0,
                 autoUpdate: true,
@@ -41,45 +40,40 @@
             }
         },
         methods: {
-            getQuote(auto) {
+            getQuote(manual) {
+                if (manual) {
+                    this.autoUpdate = false;
+                }
                 this.$root.getJson('/api/quotes/random')
                     .then(data => {
                         this.quote = data.quote;
                         this.id    = data.id;
                         this.max   = data.max;
-                    });
-                if (auto) this.autoUpdate = false;
+                        setTimeout(() => {this.fade(0)},250);
+                    })
+                    .catch(() => {
+                            this.quote = 'Ошибка: не удалось получить информацию с сервера';
+                            this.id    = 0;
+                            this.max   = 0;
+                            this.autoRefresh = false;
+                    })
+            },
+            fade(state = this.opacity) {
+                if (state) {
+                    this.opacity = 0;
+                } else {
+                    this.opacity = 1;
+                }
             }
-            /* TODO:
-                > make another method for updating the quote that fades out, fetches and only then fades in
-                    if no data is fetched within update window - insert error and stop auto update
-             */
         },
         mounted() {
-            /* TODO:
-                > make sure it only updates after having received another quote
-                    perhaps this can be achieved via callback or .then() function of our beloved getJson()
-                > make autoRefresh false state actually break cycle and start it again when set back to true
-                    there is no need for setInterval() to go running over and over again with no updates
-                    perhaps i can do that through computed: elements
-                        make them go round with while(this.autoRefresh) {this.getQuote()}
-                    now that i think about it - computes is a bad idea
-                        i should rather sew quote refresh into the method itself
-                > Fix display on too long quotes
-                > Add a * symbol to quotes with harsh language in src file
-                    make it so that they are rendered as [CENSORED] unless the user is logged in
-                    and, perhaps, of a specific role (say, mod or frup member)
-             */
             this.getQuote();
             setInterval( () => {
                 if (this.autoUpdate && this.autoRefresh) {
-                    this.opacity = 0;
+                    this.fade();
                     setTimeout(() => {
                         this.getQuote();
-                        setTimeout(() => {
-                            this.opacity = 1;
-                        },100);
-                    },400);
+                    }, 250);
                 } else {
                     this.autoUpdate = true;
                 }
@@ -103,6 +97,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
+            max-width: 70vw;
         }
         .quote__number {
             font-size: 0.65em;

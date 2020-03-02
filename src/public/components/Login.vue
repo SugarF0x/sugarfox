@@ -1,8 +1,8 @@
 <template>
     <div class="login">
         <div class="d-flex align-items-center">
-            <span class="mr-2">{{ $root.connection.login }}</span>
-            <button type="button" v-if="!$root.connection.connected" class="button noHighlight" @click="show=!show">
+            <span class="mr-2">{{ $root.session.login }}</span>
+            <button type="button" v-if="!$root.session.connected" class="button noHighlight" @click="show=!show">
                 Войти
             </button>
             <form v-else action="/api/passport/logout?_method=DELETE" method="POST">

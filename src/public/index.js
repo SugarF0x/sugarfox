@@ -11,7 +11,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 new Vue({
     render: h => h(App),
     data: {
-        connection: {
+        session: {
             connected: false,
             login: ''
         }
@@ -59,8 +59,8 @@ new Vue({
         this.getJson('/api/passport/status')
             .then(data => {
                 if (data) {
-                    this.connection.connected = true;
-                    this.connection.login = data.login;
+                    this.session.connected = true;
+                    this.session.login = data.login;
                 }
             });
     }
