@@ -30,10 +30,18 @@
                 <span class="or">или</span>
                 <h5>Войти через сторонний сайт:</h5>
                 <div class="d-flex justify-content-between p-2 third-party noHighlight">
-                    <button><font-awesome-icon :icon="['fab', 'vk']" title="Вконтакте"/></button>
-                    <button><font-awesome-icon :icon="['fab', 'facebook']" title="Facebook"/></button>
-                    <button><font-awesome-icon :icon="['fab', 'twitter']" title="Twitter"/></button>
-                    <button><span title="placeholder">&times;</span></button>
+                    <form action="/api/passport/login/vk">
+                        <button type="submit"><font-awesome-icon :icon="['fab', 'vk']" title="Вконтакте"/></button>
+                    </form>
+                    <form action="#" @submit.prevent>
+                        <button type="submit"><font-awesome-icon :icon="['fab', 'facebook']" title="Facebook"/></button>
+                    </form>
+                    <form action="#" @submit.prevent>
+                        <button><font-awesome-icon :icon="['fab', 'twitter']" title="Twitter"/></button>
+                    </form>
+                    <form action="#" @submit.prevent>
+                        <button><span title="placeholder">&times;</span></button>
+                    </form>
                 </div>
             </div>
 
@@ -90,8 +98,7 @@
         },
         methods: {
             validateLogin() {
-                console.log(this.email, this.password);
-                this.$root.postJson('/api/passport/login', {
+                this.$root.postJson('/api/passport/login/local', {
                     email: this.email,
                     password: this.password})
                     .then(response => {
@@ -243,8 +250,8 @@
                 .third-party {
                     margin: 0 3rem;
                 }
-                .third-party > * {
-                    > * {
+                .third-party {
+                    button > * {
                         background-color: steelblue;
                         font-weight: bold;
                         color: white;
@@ -258,6 +265,9 @@
                         height: 2rem;
                         width: 2rem;
                         padding: .3rem;
+                    }
+                    svg {
+                        position: relative;
                     }
                 }
                 input {

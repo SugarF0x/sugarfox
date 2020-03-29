@@ -1,7 +1,13 @@
-[{
-  "id": "1",
-  "login": "admin",
-  "email": "admin",
-  "password": "1234",
-  "role": "admin"
-}]
+{
+  "local": [
+    {
+      "type": "local",
+      "id": "1",
+      "login": "admin",
+      "email": "admin",
+      "password": "1234",
+      "role": "admin"
+    }
+  ],
+  "VK": []
+}
