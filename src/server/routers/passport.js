@@ -1,11 +1,11 @@
 const express = require('express'),
-    fs      = require('fs'),
-    router  = express.Router(),
-    session = require('express-session');
+      fs      = require('fs'),
+      router  = express.Router(),
+      session = require('express-session');
 
 const passport          = require('passport'),
-    LocalStrategy     = require('passport-local').Strategy,
-    VKontakteStrategy = require('passport-vkontakte').Strategy;
+      LocalStrategy     = require('passport-local').Strategy,
+      VKontakteStrategy = require('passport-vkontakte').Strategy;
 
 const users = {local: [], VK: []};
 fs.readFile('dist/server/db/user-data.json', 'utf8', (err, data) => {
@@ -21,6 +21,7 @@ fs.readFile('dist/server/db/user-data.json', 'utf8', (err, data) => {
 });
 
 const SESSION_SECRET = 'qkmvGXke3owxWHUMOH1m07sscHsBv3iR7Noy23qoVXC5Lajy5OsCJG27Xde9OR6M';
+const DEV_IP = '87.228.10.195';
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
@@ -44,7 +45,7 @@ passport.use(new LocalStrategy({usernameField: 'email'}, (email, password, done)
 passport.use(new VKontakteStrategy({
         clientID:     7123145,
         clientSecret: 'EDY6yy6bfCPtTkPk8bKe',
-        callbackURL:  "http://localhost:3000/api/passport/login/vk/callback"
+        callbackURL:  `http://${DEV_IP}:3000/api/passport/login/vk/callback`
     },
     function(accessToken, refreshToken, params, user, done) {
         process.nextTick(() => {
