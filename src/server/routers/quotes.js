@@ -11,9 +11,7 @@ router.get('/', (req, res) => {
         if(err){
             res.status(404).json({result: 0, text: err});
         } else {
-            res.json({
-                quotes: data.split(/\r?\n/)
-            });
+            res.send(data.split('\n').join('<br>'));
         }
     })
 });
