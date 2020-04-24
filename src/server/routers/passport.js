@@ -8,7 +8,6 @@ const LocalStrategy     = require('passport-local').Strategy,
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
-// module.exports = router;
 module.exports = (passport) => {
     const users = {local: [], VK: []};
     fs.readFile('dist/server/db/user-data.json', 'utf8', (err, data) => {
@@ -104,7 +103,13 @@ module.exports = (passport) => {
     });
 
     router.get('/getUsers', (req,res) => {
-        res.json(users)
+        if (!req.user) {
+            res.status(401).send('Отказано в доступе: войдите в свой профиль для продолжения');
+        } else if (req.user.role === 'admin') {
+            res.send(users);
+        } else {
+            res.status(401).send('Отказано в доступе: нет прав на это действие');
+        }
     });
 
     router.delete('/logout', ensureAuthenticated, (req, res) => {
