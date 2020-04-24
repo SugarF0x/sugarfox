@@ -2,6 +2,7 @@
     <div class="quote noHighlight d-inline-flex align-items-center">
         <div
                 class="quote__text"
+                :class="{disabledAction: !$root.session.connected}"
                 :style="{opacity: opacity}"
                 @click="getQuote(true)">
             {{quote}}
@@ -31,12 +32,12 @@
         name: "Quotes",
         data() {
             return {
-                quote: 'Цитаты только для зарегистрированных пользователей',
+                quote: '-',
                 id: 0,
                 max: 0,
-                autoUpdate: true,
+                autoUpdate: true, // refresh
                 opacity: 1,
-                autoRefresh: true
+                autoRefresh: true // auto fetch
             }
         },
         methods: {
@@ -49,6 +50,7 @@
                         this.quote = data.quote;
                         this.id    = data.id;
                         this.max   = data.max;
+                        if (!data.result) this.autoRefresh = false;
                         setTimeout(() => {this.fade(0)},250);
                     })
                     .catch(() => {
@@ -83,6 +85,9 @@
 </script>
 
 <style scoped lang="less">
+    .disabledAction {
+        cursor: not-allowed !important;
+    }
     .quote {
         > * {
             display: inline-block;
