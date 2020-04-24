@@ -80,6 +80,10 @@ module.exports = {
                 from: 'src/public/img',
                 to: 'img/[path][name].[ext]',
                 toType: 'template'
+            },
+            {
+                from: 'src/public/archive',
+                to: 'archive'
             }
         ]),
         new VueLoaderPlugin()
