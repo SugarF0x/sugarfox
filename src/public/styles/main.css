@@ -43,10 +43,6 @@
   body {
     font-size: 18px;
   }
-  html .insert,
-  body .insert {
-    justify-content: left;
-  }
 }
 @media (min-width: 1200px) {
   html,
@@ -66,13 +62,13 @@ body:after {
 * {
   font-family: Jura, sans-serif;
 }
-#main > * {
+main > * {
   padding: 1rem 1.5rem;
 }
-#main > .row {
+main > .row {
   margin: 0;
 }
-#main > section:nth-of-type(2n) {
+main > section:nth-of-type(2n) {
   background-color: aliceblue;
 }
 header,
