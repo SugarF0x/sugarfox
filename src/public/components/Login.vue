@@ -16,11 +16,11 @@
                 <button @click="show=!show" class="closeLogin">&times;</button>
                 <h3>Войти</h3>
                 <form class="d-flex flex-column align-items-center noHighlight" @submit.prevent="validateLogin" action="/api/passport/login" method="POST">
-                    <input required type="text" class="inputField" :class="{inputError : loginError.length}" name="email" v-model="email" placeholder="почта">
-                    <input required type="password" class="inputField" :class="{inputError : loginError.length}" name="password" v-model="password" placeholder="пароль">
-                            <span v-if="loginError" class="errorText">
+                    <input required type="text" class="inputField" :class="{inputError : errors.login.length}" name="email" v-model="email" placeholder="почта">
+                    <input required type="password" class="inputField" :class="{inputError : errors.login.length}" name="password" v-model="password" placeholder="пароль">
+                            <span v-if="errors.login" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
-                                {{loginError}}
+                                {{errors.login}}
                             </span>
                     <div>
                         <input type="submit" class="loginButton" value="Вход">
@@ -49,19 +49,19 @@
                 <button @click="show=!show; reg=false" class="closeLogin">&times;</button>
                 <h3>Регистрация</h3>
                 <form class="d-flex flex-column align-items-center noHighlight" @submit.prevent="validateReg" action="/api/passport/register" method="POST">
-                    <input required type="email" class="inputField" :class="{inputError : regMailError.length}" name="email" v-model.lazy="email" placeholder="e-mail">
-                            <span v-for="error in regMailError" class="errorText">
+                    <input required type="email" class="inputField" :class="{inputError : errors.registration.mail.length}" name="email" v-model.lazy="email" placeholder="e-mail">
+                            <span v-for="error in errors.registration.mail" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
                                 {{error}}
                             </span>
-                    <input required type="text" class="inputField" :class="{inputError : regLoginError.length}" name="login" v-model.lazy="login" placeholder="логин">
-                            <span v-for="error in regLoginError" class="errorText">
+                    <input required type="text" class="inputField" :class="{inputError : errors.registration.login.length}" name="login" v-model.lazy="login" placeholder="логин">
+                            <span v-for="error in errors.registration.login" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
                                 {{error}}
                             </span>
-                    <input required type="password" class="inputField" :class="{inputError : regPassError.length}" name="password1" v-model.lazy="password1" placeholder="пароль">
-                    <input required type="password" class="inputField" :class="{inputError : regPassError.length}" name="password2" v-model.lazy="password2" placeholder="подтвердить пароль">
-                            <span v-for="error in regPassError" class="errorText">
+                    <input required type="password" class="inputField" :class="{inputError : errors.registration.password.length}" name="password1" v-model.lazy="password1" placeholder="пароль">
+                    <input required type="password" class="inputField" :class="{inputError : errors.registration.password.length}" name="password2" v-model.lazy="password2" placeholder="подтвердить пароль">
+                            <span v-for="error in errors.registration.password" class="errorText">
                                 <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
                                 {{error}}
                             </span>
@@ -82,13 +82,14 @@
             return {
                 show: false,
                 reg: false,
-                    /* TODO:
-                        > Jeez, I do have to compile these errors into a single object like it is on server the server side
-                    */
-                regLoginError: [],
-                regPassError: [],
-                regMailError: [],
-                loginError: '',
+                errors: {
+                    registration: {
+                        login: [],
+                        password: [],
+                        mail: []
+                    },
+                    login: ''
+                },
                 login: '',
                 email: '',
                 password: '',
@@ -105,7 +106,7 @@
                         if (response.result) {
                             window.location.reload();
                         } else {
-                            this.loginError = response.msg;
+                            this.errors.login = response.msg;
                         }
                     });
             },
@@ -119,9 +120,9 @@
                         if (response.result) {
                             window.location.reload();
                         } else {
-                            this.regMailError  = response.msg.email;
-                            this.regPassError  = response.msg.password;
-                            this.regLoginError = response.msg.login;
+                            this.errors.registration.mail      = response.msg.email;
+                            this.errors.registration.password  = response.msg.password;
+                            this.errors.registration.login     = response.msg.login;
                         }
                     });
             }
