@@ -47,10 +47,14 @@
                 }
                 this.$root.getJson('/api/quotes/random')
                     .then(data => {
-                        this.quote = data.quote;
-                        this.id    = data.id;
-                        this.max   = data.max;
-                        if (!data.result) this.autoRefresh = false;
+                        if (data.result) {
+                            this.quote = data.quote;
+                            this.id    = data.id;
+                            this.max   = data.max;
+                        } else {
+                            this.quote = data.msg;
+                            this.autoRefresh = false;
+                        }
                         setTimeout(() => {this.fade(0)},250);
                     })
                     .catch(() => {

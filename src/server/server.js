@@ -9,12 +9,6 @@ const express        = require('express'),
       moment         = require('moment'),
       methodOverride = require('method-override');
 
-/* TODO: Move pass auth here
-    > looks like i will have to more passport.authenticate methods here
-      though i can still leave all the login and register methods in their separate class
-      and just access them via the very same route, just pass (passport) as an argument to the route call
- */
-
 app.use(methodOverride('_method'));
 app.use(express.json());
 app.use('/', express.static('dist/public'));

@@ -99,16 +99,29 @@ module.exports = (passport) => {
         });
 
     router.get('/status', (req,res) => {
-        res.json(req.user)
+        if (req.user) {
+            res.json(req.user)
+        } else {
+            res.status(401).json({
+                result: 0,
+                msg: 'Не произведён вход в профиль'
+            })
+        }
     });
 
     router.get('/getUsers', (req,res) => {
         if (!req.user) {
-            res.status(401).send('Отказано в доступе: войдите в свой профиль для продолжения');
+            res.status(401).send({
+                result: 0,
+                msg: 'Отказано в доступе: войдите в свой профиль для продолжения'
+            });
         } else if (req.user.role === 'admin') {
             res.send(users);
         } else {
-            res.status(401).send('Отказано в доступе: нет прав на это действие');
+            res.status(401).send({
+                result: 0,
+                msg: 'Отказано в доступе: нет прав на это действие'
+            });
         }
     });
 
