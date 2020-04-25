@@ -49,8 +49,6 @@ module.exports = (passport) => {
         }
     });
 
-    /* TODO: standardise error responses to same json structure */
-
     router.get('/:id', (req, res) => {
         if (!req.user) {
             res.status(401).json({

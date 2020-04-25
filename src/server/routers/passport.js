@@ -93,14 +93,12 @@ module.exports = (passport) => {
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
-    router.get('/',
-        function(req, res) { // TODO: Passport API documentation
-            res.send('TODO: Passport API documentation');
-        });
-
     router.get('/status', (req,res) => {
         if (req.user) {
-            res.json(req.user)
+            res.json({
+                result: 1,
+                msg: req.user
+            })
         } else {
             res.status(401).json({
                 result: 0,

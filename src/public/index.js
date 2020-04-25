@@ -58,9 +58,9 @@ new Vue({
     mounted() {
         this.getJson('/api/passport/status')
             .then(data => {
-                if (data) {
+                if (data.result) {
                     this.session.connected = true;
-                    this.session.login = data.login;
+                    this.session.login     = data.msg.login;
                 }
             });
     }
