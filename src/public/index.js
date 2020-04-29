@@ -1,14 +1,18 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import App from './App.vue';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
+import Vue        from 'vue';
+import VueRouter  from 'vue-router';
+import App        from './App.vue';
+
+import { library }         from '@fortawesome/fontawesome-svg-core';
+import { fas }             from '@fortawesome/free-solid-svg-icons';
+import { fab }             from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import Home from "./views/Home.vue";
-import Chat from "./views/Chat.vue";
-import Missing from "./views/Missing.vue";
+
+import Home      from "./views/Home.vue";
+import Chat      from "./views/Chat.vue";
+import Missing   from "./views/Missing.vue";
 import Minecraft from "./views/Minecraft.vue";
+
+//
 
 library.add(fas, fab);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
