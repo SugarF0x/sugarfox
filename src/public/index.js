@@ -1,4 +1,5 @@
 import Vue        from 'vue';
+import Vuex       from 'vuex';
 import VueRouter  from 'vue-router';
 import App        from './App.vue';
 
@@ -11,34 +12,37 @@ import Home      from "./views/Home.vue";
 import Chat      from "./views/Chat.vue";
 import Missing   from "./views/Missing.vue";
 import Minecraft from "./views/Minecraft.vue";
+import Error     from "./views/Error.vue";
 
 //
 
 library.add(fas, fab);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(VueRouter);
-
-const router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {
-            path: '/',
-            component: Home
-        },{
-            path: '/chat',
-            component: Chat
-        },{
-            path: '/minecraft',
-            component: Minecraft
-        },{
-            path: '/*',
-            component: Missing
-        }
-    ]
-});
+Vue.use(Vuex);
 
 new Vue({
-    router,
+    router: new VueRouter({
+        mode: 'history',
+        routes: [
+            {
+                path: '/',
+                component: Home
+            },{
+                path: '/chat',
+                component: Chat
+            },{
+                path: '/minecraft',
+                component: Minecraft
+            },{
+                path: '/error',
+                component: Error
+            },{
+                path: '/*',
+                component: Missing
+            }
+        ]
+    }),
     render: h => h(App),
     data: {
         session: {
@@ -86,6 +90,10 @@ new Vue({
         }
     },
     mounted() {
+            /* TODO: Move auth data over to Vuex
+                > this data updates every single time a page loads
+                > Vuex should !PROBABLY! store the data in a more long-term fashion
+             */
         this.getJson('/api/passport/status')
             .then(data => {
                 if (data.result) {
