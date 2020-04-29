@@ -98,6 +98,10 @@ new Vue({
                     });
                 } else {
                     localStorage.removeItem('session');
+                    this.session = {
+                        connected: false,
+                        login: ''
+                    }
                 }
                 if (localStorage.session) {
                     this.session = JSON.parse(localStorage.session);
