@@ -3,6 +3,7 @@ const express        = require('express'),
       passport       = require('passport'),
       session        = require('express-session');
 
+      history        = require('connect-history-api-fallback'),
       routerQuotes   = require('./routers/quotes'),
       routerPassport = require('./routers/passport'),
 
@@ -11,7 +12,6 @@ const express        = require('express'),
 
 app.use(methodOverride('_method'));
 app.use(express.json());
-app.use('/', express.static('dist/public'));
 
 app.use(session({
     secret: 'qkmvGXke3owxWHUMOH1m07sscHsBv3iR7Noy23qoVXC5Lajy5OsCJG27Xde9OR6M',
@@ -20,8 +20,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api/quotes', routerQuotes(passport));
+app.use('/api/quotes',   routerQuotes(passport));
 app.use('/api/passport', routerPassport(passport));
+const staticFileMiddleware = express.static('dist/public');
+app.use(staticFileMiddleware);
+app.use(history({
+    disableDotRule: true
+}));
+app.use(staticFileMiddleware);
 
 app.listen(3000, () => {
     console.log('--------------------------------------');
