@@ -104,7 +104,7 @@ module.exports = (passport) => {
         if (req.user) {
             res.json({
                 result: 1,
-                msg: req.user
+                login: req.user.login
             })
         } else {
             res.status(401).json({

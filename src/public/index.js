@@ -13,8 +13,6 @@ import Missing   from "./views/Missing.vue";
 import Minecraft from "./views/Minecraft.vue";
 import Error     from "./views/Error.vue";
 
-//
-
 library.add(fas, fab);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(VueRouter);
@@ -43,10 +41,6 @@ new Vue({
     }),
     render: h => h(App),
     data: {
-        /* TODO: move this over to cookies
-            > as i need this data to persist throughout the login session
-                i need it to be handled through cookies
-         */
         session: {
             connected: false,
             login: ''
@@ -92,11 +86,21 @@ new Vue({
         }
     },
     mounted() {
+        if (localStorage.session) {
+            this.session = JSON.parse(localStorage.session);
+        }
         this.getJson('/api/passport/status')
             .then(data => {
                 if (data.result) {
-                    this.session.connected = true;
-                    this.session.login     = data.msg.login;
+                    localStorage.session = JSON.stringify({
+                        connected: true,
+                        login:     data.login
+                    });
+                } else {
+                    localStorage.removeItem('session');
+                }
+                if (localStorage.session) {
+                    this.session = JSON.parse(localStorage.session);
                 }
             });
     }
