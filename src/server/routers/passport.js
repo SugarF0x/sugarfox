@@ -70,6 +70,13 @@ module.exports = (passport) => {
         }
     ));
 
+    /* TODO: pass data to cookies
+        > besides session ID i need to pass other data to cookies
+            or i need to somehow see if the session is still rolling
+            perhaps a boolean type with connection state that checks and updates
+            the state upon every auth query
+     */
+
     passport.serializeUser((user, done) => {
         done(null, user);
     });

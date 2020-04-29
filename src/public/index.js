@@ -1,5 +1,4 @@
 import Vue        from 'vue';
-import Vuex       from 'vuex';
 import VueRouter  from 'vue-router';
 import App        from './App.vue';
 
@@ -19,7 +18,6 @@ import Error     from "./views/Error.vue";
 library.add(fas, fab);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(VueRouter);
-Vue.use(Vuex);
 
 new Vue({
     router: new VueRouter({
@@ -45,6 +43,10 @@ new Vue({
     }),
     render: h => h(App),
     data: {
+        /* TODO: move this over to cookies
+            > as i need this data to persist throughout the login session
+                i need it to be handled through cookies
+         */
         session: {
             connected: false,
             login: ''
@@ -90,10 +92,6 @@ new Vue({
         }
     },
     mounted() {
-            /* TODO: Move auth data over to Vuex
-                > this data updates every single time a page loads
-                > Vuex should !PROBABLY! store the data in a more long-term fashion
-             */
         this.getJson('/api/passport/status')
             .then(data => {
                 if (data.result) {
