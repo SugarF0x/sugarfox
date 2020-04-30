@@ -6,6 +6,7 @@
             data-placement="top"
             data-delay="{ &quot;show&quot;: 500, &quot;hide&quot;: 100 }"
             title=""
+            :isDisabled=isDisabled
             :data-original-title=desc
             :style="{width: size + 'rem', height: size + 'rem'}">
         <svg
@@ -51,6 +52,10 @@
             size: {
                 type: String,
                 default: '6'
+            },
+            isDisabled: {
+                type: String,
+                default: 'false'
             }
         },
         data() {
@@ -89,7 +94,7 @@
         }
     }
 
-    .pentaLink[disabled] {
+    .pentaLink[isDisabled="true"] {
         .pL__bg, .pL__fg {
             fill: gray !important;
             transform: rotate(0deg) !important;
@@ -97,7 +102,7 @@
         cursor: not-allowed;
     }
 
-    .pentaLink:not([disabled]):hover {
+    .pentaLink:not([isDisabled="true"]):hover {
         .pL__bg, .pL__fg {
             transform: rotate(0deg) !important;
             fill: #0086ff;
