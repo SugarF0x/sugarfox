@@ -6,7 +6,8 @@
             data-placement="top"
             data-delay="{ &quot;show&quot;: 500, &quot;hide&quot;: 100 }"
             title=""
-            :isDisabled=isDisabled
+            @click="click"
+            :isDisabled=disabled
             :data-original-title=desc
             :style="{width: size + 'rem', height: size + 'rem'}">
         <svg
@@ -24,12 +25,6 @@
 </template>
 
 <script>
-    /* TODO:
-        > Add <disabled> state support for styles
-            for now disabled state can only be used by styles from element tags
-            but in order to be computed or what not there should be a this.isDisabled state in data()
-     */
-
     export default {
         name: 'PentaLink',
         props: {
@@ -55,18 +50,33 @@
             },
             isDisabled: {
                 type: String,
-                default: 'false'
+                default: "false"
+            },
+            authRequired: {
+                type: String,
+                default: "false"
             }
         },
         data() {
             return {
-                tilt: ''
+                tilt: '',
+                disabled: this.isDisabled
             }
         },
-        created() {
+        methods: {
+            click() {
+                if (this.disabled === "true") {
+                    event.preventDefault()
+                }
+            }
+        },
+        mounted() {
             this.tilt = Math.floor(Math.random() * (60 - 15)) + 15;
             if (Math.random() < 0.5) {
                 this.tilt *= -1;
+            }
+            if (this.authRequired === "true" && !this.$root.session.connected) {
+                this.disabled = "true";
             }
         }
     }

@@ -41,10 +41,10 @@ new Vue({
     }),
     render: h => h(App),
     data: {
-        session: {
+        session: ((localStorage.session) ? JSON.parse(localStorage.session) : {
             connected: false,
             login: ''
-        }
+        })
     },
     methods: {
         getJson(url){
@@ -86,9 +86,13 @@ new Vue({
         }
     },
     mounted() {
-        if (localStorage.session) {
-            this.session = JSON.parse(localStorage.session);
-        }
+        /* TODO: create an event emiter
+            > i need to catch whenever status report comes in
+                so as to update dependencies like Login.vue or PentaLink.vue
+            > or perhaps i can add a couple lines to Login.vue itself
+                that on a successful login it will force rewrite localStorage.session
+                and do the same thing in reverse when login out
+         */
         this.getJson('/api/passport/status')
             .then(data => {
                 if (data.result) {

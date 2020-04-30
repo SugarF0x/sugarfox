@@ -1,7 +1,11 @@
 <template>
     <div id="chat">
-        <h1>Страница чата</h1>
-        <h3>на стадии разработки</h3>
+        <div v-if="!$root.session.connected">
+            <h1>Авторизуйтесь для продолжения</h1>
+        </div>
+        <div v-else>
+
+        </div>
     </div>
 </template>
 
