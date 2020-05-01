@@ -59,8 +59,21 @@
         },
         data() {
             return {
-                tilt: '',
-                disabled: this.isDisabled
+                tilt: ''
+            }
+        },
+        computed: {
+            isLoggedIn() {
+                return this.$store.state.session.isConnected;
+            },
+            disabled() {
+                if (this.isDisabled === 'true') {
+                    return 'true'
+                } else if (this.authRequired === "true" && !this.isLoggedIn) {
+                    return 'true'
+                } else {
+                    return 'false'
+                }
             }
         },
         methods: {
@@ -74,9 +87,6 @@
             this.tilt = Math.floor(Math.random() * (60 - 15)) + 15;
             if (Math.random() < 0.5) {
                 this.tilt *= -1;
-            }
-            if (this.authRequired === "true" && !this.$root.session.connected) {
-                this.disabled = "true";
             }
         }
     }

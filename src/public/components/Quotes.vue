@@ -2,7 +2,7 @@
     <div class="quote noHighlight d-inline-flex align-items-center">
         <div
                 class="quote__text"
-                :class="{disabledAction: !$root.session.connected}"
+                :class="{disabledAction: !$store.state.session.isConnected}"
                 :style="{opacity: opacity}"
                 @click="getQuote(true)">
             {{quote}}

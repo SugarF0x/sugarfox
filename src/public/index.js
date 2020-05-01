@@ -1,6 +1,7 @@
-import Vue        from 'vue';
-import VueRouter  from 'vue-router';
-import App        from './App.vue';
+import Vue       from 'vue';
+import Vuex      from 'vuex';
+import VueRouter from 'vue-router';
+import App       from './App.vue';
 
 import { library }         from '@fortawesome/fontawesome-svg-core';
 import { fas }             from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +17,7 @@ import Error     from "./views/Error.vue";
 library.add(fas, fab);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(VueRouter);
+Vue.use(Vuex);
 
 new Vue({
     router: new VueRouter({
@@ -39,13 +41,41 @@ new Vue({
             }
         ]
     }),
-    render: h => h(App),
-    data: {
-        session: ((localStorage.session) ? JSON.parse(localStorage.session) : {
-            connected: false,
-            login: ''
-        })
-    },
+    store:  new Vuex.Store({
+        state: {
+            session: {
+                isConnected: false,
+                userData: {}
+            }
+        },
+        mutations: {
+            setSessionStatus(state, payload) {
+                state.session = payload;
+            }
+        },
+        actions: {
+            getSessionStatus(context, {vm}) {
+                vm.getJson('/api/passport/status')
+                    .then(data => {
+                            if (data.result) {
+                                context.commit({
+                                    type: 'setSessionStatus',
+                                    isConnected: true,
+                                    userData: data.user
+                                })
+                            } else {
+                                context.commit({
+                                    type: 'setSessionStatus',
+                                    isConnected: false,
+                                    userData: {}
+                                })
+                            }
+                        }
+                    );
+            }
+        }
+    }),
+    data: {},
     methods: {
         getJson(url){
             return fetch(url)
@@ -86,30 +116,7 @@ new Vue({
         }
     },
     mounted() {
-        /* TODO: create an event emiter
-            > i need to catch whenever status report comes in
-                so as to update dependencies like Login.vue or PentaLink.vue
-            > or perhaps i can add a couple lines to Login.vue itself
-                that on a successful login it will force rewrite localStorage.session
-                and do the same thing in reverse when login out
-         */
-        this.getJson('/api/passport/status')
-            .then(data => {
-                if (data.result) {
-                    localStorage.session = JSON.stringify({
-                        connected: true,
-                        login:     data.login
-                    });
-                } else {
-                    localStorage.removeItem('session');
-                    this.session = {
-                        connected: false,
-                        login: ''
-                    }
-                }
-                if (localStorage.session) {
-                    this.session = JSON.parse(localStorage.session);
-                }
-            });
-    }
+        this.$store.dispatch('getSessionStatus', {vm: this});
+    },
+    render: h => h(App)
 }).$mount('#app');
