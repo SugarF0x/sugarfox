@@ -16,6 +16,7 @@
             </h1>
             <PentaLink img="img/main/community-chest.webp" desc="Общественная казна" link="./community-bank" auth-required="true" ></PentaLink>
             <PentaLink img="img/main/chat.webp"            desc="Чат"                link="./chat"           auth-required="true" ></PentaLink>
+            <PentaLink img="img/main/quotes-editor.webp"   desc="Редактор цитат"     link="./quotes-editor"  auth-required="true" ></PentaLink>
         </section>
     </div>
 </template>
