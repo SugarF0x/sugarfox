@@ -15,9 +15,7 @@
             <input type="checkbox" id="checkbox" v-model="autoRefresh" v-show="false">
             <label
                     for="checkbox"
-                    data-toggle="tooltip"
-                    title="Авто обновление цитат"
-                    data-delay='{ "show": 500, "hide": 100 }'>
+                    title="Авто обновление цитат">
                 <font-awesome-icon
                         icon="sync-alt"
                         style="font-size: 0.65em"

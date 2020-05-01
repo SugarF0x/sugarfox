@@ -2,13 +2,9 @@
     <a
             class="pentaLink noHighlight"
             :href=link
-            data-toggle="tooltip"
-            data-placement="top"
-            data-delay="{ &quot;show&quot;: 500, &quot;hide&quot;: 100 }"
-            title=""
+            :title=desc
             @click="click"
             :isDisabled=disabled
-            :data-original-title=desc
             :style="{width: size + 'rem', height: size + 'rem'}">
         <svg
                 viewBox="0 0 58 64"
