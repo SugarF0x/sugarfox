@@ -62,13 +62,10 @@ body:after {
 * {
   font-family: Jura, sans-serif;
 }
-main > * {
-  padding: 1rem 1.5rem;
+#home > section {
+  padding: 0.5rem 1.5rem;
 }
-main > .row {
-  margin: 0;
-}
-main > section:nth-of-type(2n) {
+#home > section:nth-of-type(2n) {
   background-color: aliceblue;
 }
 header,
