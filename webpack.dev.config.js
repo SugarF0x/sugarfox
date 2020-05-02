@@ -84,6 +84,10 @@ module.exports = {
             {
                 from: 'src/public/archive',
                 to: 'archive'
+            },
+            {
+                from: 'src/public/styles/*.css',
+                to: 'styles/[name].[ext]'
             }
         ]),
         new VueLoaderPlugin()
