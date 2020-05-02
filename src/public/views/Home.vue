@@ -3,20 +3,20 @@
         <section>
             <h1>Архив</h1>
             <PentaLink is-disabled="true" img="img/main/geekbrains.webp" desc="Geekbrains"                          ></PentaLink>
-            <PentaLink                    img="img/main/snake.webp"      desc="Змейка"     link="./archive/snake"   ></PentaLink>
-            <PentaLink                    img="img/main/wedding.webp"    desc="Свадьба"    link="./archive/wedding" ></PentaLink>
+            <PentaLink                    img="img/main/snake.webp"      desc="Змейка"     path="./archive/snake"   ></PentaLink>
+            <PentaLink                    img="img/main/wedding.webp"    desc="Свадьба"    path="./archive/wedding" ></PentaLink>
         </section>
         <section>
             <h1>Другое</h1>
-            <PentaLink img="img/main/minecraft.webp" desc="Minecraft" link="./minecraft" ></PentaLink>
+            <PentaLink img="img/main/minecraft.webp" desc="Minecraft" path="./minecraft" ></PentaLink>
         </section>
         <section>
             <h1>
                 Интерактив<span title="Необходим вход" class="noHighlight">*</span>
             </h1>
-            <PentaLink img="img/main/community-chest.webp" desc="Общественная казна" link="./community-bank" auth-required="true" ></PentaLink>
-            <PentaLink img="img/main/chat.webp"            desc="Чат"                link="./chat"           auth-required="true" ></PentaLink>
-            <PentaLink img="img/main/quotes-editor.webp"   desc="Редактор цитат"     link="./quotes-editor"  auth-required="true" ></PentaLink>
+            <PentaLink img="img/main/community-chest.webp" desc="Общественная казна" path="./community-bank" auth-required="true" ></PentaLink>
+            <PentaLink img="img/main/chat.webp"            desc="Чат"                path="./chat"           auth-required="true" ></PentaLink>
+            <PentaLink img="img/main/quotes-editor.webp"   desc="Редактор цитат"     path="./quotes-editor"  auth-required="true" ></PentaLink>
         </section>
     </div>
 </template>
