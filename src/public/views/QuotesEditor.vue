@@ -1,7 +1,12 @@
 <template>
     <div id="quotesEditor">
-        <h1>Страница редактора цитат</h1>
-        <h3>как и всё остальное - в разработке</h3>
+        <div v-if="!$store.state.session.isConnected">
+            <h1>Авторизуйтесь для продолжения</h1>
+        </div>
+        <div v-else>
+            <h1>Страница редактора цитат</h1>
+            <h3>как и всё остальное - в разработке</h3>
+        </div>
     </div>
 </template>
 

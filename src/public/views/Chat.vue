@@ -1,6 +1,6 @@
 <template>
     <div id="chat">
-        <div v-if="!$root.session.connected">
+        <div v-if="!$store.state.session.isConnected">
             <h1>Авторизуйтесь для продолжения</h1>
         </div>
         <div v-else>
