@@ -24,12 +24,12 @@
     </a>
     <router-link
         v-else
-         :to=path
-         class="pentaLink noHighlight"
-         :title=desc
-         @click="click"
-         :isDisabled=disabled
-         :style="{width: size + 'rem', height: size + 'rem'}"
+        :to=path
+        class="pentaLink noHighlight"
+        :title=desc
+        :isDisabled=disabled
+        :event="disabled === 'false' ? 'click' : ''"
+        :style="{width: size + 'rem', height: size + 'rem'}"
     >
         <svg
             viewBox="0 0 58 64"
