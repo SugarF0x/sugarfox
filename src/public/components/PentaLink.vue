@@ -86,7 +86,10 @@
                 return this.$store.state.session.isConnected;
             },
             disabled() {
-                if (this.isDisabled === 'true' || (this.link === '#' && this.path === '#')) {
+                if     (this.isDisabled === 'true'
+                    || (this.link === '#' && this.path === '#')
+                    || (this.link !== '#' && this.path !== '#')
+                ){
                     return 'true'
                 } else if (this.authRequired === "true" && !this.isLoggedIn) {
                     return 'true'
