@@ -36,12 +36,6 @@ body {
   position: relative;
 }
 
-body:after {
-  content: '';
-  height: 2rem;
-  display: block;
-}
-
 * {
   font-family: Jura, sans-serif;
 }
@@ -52,6 +46,15 @@ body:after {
   }
   > section:nth-of-type(2n) {
     background-color: aliceblue;
+  }
+}
+
+#vueapp {
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+  > div {
+    flex: 1;
   }
 }
 

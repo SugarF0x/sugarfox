@@ -21,9 +21,6 @@
 
 <style scoped lang="less">
     footer {
-        font-size: 1rem;
         min-height: 1rem;
-        position: absolute;
-        bottom: 0;
     }
 </style>
