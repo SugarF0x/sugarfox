@@ -12,10 +12,10 @@
             class="app"
         >
             <h1>Фрупчат</h1>
-            <ul class="messages">
+            <ul class="messages" ref="messages">
                 <li v-for="n in messages">
                     <div class="sender" style="font-size:1.5rem">
-                        {{n.sender}}: <small>{{ Math.floor(Math.random()*1000) }}</small>
+                        {{n.sender}}: <small>{{ n.time }}</small>
                     </div>
                     <ul class="message">
                         <li v-for="m in n.message">
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+    const moment = require('moment');
+
     export default {
         name: "Chat",
         data() {
@@ -49,12 +51,14 @@
                      */
                     {
                         sender: 'Sender 1',
+                        time: moment().format('HH:mm'),
                         message: [
                             'This is my first message',
                             'and here is the second one after that'
                         ]
                     },{
                         sender: 'Sender 2',
+                        time: moment().format('HH:mm'),
                         message: [
                             'And I only sent one single message cuz im not a nerd lol'
                         ]
@@ -67,13 +71,20 @@
                 if (this.input) {
                     this.appendMessage({
                         sender: 'me',
-                        message: [this.input]
+                        time: moment().format('HH:mm'),
+                        message: this.input.split('\n')
                     });
                     this.input = '';
+                    this.scrollToEnd();
                 }
             },
             newline() {
                 this.value = `${this.value}\n`;
+            },
+            scrollToEnd() {
+                setTimeout(() => {
+                    this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight;
+                });
             },
             appendMessage(messageData) {
                 /*
@@ -92,6 +103,7 @@
                 } else {
                     this.messages.push(messageData)
                 }
+                // TODO: add scrollToEnd() trigger for if .messages scroll is already past 90%
             }
         },
         mounted() {
@@ -102,6 +114,7 @@
             setTimeout(() => {
                 this.appendMessage({
                     sender: 'Sender 3',
+                    time: moment().format('HH:mm'),
                     message: [
                         'I am a delayed sender'
                     ]
@@ -109,6 +122,7 @@
                 setTimeout(() => {
                     this.appendMessage({
                         sender: 'Sender 3',
+                        time: moment().format('HH:mm'),
                         message: [
                             'with a delayed message'
                         ]
@@ -127,36 +141,47 @@
         .app {
             display: flex;
             flex-flow: column;
-                // perhaps flex boxes are the way to go here if i want textarea to stick to the bottom
-                // i.e. see how .vueapp is implemented
             border-left: 1px solid black;
             border-right: 1px solid black;
             width: 100vh;
-            padding: 1rem 0;
             text-align: left;
             h1 {
                 text-align: center;
-                flex: 1;
+                padding: 1rem;
+                border-bottom: 1px solid black;
+                margin-bottom: 0;
             }
             ul {
                 list-style: none;
                 padding-left: 0;
+                margin-bottom: 0;
                 li {
                     padding-left: 1rem;
                 }
             }
             .messages {
+                flex: 1rem 1;
+                overflow-y: auto;
+                overflow-x: hidden;
                 > li:nth-of-type(2n-1) {
                     background-color: seashell;
                 }
             }
+            .messages { // these disable scrollbar (+ the ::-webkit-scrollbar further down)
+                overflow: -moz-scrollbars-none;
+                -ms-overflow-style: none;
+            }
+            .messages::-webkit-scrollbar { width: 0 !important }
             .input {
+                border-top: 1px solid black;
+                padding: 1rem;
                 display: flex;
                 justify-content: center;
                 align-content: center;
                 textarea {
-                    width: 95%;
+                    width: 100%;
                     outline: none;
+                    resize: none;
                     padding: .3rem;
                 }
             }
