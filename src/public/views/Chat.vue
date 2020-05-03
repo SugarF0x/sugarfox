@@ -119,7 +119,7 @@
                 }
             }
             .messages {
-                > li:nth-last-of-type(2n-1) {
+                > li:nth-of-type(2n-1) {
                     background-color: seashell;
                 }
             }
