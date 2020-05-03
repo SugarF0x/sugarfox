@@ -65,11 +65,33 @@
         methods: {
             send() {
                 if (this.input) {
-                    this.$refs.form.submit()
+                    this.appendMessage({
+                        sender: 'me',
+                        message: [this.input]
+                    });
+                    this.input = '';
                 }
             },
             newline() {
                 this.value = `${this.value}\n`;
+            },
+            appendMessage(messageData) {
+                /*
+                    messageData =  {
+                        sender: 'login',
+                        message: [
+                            'message',
+                            '...'
+                        ]
+                    }
+                */
+                if (this.messages[this.messages.length-1].sender === messageData.sender) {
+                    messageData.message.forEach((entry) => {
+                        this.messages[this.messages.length-1].message.push(entry)
+                    })
+                } else {
+                    this.messages.push(messageData)
+                }
             }
         },
         mounted() {
@@ -78,14 +100,19 @@
                     with rough inline implementation of what functionality is yet to come
                  */
             setTimeout(() => {
-                this.messages.push({
+                this.appendMessage({
                     sender: 'Sender 3',
                     message: [
                         'I am a delayed sender'
                     ]
                 });
                 setTimeout(() => {
-                    this.messages[2].message.push('With a delayed message');
+                    this.appendMessage({
+                        sender: 'Sender 3',
+                        message: [
+                            'with a delayed message'
+                        ]
+                    });
                 },1500)
             },3000)
         }
