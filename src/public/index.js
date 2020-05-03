@@ -125,11 +125,11 @@ new Vue({
     },
     mounted() {
         /* TODO: think of something better than this
-                   > this is a huge workaround for the browser using old data when history.back() is executed
-                   > basically, it forces data reload on page load with a delay
-                       this ensures that session data is up to date on history.back()
-                       though i do believe there is a better way of doing this
-                */
+               > this is a huge workaround for the browser using old data when history.back() is executed
+               > basically, it forces data reload on page load with a delay
+                   this ensures that session data is up to date on history.back()
+                   though i do believe there is a better way of doing this
+        */
         window.onload = () => {
             setTimeout(() => {
                 this.$store.dispatch('getSessionStatus', {vm: this.$root});
