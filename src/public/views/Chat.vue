@@ -25,8 +25,13 @@
                 </li>
             </ul>
             <form class='input' action="" ref="form">
-                                                                    <!--TODO: make shift-entering possible-->
-                <textarea name="input" placeholder="Введите сообщение" v-on:keyup.enter="$refs.form.submit()"></textarea>
+                <textarea
+                    name="input"
+                    v-model="input"
+                    placeholder="Введите сообщение"
+                    @keydown.enter.exact.prevent="send"
+                    @keydown.enter.shift.exact="newline"
+                ></textarea>
             </form>
         </div>
     </div>
@@ -37,6 +42,7 @@
         name: "Chat",
         data() {
             return {
+                input: '',
                 messages: [
                     /*
                         these are dummy messages for testing purposes
@@ -54,6 +60,16 @@
                         ]
                     }
                 ]
+            }
+        },
+        methods: {
+            send() {
+                if (this.input) {
+                    this.$refs.form.submit()
+                }
+            },
+            newline() {
+                this.value = `${this.value}\n`;
             }
         },
         mounted() {
@@ -114,6 +130,7 @@
                 textarea {
                     width: 95%;
                     outline: none;
+                    padding: .3rem;
                 }
             }
         }
