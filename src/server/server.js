@@ -6,6 +6,7 @@ const express        = require('express'),
 
       routerQuotes   = require('./routers/quotes'),
       routerPassport = require('./routers/passport'),
+      routerChat     = require('./routers/chat'),
 
       moment         = require('moment'),
       methodOverride = require('method-override');
@@ -22,11 +23,11 @@ app.use(passport.session());
 
 app.use('/api/quotes',   routerQuotes(passport));
 app.use('/api/passport', routerPassport(passport));
+app.use('/api/chat',     routerChat(passport));
+
 const staticFileMiddleware = express.static('dist/public');
 app.use(staticFileMiddleware);
-app.use(history({
-    disableDotRule: true
-}));
+app.use(history());
 app.use(staticFileMiddleware);
 
 app.listen(3000, () => {
