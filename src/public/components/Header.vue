@@ -5,7 +5,7 @@
             class="d-flex align-items-center"
             id="logo"
         >
-            <img src="img/sgfx_line_blue.webp" alt="sgfx-logo">
+            <img src="/img/sgfx_line_blue.webp" alt="sgfx-logo">
             <span>SGFX</span>
         </router-link>
         <Login></Login>
