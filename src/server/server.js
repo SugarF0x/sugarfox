@@ -1,9 +1,9 @@
 const express        = require('express'),
       app            = express(),
       passport       = require('passport'),
-      session        = require('express-session');
-
+      session        = require('express-session'),
       history        = require('connect-history-api-fallback'),
+
       routerQuotes   = require('./routers/quotes'),
       routerPassport = require('./routers/passport'),
 
