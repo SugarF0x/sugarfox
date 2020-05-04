@@ -103,7 +103,12 @@
                 } else {
                     this.messages.push(messageData)
                 }
-                // TODO: add scrollToEnd() trigger for if .messages scroll is already past 90%
+                if (this.$refs.messages.scrollHeight - this.$refs.messages.clientHeight - this.$refs.messages.scrollTop < 250) {
+                    this.scrollToEnd()
+                }
+                /* TODO: make a circle down arrow in bottom-right corner that scrolls down
+                        and make it appear only if scrolled past  not to 100%
+                */
             }
         },
         mounted() {
@@ -128,7 +133,7 @@
                         ]
                     });
                 },1500)
-            },3000)
+            },3000);
         }
     }
 </script>
