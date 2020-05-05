@@ -24,7 +24,7 @@
                     </ul>
                 </li>
             </ul>
-            <form class='input' action="" ref="form">
+            <div class='input'>
                 <textarea
                     name="input"
                     v-model="input"
@@ -32,48 +32,38 @@
                     @keydown.enter.exact.prevent="send"
                     @keydown.enter.shift.exact="newline"
                 ></textarea>
-            </form>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+    import io from 'socket.io-client';
     const moment = require('moment');
 
     export default {
         name: "Chat",
         data() {
             return {
+                socket: io('/chat'),
+                TEST_SENDER: `USER-${Math.floor(Math.random()*1000)}`,
                 input: '',
-                messages: [
-                    /*
-                        these are dummy messages for testing purposes
-                     */
-                    {
-                        sender: 'Sender 1',
-                        time: moment().format('HH:mm'),
-                        message: [
-                            'This is my first message',
-                            'and here is the second one after that'
-                        ]
-                    },{
-                        sender: 'Sender 2',
-                        time: moment().format('HH:mm'),
-                        message: [
-                            'And I only sent one single message cuz im not a nerd lol'
-                        ]
-                    }
-                ]
+                messages: []
             }
         },
         methods: {
             send() {
                 if (this.input) {
                     this.appendMessage({
-                        sender: 'me',
+                        sender: this.TEST_SENDER,
                         time: moment().format('HH:mm'),
                         message: this.input.split('\n')
                     });
+                    this.socket.emit('message', JSON.stringify({
+                        sender: this.TEST_SENDER,
+                        time: moment().format('HH:mm'),
+                        message: this.input.split('\n')
+                    }));
                     this.input = '';
                     this.scrollToEnd();
                 }
@@ -90,16 +80,21 @@
                 /*
                     messageData =  {
                         sender: 'login',
+                        time: 'time'
                         message: [
                             'message',
                             '...'
                         ]
                     }
                 */
-                if (this.messages[this.messages.length-1].sender === messageData.sender) {
-                    messageData.message.forEach((entry) => {
-                        this.messages[this.messages.length-1].message.push(entry)
-                    })
+                if (this.messages.length) {
+                    if (this.messages[this.messages.length-1].sender === messageData.sender) {
+                        messageData.message.forEach((entry) => {
+                            this.messages[this.messages.length-1].message.push(entry)
+                        })
+                    } else {
+                        this.messages.push(messageData)
+                    }
                 } else {
                     this.messages.push(messageData)
                 }
@@ -112,28 +107,16 @@
             }
         },
         mounted() {
-                /*
-                    this is just for testing purposes
-                    with rough inline implementation of what functionality is yet to come
-                 */
-            setTimeout(() => {
+            this.socket.on('connect', () => {
                 this.appendMessage({
-                    sender: 'Sender 3',
+                    sender: 'System',
                     time: moment().format('HH:mm'),
-                    message: [
-                        'I am a delayed sender'
-                    ]
-                });
-                setTimeout(() => {
-                    this.appendMessage({
-                        sender: 'Sender 3',
-                        time: moment().format('HH:mm'),
-                        message: [
-                            'with a delayed message'
-                        ]
-                    });
-                },1500)
-            },3000);
+                    message: [`Вы подключились как ${this.TEST_SENDER}`]
+                })
+            });
+            this.socket.on('message', (data) => {
+                this.appendMessage(JSON.parse(data))
+            });
         }
     }
 </script>

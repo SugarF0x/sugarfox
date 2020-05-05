@@ -1,19 +1,32 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express'),
+      router  = express.Router();
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
-module.exports = (passport) => {
-    router.get('/appendMessage', (req, res) => {
-        if (!req.user) {
-            res.status(401).json({
-                result: 0,
-                msg: 'Отказано в доступе: войдите в свой профиль для продолжения'
+module.exports = (passport, io, moment) => {
+    const chat = io
+        .of('/chat')
+        .on('connection', (socket) => {
+            console.log('[+] a user connected to chat');
+            socket.broadcast.emit('message', JSON.stringify({
+                sender: 'System',
+                time: moment().format('HH:mm'),
+                message: [`Пользователь подключился`]
+            }));
+
+            socket.on('message', (data) => {
+                socket.broadcast.emit('message', data)
             });
-        } else {
-            // TODO: chat append handler with socket.io and shit
-        }
-    });
+
+            socket.on('disconnect', () => {
+                console.log('[-] a user disconnected from chat');
+                socket.broadcast.emit('message', JSON.stringify({
+                    sender: 'System',
+                    time: moment().format('HH:mm'),
+                    message: [`Пользователь отключился`]
+                }));
+            });
+        });
 
     return router;
 };

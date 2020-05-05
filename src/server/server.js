@@ -1,5 +1,7 @@
 const express        = require('express'),
       app            = express(),
+      http           = require('http').createServer(app),
+      io             = require('socket.io')(http),
       passport       = require('passport'),
       session        = require('express-session'),
       history        = require('connect-history-api-fallback'),
@@ -23,14 +25,14 @@ app.use(passport.session());
 
 app.use('/api/quotes',   routerQuotes(passport));
 app.use('/api/passport', routerPassport(passport));
-app.use('/api/chat',     routerChat(passport));
+app.use('/chat',         routerChat(passport, io, moment));
 
 const staticFileMiddleware = express.static('dist/public');
 app.use(staticFileMiddleware);
 app.use(history());
 app.use(staticFileMiddleware);
 
-app.listen(3000, () => {
+http.listen(3000, () => {
     console.log('--------------------------------------');
     console.log(`[${moment().format('HH:mm:ss')}] Server started at Port 3000\n`);
 });

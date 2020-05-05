@@ -1,6 +1,6 @@
-const express = require('express');
-const fs = require('fs');
-const router = express.Router();
+const express = require('express'),
+      fs      = require('fs'),
+      router  = express.Router();
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
