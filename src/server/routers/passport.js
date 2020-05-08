@@ -246,9 +246,16 @@ module.exports = (passport) => {
         })(req, res, next);
     });
 
-    router.get('/login/vk', passport.authenticate('vkontakte'));
+    router.post(
+        '/login/vk',
+        (req, res, next) => {
+            req.session.returnTo = req.body.returnTo;
+            return next();
+        }, passport.authenticate('vkontakte'));
     router.get('/login/vk/callback', ensureNotAuthenticated, (req, res, next) => {
         passport.authenticate('vkontakte', (err, user, info) => {
+            let returnTo = req.session.returnTo;
+            delete req.session.returnTo;
             if (err) {
                 return next(err);
             }
@@ -259,7 +266,7 @@ module.exports = (passport) => {
                 if (err) {
                     return next(err);
                 }
-                return res.redirect('/');
+                return res.redirect(returnTo);
             });
         })(req, res, next);
     });

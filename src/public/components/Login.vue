@@ -30,16 +30,20 @@
                 <span class="or">или</span>
                 <h5>Войти через сторонний сайт:</h5>
                 <div class="d-flex justify-content-between p-2 third-party noHighlight">
-                    <form action="/api/passport/login/vk">
+                    <form action="/api/passport/login/vk" method="POST" @submit="updateUrl">
+                        <input type="text" name="returnTo" :value="returnTo" style="display: none">
                         <button type="submit"><font-awesome-icon :icon="['fab', 'vk']" title="Вконтакте"/></button>
                     </form>
                     <form action="#" @submit.prevent>
+                        <input type="text" name="returnTo" :value="returnTo" style="display: none">
                         <button type="submit"><font-awesome-icon :icon="['fab', 'facebook']" title="Facebook"/></button>
                     </form>
                     <form action="#" @submit.prevent>
+                        <input type="text" name="returnTo" :value="returnTo" style="display: none">
                         <button><font-awesome-icon :icon="['fab', 'twitter']" title="Twitter"/></button>
                     </form>
                     <form action="#" @submit.prevent>
+                        <input type="text" name="returnTo" :value="returnTo" style="display: none">
                         <button><span title="placeholder">&times;</span></button>
                     </form>
                 </div>
@@ -82,6 +86,7 @@
             return {
                 show: false,
                 reg: false,
+                returnTo: '',
                 errors: {
                     registration: {
                         login: [],
@@ -137,6 +142,9 @@
                             this.errors.registration.login     = response.msg.login;
                         }
                     });
+            },
+            updateUrl() {
+                this.returnTo = window.location.pathname;
             },
             logout() {
                 this.$root.deleteJson('/api/passport/logout')
