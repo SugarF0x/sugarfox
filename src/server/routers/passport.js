@@ -134,7 +134,7 @@ module.exports = (passport) => {
 
     router.delete('/logout', ensureAuthenticated, (req, res) => {
         req.logOut();
-        res.redirect('/');
+        res.json({result: 1, msg: 'SUCCESS'})
     });
 
 // ---------- ---------- ---------- ---------- ---------- \\

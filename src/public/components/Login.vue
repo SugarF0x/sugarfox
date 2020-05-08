@@ -5,7 +5,7 @@
             <button type="button" v-if="!isLoggedIn" class="button noHighlight" @click="show=!show">
                 Войти
             </button>
-            <form v-else action="/api/passport/logout?_method=DELETE" method="POST">
+            <form v-else @submit.prevent="logout">
                 <button class="button noHighlight" type="submit">
                     Выйти
                 </button>
@@ -135,6 +135,16 @@
                             this.errors.registration.mail      = response.msg.email;
                             this.errors.registration.password  = response.msg.password;
                             this.errors.registration.login     = response.msg.login;
+                        }
+                    });
+            },
+            logout() {
+                this.$root.deleteJson('/api/passport/logout')
+                    .then(response => {
+                        if (response.result) {
+                            window.location.reload()
+                        } else {
+                            console.log(`ERR: ${response.msg}`);
                         }
                     });
             }
