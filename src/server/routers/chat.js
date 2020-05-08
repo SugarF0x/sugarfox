@@ -7,24 +7,22 @@ module.exports = (passport, io, moment) => {
     const chat = io
         .of('/chat')
         .on('connection', (socket) => {
-            console.log('[+] a user connected to chat');
-            socket.broadcast.emit('message', JSON.stringify({
-                sender: 'System',
-                time: moment().format('HH:mm'),
-                message: [`Пользователь подключился`]
-            }));
-
             socket.on('message', (data) => {
+                /* TODO: limit the throughput
+                    > set a limit for 3000 characters so as not to clog the server
+                */
                 socket.broadcast.emit('message', data)
             });
 
             socket.on('disconnect', () => {
-                console.log('[-] a user disconnected from chat');
-                socket.broadcast.emit('message', JSON.stringify({
-                    sender: 'System',
-                    time: moment().format('HH:mm'),
-                    message: [`Пользователь отключился`]
-                }));
+                /* TODO: add disconnected user message emission
+                    > need to emit message of which exact user disconnected
+                 */
+                // socket.broadcast.emit('message', JSON.stringify({
+                //     sender: 'System',
+                //     time: moment().format('HH:mm'),
+                //     message: [`Пользователь отключился`]
+                // }));
             });
         });
 

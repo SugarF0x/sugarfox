@@ -1,11 +1,11 @@
 <template>
     <div id="chat">
-<!--        v-if="!$store.state.session.isConnected"        -->
         <div
-            v-if="false"
+            v-if="!isConnected"
             class="app"
         >
             <h1>Авторизуйтесь для продолжения</h1>
+            <div style="background-color: lightgray; flex: 1"></div>
         </div>
         <div
             v-else
@@ -39,6 +39,7 @@
 
 <script>
     import io from 'socket.io-client';
+    import { mapState } from 'vuex';
     const moment = require('moment');
 
     export default {
@@ -46,21 +47,23 @@
         data() {
             return {
                 socket: io('/chat'),
-                TEST_SENDER: `USER-${Math.floor(Math.random()*1000)}`,
                 input: '',
                 messages: []
             }
         },
         methods: {
             send() {
+                /* TODO: limit the throughput
+                    > set a limit for 3000 characters so as not to clog the server
+                */
                 if (this.input) {
                     this.appendMessage({
-                        sender: this.TEST_SENDER,
+                        sender: this.login,
                         time: moment().format('HH:mm'),
                         message: this.input.split('\n')
                     });
                     this.socket.emit('message', JSON.stringify({
-                        sender: this.TEST_SENDER,
+                        sender: this.login,
                         time: moment().format('HH:mm'),
                         message: this.input.split('\n')
                     }));
@@ -98,24 +101,41 @@
                 } else {
                     this.messages.push(messageData)
                 }
-                if (this.$refs.messages.scrollHeight - this.$refs.messages.clientHeight - this.$refs.messages.scrollTop < 250) {
-                    this.scrollToEnd()
-                }
+                setTimeout(() => {
+                    if (this.$refs.messages.scrollHeight - this.$refs.messages.clientHeight - this.$refs.messages.scrollTop < 250) {
+                        this.scrollToEnd()
+                    }
+                });
                 /* TODO: make a circle down arrow in bottom-right corner that scrolls down
                         and make it appear only if scrolled past  not to 100%
                 */
             }
         },
+        computed: mapState({
+            isConnected: state => state.session.isConnected,
+            login: state => state.session.userData.login
+        }),
+        watch: {
+            isConnected: function (n,o) {
+                if (n !== o && n) {
+                    this.socket.emit('message', JSON.stringify({
+                        sender: 'System',
+                        time: moment().format('HH:mm'),
+                        message: [`Подключился пользователь: ${this.login}`]
+                    }));
+                    this.appendMessage({
+                        sender: 'System',
+                        time: moment().format('HH:mm'),
+                        message: [`Вы подключились как ${this.login}`]
+                    })
+                }
+            }
+        },
         mounted() {
-            this.socket.on('connect', () => {
-                this.appendMessage({
-                    sender: 'System',
-                    time: moment().format('HH:mm'),
-                    message: [`Вы подключились как ${this.TEST_SENDER}`]
-                })
-            });
-            this.socket.on('message', (data) => {
-                this.appendMessage(JSON.parse(data))
+            this.socket.on('message', data => {
+                if (this.isConnected) {
+                    this.appendMessage(JSON.parse(data))
+                }
             });
         }
     }
