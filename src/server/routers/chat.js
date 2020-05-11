@@ -4,10 +4,36 @@ const express = require('express'),
 // ---------- ---------- ---------- ---------- ---------- \\
 
 module.exports = (passport, io, moment) => {
+    function listUsers() {
+        let logins = [];
+        for (let a in users) {
+            logins.push(users[a].login)
+        }
+        chat.emit('list', JSON.stringify(logins));
+    }
+
+    let users = {};
+    /* TODO: add random color codes to newly joined users
+
+     */
     const chat = io
         .of('/chat')
         .on('connection', (socket) => {
-            socket.on('message', (data) => {
+            socket.on('login', data => {
+                data = JSON.parse(data);
+                users[data.id] = {
+                    socket: socket,
+                    login: data.login
+                };
+                chat.emit('message', JSON.stringify({
+                    sender: 'Система',
+                    time: moment().format('HH:mm'),
+                    message: [`Пользователь ${data.login} подключился`]
+                }));
+                listUsers();
+            });
+
+            socket.on('message', data => {
                 /* TODO: limit the throughput
                     > set a limit for 3000 characters so as not to clog the server
                 */
@@ -15,14 +41,17 @@ module.exports = (passport, io, moment) => {
             });
 
             socket.on('disconnect', () => {
-                /* TODO: add disconnected user message emission
-                    > need to emit message of which exact user disconnected
-                 */
-                // socket.broadcast.emit('message', JSON.stringify({
-                //     sender: 'System',
-                //     time: moment().format('HH:mm'),
-                //     message: [`Пользователь отключился`]
-                // }));
+                for (let n in users) {
+                    if (users[n].socket.disconnected) {
+                        chat.emit('message', JSON.stringify({
+                            sender: 'Система',
+                            time: moment().format('HH:mm'),
+                            message: [`Пользователь ${users[n].login} отключился`]
+                        }));
+                        delete users[n]
+                    }
+                }
+                listUsers();
             });
         });
 

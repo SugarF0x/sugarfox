@@ -5,33 +5,45 @@
             class="app"
         >
             <h1>Авторизуйтесь для продолжения</h1>
-            <div style="background-color: lightgray; flex: 1"></div>
         </div>
         <div
             v-else
             class="app"
         >
-            <h1>Фрупчат</h1>
-            <ul class="messages" ref="messages">
-                <li v-for="n in messages">
-                    <div class="sender" style="font-size:1.5rem">
-                        {{n.sender}}: <small>{{ n.time }}</small>
-                    </div>
-                    <ul class="message">
-                        <li v-for="m in n.message">
-                            {{m}}
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <div class='input'>
-                <textarea
-                    name="input"
-                    v-model="input"
-                    placeholder="Введите сообщение"
-                    @keydown.enter.exact.prevent="send"
-                    @keydown.enter.shift.exact="newline"
-                ></textarea>
+            <div class="sidebar">
+
+            </div>
+            <div class="main">
+                <h1>Фрупчат</h1>
+                <ul class="messages" ref="messages">
+                    <li v-for="n in messages">
+                        <div class="sender" style="font-size:1.5rem">
+                            {{n.sender}}: <small>{{ n.time }}</small>
+                        </div>
+                        <ul class="message">
+                            <li v-for="m in n.message">
+                                {{m}}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class='input'>
+                    <textarea
+                            name="input"
+                            v-model="input"
+                            placeholder="Введите сообщение"
+                            @keydown.enter.exact.prevent="send"
+                            @keydown.enter.shift.exact="newline"
+                    ></textarea>
+                </div>
+            </div>
+            <div class="users sidebar">
+                <h3>Подключенные пользователи:</h3>
+                <ul>
+                    <li v-for="n in users">
+                        {{n}}
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -45,10 +57,14 @@
     export default {
         name: "Chat",
         data() {
+            /* TODO: add symbol counter to input textarea
+                > like Twitter x/300 one in the top-right corner
+            */
             return {
                 socket: io('/chat'),
                 input: '',
-                messages: []
+                messages: [],
+                users: []
             }
         },
         methods: {
@@ -58,12 +74,12 @@
                 */
                 if (this.input) {
                     this.appendMessage({
-                        sender: this.login,
+                        sender: this.userData.login,
                         time: moment().format('HH:mm'),
                         message: this.input.split('\n')
                     });
                     this.socket.emit('message', JSON.stringify({
-                        sender: this.login,
+                        sender: this.userData.login,
                         time: moment().format('HH:mm'),
                         message: this.input.split('\n')
                     }));
@@ -80,16 +96,6 @@
                 });
             },
             appendMessage(messageData) {
-                /*
-                    messageData =  {
-                        sender: 'login',
-                        time: 'time'
-                        message: [
-                            'message',
-                            '...'
-                        ]
-                    }
-                */
                 if (this.messages.length) {
                     if (this.messages[this.messages.length-1].sender === messageData.sender) {
                         messageData.message.forEach((entry) => {
@@ -113,30 +119,36 @@
         },
         computed: mapState({
             isConnected: state => state.session.isConnected,
-            login: state => state.session.userData.login
+            userData:    state => state.session.userData
         }),
         watch: {
             isConnected: function (n,o) {
                 if (n !== o && n) {
-                    this.socket.emit('message', JSON.stringify({
-                        sender: 'System',
-                        time: moment().format('HH:mm'),
-                        message: [`Подключился пользователь: ${this.login}`]
+                    this.socket.emit('login', JSON.stringify({
+                        id:    this.userData.id,
+                        login: this.userData.login
                     }));
-                    this.appendMessage({
-                        sender: 'System',
-                        time: moment().format('HH:mm'),
-                        message: [`Вы подключились как ${this.login}`]
-                    })
                 }
             }
         },
         mounted() {
+            /* TODO: fix issue with chat not initing when entering from route-to
+                > also fix issue when user is no longer authed but still can send messages and receive them
+                    as per socket session is still going
+            */
             this.socket.on('message', data => {
                 if (this.isConnected) {
                     this.appendMessage(JSON.parse(data))
                 }
             });
+            this.socket.on('list', data => {
+                this.users = JSON.parse(data);
+            })
+        },
+        beforeDestroy() {
+            /* TODO: Add socket leave event
+                > make it so that user leaves chat session upon leaving chat with route-to
+             */
         }
     }
 </script>
@@ -144,53 +156,66 @@
 <style lang="less" scoped>
     #chat {
         display: flex;
-        justify-content: center;
-        text-align: center;
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0;
+            li {
+                padding-left: 1rem;
+            }
+        }
         .app {
+            flex: 1;
             display: flex;
-            flex-flow: column;
-            border-left: 1px solid black;
-            border-right: 1px solid black;
-            width: 100vh;
-            text-align: left;
-            h1 {
-                text-align: center;
-                padding: 1rem;
-                border-bottom: 1px solid black;
-                margin-bottom: 0;
+            .sidebar {
+                flex: 1;
             }
-            ul {
-                list-style: none;
-                padding-left: 0;
-                margin-bottom: 0;
+            .users {
+                h3 {
+                    text-align: center;
+                }
                 li {
-                    padding-left: 1rem;
+                    text-align: left;
                 }
             }
-            .messages {
-                flex: 1rem 1;
-                overflow-y: auto;
-                overflow-x: hidden;
-                > li:nth-of-type(2n-1) {
-                    background-color: seashell;
-                }
-            }
-            .messages { // these disable scrollbar (+ the ::-webkit-scrollbar further down)
-                overflow: -moz-scrollbars-none;
-                -ms-overflow-style: none;
-            }
-            .messages::-webkit-scrollbar { width: 0 !important }
-            .input {
-                border-top: 1px solid black;
-                padding: 1rem;
+            .main {
                 display: flex;
-                justify-content: center;
-                align-content: center;
-                textarea {
-                    width: 100%;
-                    outline: none;
-                    resize: none;
-                    padding: .3rem;
+                flex-flow: column;
+                border-left: 1px solid black;
+                border-right: 1px solid black;
+                width: 100vh;
+                text-align: left;
+                h1 {
+                    text-align: center;
+                    padding: 1rem;
+                    border-bottom: 1px solid black;
+                    margin-bottom: 0;
+                }
+                .messages {
+                    flex: 1rem 1;
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                    > li:nth-of-type(2n-1) {
+                        background-color: seashell;
+                    }
+                }
+                .messages { // these disable scrollbar (+ the ::-webkit-scrollbar further down)
+                    overflow: -moz-scrollbars-none;
+                    -ms-overflow-style: none;
+                }
+                .messages::-webkit-scrollbar { width: 0 !important }
+                .input {
+                    border-top: 1px solid black;
+                    padding: 1rem;
+                    display: flex;
+                    justify-content: center;
+                    align-content: center;
+                    textarea {
+                        width: 100%;
+                        outline: none;
+                        resize: none;
+                        padding: .3rem;
+                    }
                 }
             }
         }
