@@ -69,9 +69,13 @@
         },
         methods: {
             send() {
-                /* TODO: limit the throughput
-                    > set a limit for 3000 characters so as not to clog the server
-                */
+                if ([...this.input].length > 3000) {
+                    this.appendMessage({
+                        sender: 'Система',
+                        time: moment().format('HH:mm'),
+                        message: ['Максимальная длина сообщения: 3000 символов']
+                    })
+                } else
                 if (this.input) {
                     this.appendMessage({
                         sender: this.userData.login,
