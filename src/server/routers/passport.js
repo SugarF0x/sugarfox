@@ -105,7 +105,8 @@ module.exports = (passport) => {
             res.json({
                 result: 1,
                 user: {
-                    login: req.user.login
+                    login: req.user.login,
+                    id:    req.user.type +'#'+ req.user.id
                 }
             })
         } else {
