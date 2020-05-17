@@ -8,11 +8,12 @@
     "buildDev": "webpack --mode development --config webpack.dev.config.js",
     "buildProd": "npm run clean && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
     "buildServer": " webpack --mode development --config webpack.server.config.js ",
-    "start": "nodemon --delay 2 dist/server/server.js"
+    "start": "nodemon dist/server/server.js"
   },
   "nodemonConfig": {
     "ignore": [
-      "*.json"
+      "*.json",
+      "public/*"
     ]
   },
   "author": "Sugar_F0x",
