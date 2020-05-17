@@ -48,7 +48,7 @@ module.exports = (passport, io, moment) => {
                             time: moment().format('HH:mm'),
                             message: [`Пользователь ${users[n].login} отключился`]
                         }));
-                        delete users[n]
+                        delete users[n];
                     }
                 }
                 listUsers();

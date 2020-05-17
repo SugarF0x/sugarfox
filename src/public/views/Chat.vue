@@ -4,7 +4,7 @@
             v-if="!isConnected"
             class="app"
         >
-            <h1>Авторизуйтесь для продолжения</h1>
+            <h1 class="blocked">Авторизуйтесь для продолжения</h1>
         </div>
         <div
             v-else
@@ -29,11 +29,11 @@
                 </ul>
                 <div class='input'>
                     <textarea
-                            name="input"
-                            v-model="input"
-                            placeholder="Введите сообщение"
-                            @keydown.enter.exact.prevent="send"
-                            @keydown.enter.shift.exact="newline"
+                        name="input"
+                        v-model="input"
+                        placeholder="Введите сообщение"
+                        @keydown.enter.exact.prevent="send"
+                        @keydown.enter.shift.exact="newline"
                     ></textarea>
                 </div>
             </div>
@@ -136,10 +136,13 @@
             }
         },
         mounted() {
-            /* TODO: fix issue with chat not initing when entering from route-to
-                > also fix issue when user is no longer authed but still can send messages and receive them
-                    as per socket session is still going
-            */
+            if (this.isConnected) {
+                this.socket.emit('login', JSON.stringify({
+                    id:    this.userData.id,
+                    login: this.userData.login
+                }));
+            }
+
             this.socket.on('message', data => {
                 if (this.isConnected) {
                     this.appendMessage(JSON.parse(data))
@@ -150,9 +153,7 @@
             })
         },
         beforeDestroy() {
-            /* TODO: Add socket leave event
-                > make it so that user leaves chat session upon leaving chat with route-to
-             */
+            this.socket.disconnect();
         }
     }
 </script>
@@ -171,6 +172,14 @@
         .app {
             flex: 1;
             display: flex;
+            .blocked {
+                flex: 1;
+                margin: 0;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                background-color: lightgray;
+            }
             .sidebar {
                 flex: 1;
             }

@@ -26,6 +26,10 @@ module.exports = (passport) => {
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
+    /* TODO: intorduce bcrypt to local auth process
+        > need to add it both to registration and to auth process
+    */
+
     passport.use(new LocalStrategy({usernameField: 'email'}, (email, password, done) => {
         const user = users.local.find(user => user.email === email);
         if (user == null) {
@@ -69,13 +73,6 @@ module.exports = (passport) => {
             });
         }
     ));
-
-    /* TODO: pass data to cookies
-        > besides session ID i need to pass other data to cookies
-            or i need to somehow see if the session is still rolling
-            perhaps a boolean type with connection state that checks and updates
-            the state upon every auth query
-     */
 
     passport.serializeUser((user, done) => {
         done(null, user);
