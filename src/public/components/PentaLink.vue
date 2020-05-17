@@ -1,48 +1,42 @@
 <template>
-    <a
-        v-if="path==='#'"
-        class="pentaLink noHighlight"
-        :href=link
-        :title=desc
-        @click="click"
-        :isDisabled=disabled
-        :style="{width: size + 'rem', height: size + 'rem'}"
+    <a v-if="path==='#'"
+       class="pentaLink noHighlight"
+       :href=link
+       :title=desc
+       @click="click"
+       :isDisabled=disabled
+       :style="{width: size + 'rem', height: size + 'rem'}"
     >
-        <svg
-            viewBox="0 0 58 64"
-            class="pL__bg"
-            :style="{transform: 'rotate(' + tilt + 'deg)', fill: color}"
+        <svg viewBox="0 0 58 64"
+             class="pL__bg"
+             :style="{transform: 'rotate(' + tilt + 'deg)', fill: color}"
         >
             <polygon points="46.954,57.792 11,57.792 -1,24.544 29.039,0.208 59,24.792"></polygon>
         </svg>
-        <img
-            class="pL__fg"
-            :src=img
-            :style="'transform: rotate(' + Math.floor(tilt/2)*(-1) + 'deg)'"
-            :alt=desc
+        <img class="pL__fg"
+             :src=img
+             :style="'transform: rotate(' + Math.floor(tilt/2)*(-1) + 'deg)'"
+             :alt=desc
         >
     </a>
-    <router-link
-        v-else
-        :to=path
-        class="pentaLink noHighlight"
-        :title=desc
-        :isDisabled=disabled
-        :event="disabled === 'false' ? 'click' : ''"
-        :style="{width: size + 'rem', height: size + 'rem'}"
+    <router-link v-else
+                 :to=path
+                 class="pentaLink noHighlight"
+                 :title=desc
+                 :isDisabled=disabled
+                 :event="disabled === 'false' ? 'click' : ''"
+                 :style="{width: size + 'rem', height: size + 'rem'}"
     >
-        <svg
-            viewBox="0 0 58 64"
-            class="pL__bg"
-            :style="{transform: 'rotate(' + tilt + 'deg)', fill: color}"
+        <svg viewBox="0 0 58 64"
+             class="pL__bg"
+             :style="{transform: 'rotate(' + tilt + 'deg)', fill: color}"
         >
             <polygon points="46.954,57.792 11,57.792 -1,24.544 29.039,0.208 59,24.792"></polygon>
         </svg>
-        <img
-            class="pL__fg"
-            :src=img
-            :style="'transform: rotate(' + Math.floor(tilt/2)*(-1) + 'deg)'"
-            :alt=desc
+        <img class="pL__fg"
+             :src=img
+             :style="'transform: rotate(' + Math.floor(tilt/2)*(-1) + 'deg)'"
+             :alt=desc
         >
     </router-link>
 </template>

@@ -1,10 +1,9 @@
 <template>
     <div class="quote noHighlight d-inline-flex align-items-center">
-        <div
-            class="quote__text"
-            :class="{disabledAction: !$store.state.session.isConnected}"
-            :style="{opacity: opacity}"
-            @click="getQuote(true)"
+        <div class="quote__text"
+             :class="{disabledAction: !$store.state.session.isConnected}"
+             :style="{opacity: opacity}"
+             @click="getQuote(true)"
         >
             {{quote}}
         </div>
@@ -12,20 +11,17 @@
             [{{id}} / {{max}}]
         </div>
         <div class="quote__refresh">
-            <input
-                type="checkbox"
-                id="checkbox"
-                v-model="autoRefresh"
-                v-show="false"
+            <input type="checkbox"
+                   id="checkbox"
+                   v-model="autoRefresh"
+                   v-show="false"
             >
-            <label
-                for="checkbox"
-                title="Авто обновление цитат"
+            <label for="checkbox"
+                   title="Авто обновление цитат"
             >
-                <font-awesome-icon
-                    icon="sync-alt"
-                    style="font-size: 0.65em"
-                    :class="{quote__number : !autoRefresh}"
+                <font-awesome-icon icon="sync-alt"
+                                   style="font-size: 0.65em"
+                                   :class="{quote__number : !autoRefresh}"
                 />
             </label>
         </div>

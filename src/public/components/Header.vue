@@ -1,9 +1,8 @@
 <template>
     <header class="container-fluid d-flex justify-content-between">
-        <router-link
-            to="/"
-            class="d-flex align-items-center"
-            id="logo"
+        <router-link to="/"
+                     class="d-flex align-items-center"
+                     id="logo"
         >
             <img src="/img/sgfx_line_blue.webp" alt="sgfx-logo">
             <span>SGFX</span>

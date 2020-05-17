@@ -1,14 +1,12 @@
 <template>
     <div id="chat">
-        <div
-            v-if="!isConnected"
-            class="app"
+        <div v-if="!isConnected"
+             class="app"
         >
             <h1 class="blocked">Авторизуйтесь для продолжения</h1>
         </div>
-        <div
-            v-else
-            class="app"
+        <div v-else
+             class="app"
         >
             <div class="sidebar">
 
@@ -28,12 +26,11 @@
                     </li>
                 </ul>
                 <div class='input'>
-                    <textarea
-                        name="input"
-                        v-model="input"
-                        placeholder="Введите сообщение"
-                        @keydown.enter.exact.prevent="send"
-                        @keydown.enter.shift.exact="newline"
+                    <textarea name="input"
+                              v-model="input"
+                              placeholder="Введите сообщение"
+                              @keydown.enter.exact.prevent="send"
+                              @keydown.enter.shift.exact="newline"
                     ></textarea>
                 </div>
             </div>
