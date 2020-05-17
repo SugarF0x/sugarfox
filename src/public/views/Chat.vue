@@ -166,7 +166,7 @@
             padding-left: 0;
             margin-bottom: 0;
             li {
-                padding-left: 1rem;
+                padding: 0 1rem;
             }
         }
         .app {
@@ -180,9 +180,6 @@
                 align-items:center;
                 background-color: lightgray;
             }
-            .sidebar {
-                flex: 1;
-            }
             .users {
                 h3 {
                     text-align: center;
@@ -191,12 +188,22 @@
                     text-align: left;
                 }
             }
+            .sidebar {
+                flex: 1;
+                display: none;
+            }
+            @media (min-width:961px)  {
+                .sidebar {
+                    display: initial;
+                }
+            }
             .main {
                 display: flex;
                 flex-flow: column;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
-                width: 100vh;
+                width: 100vw;
+                max-width: 100vh;
                 text-align: left;
                 h1 {
                     text-align: center;
@@ -205,7 +212,7 @@
                     margin-bottom: 0;
                 }
                 .messages {
-                    flex: 1rem 1;
+                    flex: 1;
                     overflow-y: auto;
                     overflow-x: hidden;
                     > li:nth-of-type(2n-1) {
