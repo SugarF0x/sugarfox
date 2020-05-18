@@ -13,14 +13,9 @@ module.exports = (passport, io, moment) => {
     }
 
     let users = {};
+    const history = [];
     /* TODO: add random color codes to newly joined users
-
-     */
-
-    /* TODO: add chat logging
-        > log everything in chat and send it upon entering it
-        > perhaps i should use Vue list loader component from here:
-            URL: https://github.com/IvanSafonov/vue-list-scroller
+            > or not :shrug:
      */
     const chat = io
         .of('/chat')
@@ -31,6 +26,9 @@ module.exports = (passport, io, moment) => {
                     socket: socket,
                     login: data.login
                 };
+                history.forEach(unit => {
+                    chat.to(socket.id).emit('message',JSON.stringify(unit));
+                });
                 chat.emit('message', JSON.stringify({
                     sender: 'Система',
                     time: moment().format('HH:mm'),
@@ -43,6 +41,18 @@ module.exports = (passport, io, moment) => {
                 /* TODO: limit the throughput
                     > set a limit for 3000 characters so as not to clog the server
                 */
+                let oData = JSON.parse(data);
+                if (history.length) {
+                    if (history[history.length-1].sender === oData.sender) {
+                        oData.message.forEach((entry) => {
+                            history[history.length-1].message.push(entry)
+                        })
+                    } else {
+                        history.push(oData)
+                    }
+                } else {
+                    history.push(oData)
+                }
                 socket.broadcast.emit('message', data)
             });
 
