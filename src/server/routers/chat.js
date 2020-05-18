@@ -16,6 +16,12 @@ module.exports = (passport, io, moment) => {
     /* TODO: add random color codes to newly joined users
 
      */
+
+    /* TODO: add chat logging
+        > log everything in chat and send it upon entering it
+        > perhaps i should use Vue list loader component from here:
+            URL: https://github.com/IvanSafonov/vue-list-scroller
+     */
     const chat = io
         .of('/chat')
         .on('connection', (socket) => {
