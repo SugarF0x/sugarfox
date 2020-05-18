@@ -32,6 +32,7 @@
                               @keydown.enter.exact.prevent="send"
                               @keydown.enter.shift.exact="newline"
                     ></textarea>
+                    <div class="charCount">{{messageLength}}/3000</div>
                 </div>
             </div>
             <div class="users sidebar">
@@ -119,8 +120,11 @@
             }
         },
         computed: mapState({
-            isConnected: state => state.session.isConnected,
-            userData:    state => state.session.userData
+            isConnected:   state => state.session.isConnected,
+            userData:      state => state.session.userData,
+            messageLength() {
+                return this.input.length
+            }
         }),
         watch: {
             isConnected: function (n,o) {
@@ -209,7 +213,7 @@
                     margin-bottom: 0;
                 }
                 .messages {
-                    flex: 1;
+                    flex: 1rem 1;
                     overflow-y: auto;
                     overflow-x: hidden;
                     > li:nth-of-type(2n-1) {
@@ -222,6 +226,7 @@
                 }
                 .messages::-webkit-scrollbar { width: 0 !important }
                 .input {
+                    position: relative;
                     border-top: 1px solid black;
                     padding: 1rem;
                     display: flex;
@@ -232,6 +237,13 @@
                         outline: none;
                         resize: none;
                         padding: .3rem;
+                    }
+                    .charCount {
+                        position: absolute;
+                        top: 0;
+                        right: 1rem;
+                        font-size: .8em;
+                        color: lightgray;
                     }
                 }
             }
