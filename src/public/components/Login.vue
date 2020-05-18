@@ -221,9 +221,11 @@
             .wrap {
                 position: relative;
                 background-color: white;
-                border-radius: 1rem;
                 width: 25rem;
                 padding: .8rem 2.5rem;
+                @media (min-width:961px) {
+                    border-radius: 1rem;
+                }
                 .inputError {
                     border-color: red;
                 }

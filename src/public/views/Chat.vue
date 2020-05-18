@@ -190,6 +190,8 @@
                 justify-content:center;
                 align-items:center;
                 background-color: lightgray;
+                text-align: center;
+                padding: 1rem;
             }
             .users {
                 h3 {
