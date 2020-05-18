@@ -32,7 +32,12 @@
                               @keydown.enter.exact.prevent="send"
                               @keydown.enter.shift.exact="newline"
                     ></textarea>
-                    <div class="charCount">{{messageLength}}/3000</div>
+                    <div class="charCount"
+                         :style="messageLength > 3000 ? 'color: red' :
+                                 messageLength > 2500 ? 'color: orange' : ''"
+                    >
+                        {{messageLength}}/3000
+                    </div>
                 </div>
             </div>
             <div class="users sidebar">
@@ -51,6 +56,11 @@
     import io from 'socket.io-client';
     import { mapState } from 'vuex';
     const moment = require('moment');
+
+    /* TODO: review .messages display method
+        > perhaps i should use Vue list loader component from here:
+                URL: https://github.com/IvanSafonov/vue-list-scroller
+     */
 
     export default {
         name: "Chat",
