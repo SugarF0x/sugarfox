@@ -65,9 +65,6 @@
     export default {
         name: "Chat",
         data() {
-            /* TODO: add symbol counter to input textarea
-                > like Twitter x/300 one in the top-right corner
-            */
             return {
                 socket: io('/chat'),
                 input: '',
@@ -85,6 +82,10 @@
                     })
                 } else
                 if (this.input) {
+                    /* TODO: redo the sending function
+                        > now if there are any newlines, it splits the input into different messages
+                        > what i want is newlines to stay within one single message and have them closer together
+                    */
                     this.appendMessage({
                         sender: this.userData.login,
                         time: moment().format('HH:mm'),
@@ -107,6 +108,11 @@
                     this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight;
                 });
             },
+            /* TODO: rething appendMessage
+                > since messageData structure is always the same {sender: <>, time: <>, message: <>}
+                    think i can replace messageData with three separate arguments, resulting in:
+                                        appendMessage(sender, time, message);
+            */
             appendMessage(messageData) {
                 if (this.messages.length) {
                     if (this.messages[this.messages.length-1].sender === messageData.sender) {
@@ -147,6 +153,9 @@
             }
         },
         mounted() {
+            /* TODO: fix not scrolling to bottom on loading long history
+            
+            */
             if (this.isConnected) {
                 this.socket.emit('login', JSON.stringify({
                     id:    this.userData.id,
