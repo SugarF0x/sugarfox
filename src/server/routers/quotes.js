@@ -5,6 +5,10 @@ const express = require('express'),
 // ---------- ---------- ---------- ---------- ---------- \\
 
 module.exports = (passport) => {
+    /*
+        this call lists all the quotes in .txt format
+        one must be logged in to access this
+     */
     router.get('/', (req, res) => {
         if (!req.user) {
             res.status(401).json({
@@ -22,6 +26,9 @@ module.exports = (passport) => {
         }
     });
 
+    /*
+        returns a random quote along with it's ID and total ID count
+     */
     router.get('/random', (req, res) => {
         if (!req.user) {
             res.status(401).json({
@@ -49,6 +56,10 @@ module.exports = (passport) => {
         }
     });
 
+    /*
+        returns specific quote based on it's ID
+        data format is same asin  /random
+     */
     router.get('/:id', (req, res) => {
         if (!req.user) {
             res.status(401).json({

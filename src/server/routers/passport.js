@@ -9,6 +9,10 @@ const LocalStrategy     = require('passport-local').Strategy,
 // ---------- ---------- ---------- ---------- ---------- \\
 
 module.exports = (passport) => {
+        /*
+            upon startup, user data is stored in users{} for easier access and use
+            the data is pushed from user-data.json at server/db
+         */
     const users = {local: [], VK: []};
     fs.readFile('dist/server/db/user-data.json', 'utf8', (err, data) => {
         if (!err) {
@@ -22,6 +26,10 @@ module.exports = (passport) => {
         }
     });
 
+        /*
+            this is not exactly the DEV IP, rather just an IP for VK auth callback
+            TODO: change DEV_IP to actual IP before deployment
+         */
     const DEV_IP = '87.228.10.195';
 
 // ---------- ---------- ---------- ---------- ---------- \\
@@ -30,6 +38,10 @@ module.exports = (passport) => {
         > need to add it both to registration and to auth process
     */
 
+    /*
+        this is local authorisation strategy
+        if first checks if there is a user with said email and if so, checks pass
+     */
     passport.use(new LocalStrategy({usernameField: 'email'}, (email, password, done) => {
         const user = users.local.find(user => user.email === email);
         if (user == null) {
@@ -47,6 +59,12 @@ module.exports = (passport) => {
         }
     }));
 
+    /*
+        this is VK strategy, documentation on which can be found here:
+            URL: http://www.passportjs.org/packages/passport-vkontakte/
+        apart from default implementation, it also pushes VK user into users{} if it's a fresh login
+        or pulls user-data from users{} if said login ad already happened
+     */
     passport.use(new VKontakteStrategy({
             clientID:     7123145,
             clientSecret: 'EDY6yy6bfCPtTkPk8bKe',
@@ -74,6 +92,9 @@ module.exports = (passport) => {
         }
     ));
 
+    /*
+        usual (de)serializeUser methods as per passport.js structure
+     */
     passport.serializeUser((user, done) => {
         done(null, user);
     });
@@ -81,11 +102,14 @@ module.exports = (passport) => {
         done(null, obj);
     });
 
+    /*
+        two middlewares used in auth method calls
+        their functionality is self-explanatory
+     */
     function ensureAuthenticated(req, res, next) {
         if (req.isAuthenticated()) { return next(null); }
         res.redirect('/error')
     }
-
     function ensureNotAuthenticated(req, res, next) {
         if (!req.isAuthenticated()) { return next(null); }
         res.redirect('/error')
@@ -93,10 +117,19 @@ module.exports = (passport) => {
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
+    /*
+        this makes sure the app can read sent data
+        and enables other protocols like DELETE or PUT
+     */
     router.use(express.urlencoded({ extended: false }));
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
+    /*
+        returns user data if user is logged in
+        this call is used to update user profile on client
+        and check if user is actually logged in
+     */
     router.get('/status', (req,res) => {
         if (req.user) {
             res.json({
@@ -114,6 +147,10 @@ module.exports = (passport) => {
         }
     });
 
+    /*
+        returns full users list
+        only accessible by those with admin permissions
+     */
     router.get('/getUsers', (req,res) => {
         if (!req.user) {
             res.status(401).send({
@@ -130,6 +167,9 @@ module.exports = (passport) => {
         }
     });
 
+    /*
+        logs user out
+     */
     router.delete('/logout', ensureAuthenticated, (req, res) => {
         req.logOut();
         res.json({result: 1, msg: 'SUCCESS'})
@@ -137,6 +177,22 @@ module.exports = (passport) => {
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
+    /*
+        a call for new local user registration with validation
+
+        errors{} object contains arrays of error types that are filled through regular expression validation
+        rex{} object contains arrays of said regular expressions
+            the first [0] element is a full on inline regular expression that is checked first
+            the other [1-..] elements are arrays of two: regular expression portion [0] and it's description [1]
+                these elements are only checked if the first one fails
+                upon a failed check, the regexp description [1] is pushed into the according errors{} key
+        before rexexp checks, it checks whether the email is already occupied
+        then it checks whether the states passwords match
+        then come regexp checks
+
+        if there are no errors{}, the new user is created and pushed into both users{} and user-data.json
+        otherwise, an error message is sent back to user with stated errors
+     */
     router.post('/register', (req, res) => {
         let errors = {
             email: [],
@@ -163,6 +219,9 @@ module.exports = (passport) => {
                 [/^.*[а-яёa-z0-9]$/i,   'Логин должен заканчиваться на букву или цифру'],
                 [/^.{3,21}$/,           'Логин должен быть от 3 до 21 символов']
             ],
+            /* TODO: complete passport validation before deployment
+                > has to contain both letters and chracters - shit like that
+             */
             password: [
                 /^(?=\S+$).{8,}$/, // full expression
                 [/^\S+$/,   'Пробелы недопустимы'],
@@ -170,8 +229,8 @@ module.exports = (passport) => {
             ]
         };
         let newUser = {
-            email: req.body.email.toLowerCase(),
-            login: req.body.login,
+            email:     req.body.email.toLowerCase(),
+            login:     req.body.login,
             password1: req.body.password1,
             password2: req.body.password2
         };
@@ -227,6 +286,9 @@ module.exports = (passport) => {
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
+    /*
+        this call initiates local authorisation
+     */
     router.post('/login/local', ensureNotAuthenticated, (req, res, next) => {
         passport.authenticate('local', (err, user, info) => {
             if (err) {
@@ -244,6 +306,13 @@ module.exports = (passport) => {
         })(req, res, next);
     });
 
+    /*
+        this call initiates VK authorisation
+
+        since this authorisation requires a callback, the call writes the caller's URL down into session object
+        upon return to said callback, the user gets redirected to the page this call was initiated from
+        after that, the caller's URL is deleted from session
+     */
     router.post(
         '/login/vk',
         (req, res, next) => {
@@ -269,6 +338,10 @@ module.exports = (passport) => {
         })(req, res, next);
     });
 
+    /*
+        technically, this is a placeholder
+        i'm not even sure if i actually need this but ok
+     */
     router.get('/error', (req, res) => {
         res.send('An error has occured.');
     });
