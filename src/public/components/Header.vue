@@ -1,5 +1,7 @@
 <template>
-    <header class="container-fluid d-flex justify-content-between">
+    <header class="container-fluid d-flex justify-content-between"
+            :class="{darkmode : darkmode}"
+    >
         <router-link to="/"
                      class="d-flex align-items-center"
                      id="logo"
@@ -18,12 +20,22 @@
         name: "Header",
         components: {
             Login
+        },
+        computed: {
+            darkmode() {
+                return this.$store.state.darkmode
+            }
         }
     }
 </script>
 
 <style scoped lang="less">
+    .darkmode {
+        background-color: #4a4b4c;
+    }
+
     header {
+        transition-duration: .25s;
         padding: 0.5rem;
         background-color: steelblue;
         color: white;

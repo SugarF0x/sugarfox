@@ -30,7 +30,7 @@ module.exports = (passport) => {
             this is not exactly the DEV IP, rather just an IP for VK auth callback
             TODO: change DEV_IP to actual IP before deployment
          */
-    const DEV_IP = '87.228.10.195';
+    const DEV_IP = '5.35.75.233';
 
 // ---------- ---------- ---------- ---------- ---------- \\
 

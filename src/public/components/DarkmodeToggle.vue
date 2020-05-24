@@ -23,6 +23,11 @@
 </template>
 
 <script>
+    /* TODO: create color pallet
+        > i cant really be making separate color pallet for every component
+            i need to make some standards and store them in vuex
+            so as to pull values from there directly
+     */
     export default {
         name: "DarkmodeToggle",
         computed: {
