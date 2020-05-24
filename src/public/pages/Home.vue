@@ -55,6 +55,13 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+    #home {
+        > section {
+            padding: .5rem 1.5rem;
+        }
+        > section:nth-of-type(2n) {
+            background-color: aliceblue;
+        }
+    }
 </style>

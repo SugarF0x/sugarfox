@@ -27,5 +27,7 @@
 <style scoped lang="less">
     footer {
         min-height: 1rem;
+        display: flex;
+        justify-content: space-between;
     }
 </style>

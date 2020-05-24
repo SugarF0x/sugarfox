@@ -148,7 +148,7 @@
                     this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight;
                 });
             },
-            /* TODO: rething appendMessage
+            /* TODO: rethink appendMessage
                 > since messageData structure is always the same {sender: <>, time: <>, message: <>}
                     think i can replace messageData with three separate arguments, resulting in:
                                         appendMessage(sender, time, message);

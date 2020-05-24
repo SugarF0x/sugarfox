@@ -11,12 +11,6 @@
   body {
     font-size: 16px;
   }
-  html .insert,
-  body .insert {
-    justify-content: center;
-    display: flex;
-    flex-wrap: wrap;
-  }
 }
 @media (min-width: 992px) {
   html,
@@ -36,26 +30,6 @@ body {
 }
 * {
   font-family: Jura, sans-serif;
-}
-#home > section {
-  padding: 0.5rem 1.5rem;
-}
-#home > section:nth-of-type(2n) {
-  background-color: aliceblue;
-}
-#vueapp {
-  display: flex;
-  flex-flow: column;
-  min-height: 100vh;
-}
-#vueapp > div {
-  flex: 1;
-}
-header,
-footer {
-  padding: 0.5rem;
-  background-color: steelblue;
-  color: white;
 }
 .noHighlight {
   -webkit-touch-callout: none;

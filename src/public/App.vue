@@ -23,4 +23,21 @@
     }
 </script>
 
-<style lang="less" src="./styles/main.less"></style>
+<style lang="less">
+    @import "./styles/main.css";
+
+    header, footer {
+        padding: 0.5rem;
+        background-color: steelblue;
+        color: white;
+    }
+
+    #vueapp {
+        display: flex;
+        flex-flow: column;
+        min-height: 100vh;
+        > div {
+            flex: 1;
+        }
+    }
+</style>
