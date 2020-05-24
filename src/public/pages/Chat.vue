@@ -72,6 +72,23 @@
                 users: []
             }
         },
+        computed: mapState({
+            isConnected: state => state.session.isConnected,
+            userData:    state => state.session.userData,
+            messageLength() {
+                return this.input.length
+            }
+        }),
+        watch: { // n = new value, o = old value
+            isConnected: function (n,o) {
+                if (n !== o && n) {
+                    this.socket.emit('login', JSON.stringify({
+                        id:    this.userData.id,
+                        login: this.userData.login
+                    }));
+                }
+            }
+        },
         methods: {
             send() {
                 if ([...this.input].length > 3000) {
@@ -133,23 +150,6 @@
                 /* TODO: make a circle down arrow in bottom-right corner that scrolls down
                         and make it appear only if scrolled past  not to 100%
                 */
-            }
-        },
-        computed: mapState({
-            isConnected: state => state.session.isConnected,
-            userData:    state => state.session.userData,
-            messageLength() {
-                return this.input.length
-            }
-        }),
-        watch: { // n = new value, o = old value
-            isConnected: function (n,o) {
-                if (n !== o && n) {
-                    this.socket.emit('login', JSON.stringify({
-                        id:    this.userData.id,
-                        login: this.userData.login
-                    }));
-                }
             }
         },
         mounted() {
