@@ -136,13 +136,13 @@
             }
         },
         computed: mapState({
-            isConnected:   state => state.session.isConnected,
-            userData:      state => state.session.userData,
+            isConnected: state => state.session.isConnected,
+            userData:    state => state.session.userData,
             messageLength() {
                 return this.input.length
             }
         }),
-        watch: {
+        watch: { // n = new value, o = old value
             isConnected: function (n,o) {
                 if (n !== o && n) {
                     this.socket.emit('login', JSON.stringify({

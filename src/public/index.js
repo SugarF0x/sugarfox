@@ -8,13 +8,13 @@ import { fas }             from '@fortawesome/free-solid-svg-icons';
 import { fab }             from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import Home          from "./views/Home.vue";
-import Chat          from "./views/Chat.vue";
-import Missing       from "./views/Missing.vue";
-import Minecraft     from "./views/Minecraft.vue";
-import Error         from "./views/Error.vue";
-import CommunityBank from "./views/CommunityBank.vue";
-import QuotesEditor  from "./views/QuotesEditor.vue";
+import Home          from "./pages/Home.vue";
+import Chat          from "./pages/Chat.vue";
+import Missing       from "./pages/Missing.vue";
+import Minecraft     from "./pages/Minecraft.vue";
+import Error         from "./pages/Error.vue";
+import CommunityBank from "./pages/CommunityBank.vue";
+import QuotesEditor  from "./pages/QuotesEditor.vue";
 
 library.add(fas, fab);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
