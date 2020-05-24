@@ -3,6 +3,26 @@ const express = require('express'),
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
+/* TODO: create separate rooms
+    > when you enter chat, you are presented with room options
+        either you enter a common room with all-access
+        or you can enter/create a new room with optional password
+    > rooms are to be accessible via a link :id
+        sgfx.ru/chat/:id
+        once there, password is required
+            if possible, make it that as long as room exists
+            and as long as user entered password once
+            the access is granted automatically
+    > let the room creator edit/delete the room
+*/
+
+/* TODO: create spam protection
+    > if a user sends too many messages in a short span of time
+        prevent him from doing so by granting a 10 second mute
+    >> the client is to be informed of mute satus
+        and mute status is to be somehow displayed on client
+*/
+
 module.exports = (passport, io, moment) => {
         /*
             This function extracts user logins from the users Object

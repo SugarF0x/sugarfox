@@ -9,6 +9,11 @@
 </template>
 
 <script>
+    /* TODO: add dark mode checkbox
+        > an example of such a checkbox can be seen here:
+            URL: https://nuxtjs.org/
+    */
+
     import Quotes from './Quotes.vue'
 
     export default {
