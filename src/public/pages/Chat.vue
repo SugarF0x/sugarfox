@@ -38,6 +38,11 @@
                     >
                         {{messageLength}}/3000
                     </div>
+                    <font-awesome-icon icon="arrow-up"
+                                       class="scroll-down-button"
+                                       :style="scrollArrowStyle"
+                                       @click="scrollToEnd()"
+                    />
                 </div>
             </div>
             <div class="users sidebar">
@@ -69,7 +74,12 @@
                 socket: io('/chat'),
                 input: '',
                 messages: [],
-                users: []
+                users: [],
+                isScrollRequired: false,
+                scrollArrowStyle: {
+                    display: 'none',
+                    opacity: 0
+                }
             }
         },
         computed: mapState({
@@ -86,6 +96,19 @@
                         id:    this.userData.id,
                         login: this.userData.login
                     }));
+                }
+            },
+            isScrollRequired: function (n,o) {
+                if (n) {
+                    this.scrollArrowStyle.opacity = 0;
+                    setTimeout(() => {
+                        this.scrollArrowStyle.display = 'none';
+                    },250)
+                } else {
+                    this.scrollArrowStyle.display = 'initial';
+                    setTimeout(() => {
+                        this.scrollArrowStyle.opacity = 1;
+                    })
                 }
             }
         },
@@ -142,14 +165,9 @@
                 } else {
                     this.messages.push(messageData)
                 }
-                setTimeout(() => {
-                    if (this.$refs.messages.scrollHeight - this.$refs.messages.clientHeight - this.$refs.messages.scrollTop < 250) {
-                        this.scrollToEnd()
-                    }
-                });
-                /* TODO: make a circle down arrow in bottom-right corner that scrolls down
-                        and make it appear only if scrolled past  not to 100%
-                */
+                if (this.isScrollRequired) {
+                    this.scrollToEnd()
+                }
             }
         },
         mounted() {
@@ -160,6 +178,9 @@
                 }));
             }
             this.socket.on('catchup-finished', () => {
+                this.$refs.messages.addEventListener('scroll', () => {
+                    this.isScrollRequired = this.$refs.messages.scrollHeight - this.$refs.messages.clientHeight - this.$refs.messages.scrollTop < 250;
+                });
                 this.scrollToEnd();
             });
 
@@ -265,6 +286,24 @@
                         right: 1rem;
                         font-size: .8em;
                         color: lightgray;
+                    }
+                    .scroll-down-button {
+                        cursor: pointer;
+                        background-color: whitesmoke;
+                        position: absolute;
+                        right: .3rem;
+                        top: -1.8rem;
+                        border: 1px solid black;
+                        border-radius: 50%;
+                        width: 1.5rem;
+                        height: 1.5rem;
+                        padding: .1rem;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        transform: rotate(180deg);
+                        transition-timing-function: ease-in-out;
+                        transition-duration: 0.25s;
                     }
                 }
             }
