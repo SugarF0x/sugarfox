@@ -94,6 +94,8 @@
         cursor: not-allowed !important;
     }
     .quote {
+        flex: 1;
+        justify-content: flex-end;
         > * {
             display: inline-block;
             padding: 0 0.2rem;
@@ -102,12 +104,14 @@
             cursor: pointer;
         }
         .quote__text {
+            flex: 1 0;
+            text-align: right;
             transition-timing-function: ease-in-out;
             transition-duration: 0.25s;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
-            max-width: 70vw;
+            max-width: 100%;
         }
         .quote__number {
             font-size: 0.65em;
