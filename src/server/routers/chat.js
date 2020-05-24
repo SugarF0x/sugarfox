@@ -66,6 +66,7 @@ module.exports = (passport, io, moment) => {
                 };
                 history.forEach(unit => {
                     chat.to(socket.id).emit('message',JSON.stringify(unit));
+                    chat.to(socket.id).emit('catchup-finished');
                 });
                 chat.emit('message', JSON.stringify({
                     sender: 'Система',

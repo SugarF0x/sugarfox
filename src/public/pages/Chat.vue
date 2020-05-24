@@ -153,15 +153,15 @@
             }
         },
         mounted() {
-            /* TODO: fix not scrolling to bottom on loading long history
-            
-            */
             if (this.isConnected) {
                 this.socket.emit('login', JSON.stringify({
                     id:    this.userData.id,
                     login: this.userData.login
                 }));
             }
+            this.socket.on('catchup-finished', () => {
+                this.scrollToEnd();
+            });
 
             this.socket.on('message', data => {
                 if (this.isConnected) {
