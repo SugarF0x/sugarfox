@@ -20,6 +20,10 @@
 
 <style scoped lang="less">
     footer {
+        padding: 0.5rem;
+        background-color: steelblue;
+        color: white;
+
         min-height: 1rem;
         display: flex;
         justify-content: space-between;

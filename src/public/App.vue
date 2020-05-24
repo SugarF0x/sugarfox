@@ -26,12 +26,6 @@
 <style lang="less">
     @import "./styles/main.css";
 
-    header, footer {
-        padding: 0.5rem;
-        background-color: steelblue;
-        color: white;
-    }
-
     #vueapp {
         display: flex;
         flex-flow: column;

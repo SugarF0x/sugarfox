@@ -24,6 +24,9 @@
 
 <style scoped lang="less">
     header {
+        padding: 0.5rem;
+        background-color: steelblue;
+        color: white;
         #logo {
             height: 3rem;
             text-decoration: none;
