@@ -1,25 +1,19 @@
 <template>
-    <footer class="container-fluid">
-        <div class="row">
-            <div class="col text-right">
-                <Quotes></Quotes>
-            </div>
-        </div>
+    <footer>
+        <Darkmode></Darkmode>
+        <Quotes></Quotes>
     </footer>
 </template>
 
 <script>
-    /* TODO: add dark mode checkbox
-        > an example of such a checkbox can be seen here:
-            URL: https://nuxtjs.org/
-    */
-
-    import Quotes from './Quotes.vue'
+    import Quotes   from './Quotes.vue';
+    import Darkmode from './DarkmodeToggle.vue';
 
     export default {
         name: "Footer",
         components: {
-            Quotes
+            Quotes,
+            Darkmode
         }
     }
 </script>

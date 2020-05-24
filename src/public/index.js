@@ -54,11 +54,16 @@ new Vue({
             session: {
                 isConnected: false,
                 userData: {}
-            }
+            },
+            darkmode: false
         },
         mutations: {
             setSessionStatus(state, payload) {
                 state.session = payload;
+            },
+            setDarkmode(state, payload) {
+                state.darkmode = payload;
+                localStorage.setItem('darkmode',payload);
             }
         },
         actions: {
@@ -135,6 +140,10 @@ new Vue({
                 this.$store.dispatch('getSessionStatus', {vm: this.$root});
             })
         };
+
+        if (JSON.parse(localStorage.getItem('darkmode'))) {
+            this.$store.commit('setDarkmode', true)
+        }
     },
     render: h => h(App)
 }).$mount('#app');
