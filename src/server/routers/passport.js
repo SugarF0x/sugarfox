@@ -30,7 +30,7 @@ module.exports = (passport) => {
             this is not exactly the DEV IP, rather just an IP for VK auth callback
             TODO: change DEV_IP to actual IP before deployment
          */
-    const DEV_IP = '5.35.75.233';
+    const DEV_IP = 'sugarfox.servehttp.com';
 
 // ---------- ---------- ---------- ---------- ---------- \\
 
@@ -68,7 +68,7 @@ module.exports = (passport) => {
     passport.use(new VKontakteStrategy({
             clientID:     7123145,
             clientSecret: 'EDY6yy6bfCPtTkPk8bKe',
-            callbackURL:  `http://${DEV_IP}:3000/api/passport/login/vk/callback`
+            callbackURL:  `http://${DEV_IP}/api/passport/login/vk/callback`
         },
         function(accessToken, refreshToken, params, user, done) {
             process.nextTick(() => {
