@@ -63,7 +63,7 @@
             padding: .5rem 1.5rem;
         }
         > section:nth-of-type(2n) {
-            background-color: var(--bg-alt)
+            background-color: var(--alt-bg)
         }
     }
 </style>

@@ -274,7 +274,7 @@
                     overflow-y: auto;
                     overflow-x: hidden;
                     > li:nth-of-type(2n-1) {
-                        background-color: var(--bg-alt);
+                        background-color: var(--alt-bg);
                     }
                 }
                 .messages { // these disable scrollbar (+ the ::-webkit-scrollbar further down)
