@@ -18,6 +18,8 @@
 
 <style scoped>
     #communityBank {
+        background-color: var(--bg);
+        color: var(--color);
         text-align: center;
     }
 </style>

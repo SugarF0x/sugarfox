@@ -1,8 +1,5 @@
 <template>
-    <div id="home"
-         :style="darkmodeStyle"
-         :class="{darkmode : darkmode}"
-    >
+    <div id="home">
         <section>
             <h1>Архив</h1>
             <PentaLink img="img/main/geekbrains.webp"
@@ -54,31 +51,19 @@
         name: "Home",
         components: {
             PentaLink
-        },
-        computed: {
-            darkmode() {
-                return this.$store.state.darkmode
-            }
         }
     }
 </script>
 
 <style scoped lang="less">
-    .darkmode {
-        background-color: #1A1A1B;
-        color: white;
-        > section:nth-of-type(2n) {
-            background-color: #2b2b2c !important;
-        }
-    }
-
     #home {
-        transition: .25s;
+        background-color: var(--bg);
+        color: var(--color);
         > section {
             padding: .5rem 1.5rem;
         }
         > section:nth-of-type(2n) {
-            background-color: aliceblue;
+            background-color: var(--bg-alt)
         }
     }
 </style>

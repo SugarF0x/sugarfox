@@ -13,6 +13,8 @@
 
 <style lang="less" scoped>
     #minecraft {
+        background-color: var(--bg);
+        color: var(--color);
         text-align: center;
         > * {
             font-size: 300%;

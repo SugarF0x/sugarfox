@@ -14,6 +14,8 @@
 
 <style lang="less" scoped>
     #missing {
+        background-color: var(--bg);
+        color: var(--color);
         text-align: center;
         > * {
             font-size: 400%;

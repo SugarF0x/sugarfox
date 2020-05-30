@@ -1,5 +1,5 @@
 <template>
-    <footer :class="{darkmode : darkmode}">
+    <footer>
         <Darkmode></Darkmode>
         <Quotes></Quotes>
     </footer>
@@ -14,24 +14,14 @@
         components: {
             Quotes,
             Darkmode
-        },
-        computed: {
-            darkmode() {
-                return this.$store.state.darkmode;
-            }
         }
     }
 </script>
 
 <style scoped lang="less">
-    .darkmode {
-        background-color: #4a4b4c;
-    }
-
     footer {
-        transition: .25s;
         padding: 0.5rem;
-        background-color: steelblue;
+        background-color: var(--bar);
         color: white;
 
         min-height: 1rem;

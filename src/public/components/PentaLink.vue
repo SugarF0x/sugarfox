@@ -42,6 +42,11 @@
 </template>
 
 <script>
+    /* TODO: change design to account for dark theme
+        > perhaps i could make both active and disabled the --action-button color or something
+            but if it's active, it has a small outline with a gap around the perimeter
+                maybe even make it contract on hover :think:
+     */
     export default {
         name: 'PentaLink',
         props: {

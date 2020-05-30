@@ -80,6 +80,15 @@
 </template>
 
 <script>
+    /* TODO: Rework the button
+        > Make it a big [Login] button when not authed
+        > When authed, keep the user login to the left, while instead of [Logout] there should be a user icon
+            either a default one or the profile picture (rounded)
+        >> said icon is to be a drop-down menu with the following options:
+            - x3 Placeholders
+            - Profile Configuration
+            - Logout
+    */
     export default {
         name: "Login",
         data() {
@@ -175,7 +184,7 @@
                 display: block;
                 position: absolute;
                 width: 10%;
-                background: steelblue;
+                background: var(--bar);
                 height: 0.3em;
                 right: 20%;
                 top: -0.21em;
@@ -188,7 +197,7 @@
                 display: block;
                 position: absolute;
                 width: 10%;
-                background: steelblue;
+                background: var(--bar);
                 height: 0.3em;
                 left: 20%;
                 bottom: -0.25em;
@@ -257,7 +266,7 @@
                     padding: .1rem .4rem;
                 }
                 .loginButton {
-                    background-color: steelblue;
+                    background-color: var(--bar);
                     border: none;
                     color: white;
                     cursor: pointer;
@@ -285,7 +294,7 @@
                 }
                 .third-party {
                     button > * {
-                        background-color: steelblue;
+                        background-color: var(--bar);
                         font-weight: bold;
                         color: white;
                         cursor: pointer;

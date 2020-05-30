@@ -66,6 +66,11 @@
         > perhaps i should use Vue list loader component from here:
                 URL: https://github.com/IvanSafonov/vue-list-scroller
      */
+     
+    /* TODO: review the chat chat limiter
+        > need it to also account for additive symbols
+            so that text-fuck-up does not clog the system
+    */
 
     export default {
         name: "Chat",
@@ -153,6 +158,13 @@
                     think i can replace messageData with three separate arguments, resulting in:
                                         appendMessage(sender, time, message);
             */
+            /* TODO: fix scrollDownButton not appearing sometimes
+                > noticed this one when testing color palettes
+                >> from what i gathered, it only does not appear on a clean launch
+                    that being said, when a catchup process is finished and the history is long enough
+                    for the button to appear - it appears
+                    if its not long enough from the start - too bad
+             */
             appendMessage(messageData) {
                 if (this.messages.length) {
                     if (this.messages[this.messages.length-1].sender === messageData.sender) {
@@ -201,6 +213,8 @@
 
 <style lang="less" scoped>
     #chat {
+        background-color: var(--bg);
+        color: var(--color);
         display: flex;
         ul {
             list-style: none;
@@ -219,7 +233,8 @@
                 display:flex;
                 justify-content:center;
                 align-items:center;
-                background-color: lightgray;
+                background-color: var(--bg-alt);
+                color: var(--color);
                 text-align: center;
                 padding: 1rem;
             }
@@ -259,7 +274,7 @@
                     overflow-y: auto;
                     overflow-x: hidden;
                     > li:nth-of-type(2n-1) {
-                        background-color: seashell;
+                        background-color: var(--bg-alt);
                     }
                 }
                 .messages { // these disable scrollbar (+ the ::-webkit-scrollbar further down)
@@ -279,6 +294,8 @@
                         outline: none;
                         resize: none;
                         padding: .3rem;
+                        background-color: var(--bg);
+                        color: var(--color);
                     }
                     .charCount {
                         position: absolute;
