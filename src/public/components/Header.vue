@@ -4,7 +4,7 @@
                      class="d-flex align-items-center"
                      id="logo"
         >
-            <img src="/img/sgfx_line_blue.webp" alt="sgfx-logo">
+            <img :src="!darkmode ? '/img/sgfx_line_blue.webp' : '/img/sgfx_line.webp'" alt="sgfx-logo">
             <span>SGFX</span>
         </router-link>
         <Login></Login>
@@ -18,6 +18,11 @@
         name: "Header",
         components: {
             Login
+        },
+        computed: {
+            darkmode() {
+                return this.$store.state.darkmode;
+            }
         }
     }
 </script>
