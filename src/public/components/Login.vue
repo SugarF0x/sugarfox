@@ -226,10 +226,11 @@
             align-items: center;
             z-index: 100;
             background-color: rgba(0,0,0,0.5);
-            color: black;
+            color: var(--color);
             .wrap {
                 position: relative;
-                background-color: white;
+                background-color: var(--el);
+                border: 1px solid var(--action);
                 width: 25rem;
                 padding: .8rem 2.5rem;
                 @media (min-width:961px) {
@@ -257,6 +258,7 @@
                     cursor: pointer;
                     opacity: .75;
                     font-size: 2em;
+                    color: var(--color);
                 }
                 .closeLogin:hover {
                     opacity: 1;
@@ -266,7 +268,7 @@
                     padding: .1rem .4rem;
                 }
                 .loginButton {
-                    background-color: var(--bar);
+                    background-color: var(--action);
                     border: none;
                     color: white;
                     cursor: pointer;
@@ -278,23 +280,25 @@
                     border-radius: .4rem;
                     margin: .7rem .4rem;
                 }
+                .loginButton:hover {
+                    background-color: var(--hover);
+                }
                 .or {
                     opacity: .5;
                 }
                 .or::before, .or::after {
-                    opacity: .5;
                     content: '';
                     display: inline-block;
                     width: 40%;
                     margin: .3rem;
-                    border-bottom: 1px solid black;
+                    border-bottom: 1px solid var(--action);
                 }
                 .third-party {
                     margin: 0 3rem;
                 }
                 .third-party {
                     button > * {
-                        background-color: var(--bar);
+                        background-color: var(--action);
                         font-weight: bold;
                         color: white;
                         cursor: pointer;
@@ -308,12 +312,18 @@
                         width: 2rem;
                         padding: .3rem;
                     }
+                    button > *:hover {
+                        background-color: var(--hover);
+                    }
                     svg {
                         position: relative;
                     }
                 }
                 input {
                     margin: .2rem 0;
+                    background-color: var(--alt-action);
+                    border: 2px solid var(--action);
+                    color: var(--color);
                 }
             }
         }

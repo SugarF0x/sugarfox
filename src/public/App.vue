@@ -40,10 +40,10 @@
             --bg:         #282b2f; // general background
             --el:         #373b3e; // background for elements
             --action:     #484b4e; // same for borders
-            --hover:      #494d50; // same for input areas
+            --hover:      #5c6063;
             --highlight:  #3e4144; // do i need this? it's like alt-hover
 
-            --alt-action: #4c4c4c;
+            --alt-action: #4c4c4c; // for inputs
             --alt-hover:  #6b6b6c;
             --alt-bg:     #43464a;
         }
@@ -56,10 +56,10 @@
             --bg:         #ffffff; // general background
             --el:         #ffffff; // background for elements
             --action:     #479acd; // same for borders
-            --hover:      #ffffff; // same for input areas
+            --hover:      #4383b3;
             --highlight:  #dcdcdc; // do i need this? it's like alt-hover
 
-            --alt-action: #6ba4c1;
+            --alt-action: #ffffff; // for inputs
             --alt-hover:  #dcdcdc;
             --alt-bg:     #f0f8ff;
         }
