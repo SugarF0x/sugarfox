@@ -233,7 +233,7 @@
                 display:flex;
                 justify-content:center;
                 align-items:center;
-                background-color: var(--bg-alt);
+                background-color: var(--alt-bg);
                 color: var(--color);
                 text-align: center;
                 padding: 1rem;
@@ -256,17 +256,18 @@
                 }
             }
             .main {
+                background-color: var(--el);
                 display: flex;
                 flex-flow: column;
-                border-left: 1px solid black;
-                border-right: 1px solid black;
+                border-left: 1px solid var(--action);
+                border-right: 1px solid var(--action);
                 width: 100vw;
                 max-width: 100vh;
                 text-align: left;
                 h1 {
                     text-align: center;
                     padding: 1rem;
-                    border-bottom: 1px solid black;
+                    border-bottom: 1px solid var(--action);
                     margin-bottom: 0;
                 }
                 .messages {
@@ -284,7 +285,7 @@
                 .messages::-webkit-scrollbar { width: 0 !important }
                 .input {
                     position: relative;
-                    border-top: 1px solid black;
+                    border-top: 1px solid var(--action);
                     padding: 1rem;
                     display: flex;
                     justify-content: center;
@@ -294,8 +295,9 @@
                         outline: none;
                         resize: none;
                         padding: .3rem;
-                        background-color: var(--bg);
+                        background-color: var(--hover);
                         color: var(--color);
+                        border-color: var(--action);
                     }
                     .charCount {
                         position: absolute;
@@ -306,11 +308,11 @@
                     }
                     .scroll-down-button {
                         cursor: pointer;
-                        background-color: whitesmoke;
+                        background-color: var(--action);
+                        color: var(--color);
                         position: absolute;
                         right: .3rem;
                         top: -1.8rem;
-                        border: 1px solid black;
                         border-radius: 50%;
                         width: 1.5rem;
                         height: 1.5rem;

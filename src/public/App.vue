@@ -38,13 +38,14 @@
             --color:      #FFFFFF; // text
             --bar:        #181b1f; // top and bottom bar
             --bg:         #282b2f; // general background
+            --el:         #373b3e; // background for elements
             --action:     #484b4e; // same for borders
             --hover:      #494d50; // same for input areas
             --highlight:  #3e4144; // do i need this? it's like alt-hover
 
             --alt-action: #4c4c4c;
             --alt-hover:  #6b6b6c;
-            --alt-bg:     #383b3f;
+            --alt-bg:     #43464a;
         }
     }
 
@@ -53,6 +54,7 @@
             --color:      #000000; // text
             --bar:        #4682b4; // top and bottom bar
             --bg:         #ffffff; // general background
+            --el:         #ffffff; // background for elements
             --action:     #479acd; // same for borders
             --hover:      #ffffff; // same for input areas
             --highlight:  #dcdcdc; // do i need this? it's like alt-hover
