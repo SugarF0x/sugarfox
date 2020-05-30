@@ -197,7 +197,8 @@
 
     input:checked {
         + .toggle {
-            background-color: #749DD6;
+            /*background-color: #749DD6;*/
+            background-color: var(--bg);
 
             &:before {
                 color: #749ED7;
