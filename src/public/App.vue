@@ -33,6 +33,13 @@
             with all the backgrounds, highlights, borders and whatnot
      */
 
+    /* TODO: do away with bootstrap.min
+        > Almost all of my components are now self-sufficient
+            though some of the old ones still use Bootstrap classes
+            gotta move those class properties to the corresponded scoped component classes
+            and delete Bootstrap dependency from index.html completely
+     */
+
     .darkmode {
         * {
             --color:      #FFFFFF; // text
@@ -45,7 +52,7 @@
 
             --alt-action: #4c4c4c; // for inputs
             --alt-hover:  #6b6b6c;
-            --alt-bg:     #43464a;
+            --alt-bg:     #303337;
         }
     }
 

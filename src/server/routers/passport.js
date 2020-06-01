@@ -68,7 +68,8 @@ module.exports = (passport) => {
     passport.use(new VKontakteStrategy({
             clientID:     7123145,
             clientSecret: 'EDY6yy6bfCPtTkPk8bKe',
-            callbackURL:  `http://${DEV_IP}/api/passport/login/vk/callback`
+            callbackURL:  `http://${DEV_IP}/api/passport/login/vk/callback`,
+            apiVersion:   '5.21'
         },
         function(accessToken, refreshToken, params, user, done) {
             process.nextTick(() => {
