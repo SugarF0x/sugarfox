@@ -10,6 +10,8 @@ const express        = require('express'),
       routerPassport = require('./routers/passport'),
       routerChat     = require('./routers/chat'),
 
+      routerMC       = require('./routers/minecraft'),
+
       moment         = require('moment'),
       methodOverride = require('method-override');
 
@@ -23,9 +25,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api/quotes',   routerQuotes(passport));
-app.use('/api/passport', routerPassport(passport));
-app.use('/chat',         routerChat(passport, io, moment));
+app.use('/api/quotes',    routerQuotes(passport));
+app.use('/api/passport',  routerPassport(passport));
+app.use('/api/minecraft', routerMC());
+
+app.use('/chat', routerChat(passport, io, moment));
 
 const staticFileMiddleware = express.static('dist/public');
 app.use(staticFileMiddleware);
