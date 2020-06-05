@@ -34,15 +34,15 @@
                         <input type="text" name="returnTo" :value="returnTo" style="display: none">
                         <button type="submit"><font-awesome-icon :icon="['fab', 'vk']" title="Вконтакте"/></button>
                     </form>
-                    <form action="#" @submit.prevent>
+                    <form action="#" @submit.prevent class="disabled">
                         <input type="text" name="returnTo" :value="returnTo" style="display: none">
                         <button type="submit"><font-awesome-icon :icon="['fab', 'facebook']" title="Facebook"/></button>
                     </form>
-                    <form action="#" @submit.prevent>
+                    <form action="#" @submit.prevent class="disabled">
                         <input type="text" name="returnTo" :value="returnTo" style="display: none">
                         <button><font-awesome-icon :icon="['fab', 'twitter']" title="Twitter"/></button>
                     </form>
-                    <form action="#" @submit.prevent>
+                    <form action="#" @submit.prevent class="disabled">
                         <input type="text" name="returnTo" :value="returnTo" style="display: none">
                         <button><span title="placeholder">&times;</span></button>
                     </form>
@@ -297,6 +297,16 @@
                     margin: 0 3rem;
                 }
                 .third-party {
+                    .disabled {
+                        button > * {
+                            color: var(--disabled);
+                            cursor: not-allowed;
+                            background-color: var(--alt-action);
+                        }
+                        button > *:hover {
+                            background-color: var(--alt-action);
+                        }
+                    }
                     button > * {
                         background-color: var(--action);
                         font-weight: bold;
