@@ -295,7 +295,7 @@
                         outline: none;
                         resize: none;
                         padding: .3rem;
-                        background-color: var(--alt-action);
+                        background-color: var(--bg);
                         color: var(--color);
                         border-color: var(--action);
                     }

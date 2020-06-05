@@ -321,7 +321,7 @@
                 }
                 input {
                     margin: .2rem 0;
-                    background-color: var(--alt-action);
+                    background-color: var(--bg);
                     border: 2px solid var(--action);
                     color: var(--color);
                 }

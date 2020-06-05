@@ -40,17 +40,23 @@
             and delete Bootstrap dependency from index.html completely
      */
 
+    /* TODO: color adjustments
+        > make inputs the same color as background
+            but have the border color change to highlight (or other brighter variants) on hover and on active
+        > Also change all borders from 1px to .1rem
+     */
+
     .darkmode {
         * {
             --color:      #FFFFFF; // text
             --bar:        #181b1f; // top and bottom bar
-            --bg:         #282b2f; // general background
+            --bg:         #282b2f; // general background + inputs
             --el:         #373b3e; // background for elements
             --action:     #484b4e; // same for borders
             --hover:      #5c6063;
             --highlight:  #3e4144; // do i need this? it's like alt-hover
 
-            --alt-action: #4c4c4c; // for inputs
+            --alt-action: #4c4c4c;
             --alt-hover:  #6b6b6c;
             --alt-bg:     #303337;
         }
