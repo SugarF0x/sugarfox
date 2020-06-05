@@ -91,7 +91,11 @@
                 }
             }
             img {
-                max-width: 15rem;
+                display: block;
+                max-width: 100%;
+                max-height: 100%;
+                width: auto;
+                height: auto;
                 align-self: center;
             }
             .img {
