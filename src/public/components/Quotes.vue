@@ -20,7 +20,8 @@
                    title="Авто обновление цитат"
             >
                 <font-awesome-icon icon="sync-alt"
-                                   style="font-size: 0.65em"
+                                   style="font-size: 0.65em; transition-duration: .5s; transition-timing-function: ease-in-out"
+                                   :style="{transform: 'rotate(' + rotation + 'deg)'}"
                                    :class="{quote__number : !autoRefresh}"
                 />
             </label>
@@ -46,7 +47,8 @@
                 max: 0,
                 autoUpdate: true, // refresh
                 opacity: 1,
-                autoRefresh: true // auto fetch
+                autoRefresh: true, // auto fetch
+                rotation: 0
             }
         },
         methods: {
@@ -86,6 +88,7 @@
             setInterval( () => {
                 if (this.autoUpdate && this.autoRefresh) {
                     this.fade();
+                    this.rotation += 180;
                     setTimeout(() => {
                         this.getQuote();
                     }, 250);
