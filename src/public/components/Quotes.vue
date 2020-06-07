@@ -30,14 +30,6 @@
 </template>
 
 <script>
-    /* TODO: add animation to auto-refresh button
-        > make it spin clock-wise every time it auto-refreshes
-            do it through :style="{transform: rotate(refreshTime*180 + deg)}"
-                or something like that, im not too sure in the syntax
-            where refreshTime is a new data variable set to 0 by default
-                and increases by 1 after each refresh
-            also have to add .250 transition time to icon CSS
-    */
     export default {
         name: "Quotes",
         data() {

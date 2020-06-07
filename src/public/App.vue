@@ -68,7 +68,7 @@
             --color:      #000000;
             --bar:        #4682b4;
             --bg:         #ffffff;
-            --el:         #ffffff;
+            --el:         #f6faff;
             --action:     #479acd;
             --hover:      #4383b3;
             --highlight:  #dcdcdc;
