@@ -52,7 +52,7 @@
       <v-spacer />
       <v-btn
         icon
-        @click.stop="rightDrawer = !rightDrawer"
+        @click.stop="drawer = !rightDrawer"
       >
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -109,7 +109,7 @@
         ],
         miniVariant: false,
         right: true,
-        rightDrawer: false,
+        drawer: false,
         title: 'SGFX'
       }
     }

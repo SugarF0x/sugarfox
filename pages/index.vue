@@ -1,5 +1,5 @@
 <template>
-  <v-app>
-    бан
-  </v-app>
+  <v-container>
+
+  </v-container>
 </template>
