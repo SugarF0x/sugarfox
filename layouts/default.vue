@@ -29,8 +29,11 @@
     >
       <v-container>
         <v-row align="center" justify="center">
-          <v-avatar color="primary" size="100">
-            <span class="display-3">&apE;</span>
+          <v-avatar size="100" color="info">
+            <img
+              src="/avatar-default.webp"
+              alt="avatar-default.webp"
+            >
           </v-avatar>
         </v-row>
       </v-container>
@@ -66,8 +69,7 @@
   export default {
     data () {
       return {
-        drawer: true, // TODO: REVERT TO FALSE UPON COMPLETION => TRUE WHILE WIP
-        title: 'SGFX',
+        drawer: false,
         /* TODO: add actions and introduce them in emplate elements
             > the location is commented in the template
          */
