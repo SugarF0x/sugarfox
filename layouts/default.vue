@@ -9,6 +9,12 @@
         SGFX
       </v-toolbar-title>
       <v-spacer />
+      <span v-if="$auth.loggedIn">
+        Logged in as ____ <!-- TODO: add user login here -->
+      </span>
+      <span v-else>
+        Not logged in <v-icon>mdi-arrow-right</v-icon>
+      </span>
       <v-btn
         icon
         @click.stop="drawer = !drawer"
@@ -30,6 +36,7 @@
       <v-container>
         <v-row align="center" justify="center">
           <v-avatar size="100" color="info">
+            <!--suppress HtmlUnknownTarget -->
             <img
               src="/avatar-default.webp"
               alt="avatar-default.webp"
@@ -39,12 +46,39 @@
       </v-container>
       <v-list>
         <v-list-item-group>
-          <v-list-item v-for="n in drawerItems"
+          <div v-if="$auth.loggedIn">
+            <v-list-item v-for="n in drawerAuthedItems"
+                         :key="n.title"
+            >
+              <!--
+                      @click.stop="n.action"
+              -->
+              <v-list-item-icon>
+                <v-icon>{{ n.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ n.title }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </div>
+          <div v-else>
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-account-arrow-left-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Sign in
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </div>
+          <v-divider></v-divider>
+          <v-list-item v-for="n in drawerMisc"
                        :key="n.title"
           >
-            <!--
-                    @click.stop="n.action"
-            -->
             <v-list-item-icon>
               <v-icon>{{ n.icon }}</v-icon>
             </v-list-item-icon>
@@ -70,35 +104,32 @@
     data () {
       return {
         drawer: false,
-        /* TODO: add actions and introduce them in emplate elements
+        /* TODO: add actions and introduce them in template elements
             > the location is commented in the template
          */
-        drawerItems: [
-          {
-            icon: 'mdi-account-arrow-left-outline',
-            title: 'Sign in',
-            action: ''
-          },
-          {
-            icon: 'mdi-account-arrow-right-outline',
-            title: 'Sign out',
-            action: ''
-          },
+        drawerAuthedItems: [
           {
             icon: 'mdi-account-edit-outline',
             title: 'Edit account',
             action: ''
           },
           {
+            icon: 'mdi-cash-usd-outline',
+            title: 'Donate on Khram',
+            action: ''
+          },
+          {
+            icon: 'mdi-account-arrow-right-outline',
+            title: 'Sign out',
+            action: ''
+          }
+        ],
+        drawerMisc: [
+          {
             icon: 'mdi-alert-outline',
             title: 'Sample action',
             action: ''
           },
-          {
-            icon: 'mdi-cash-usd-outline',
-            title: 'Donate on Khram',
-            action: ''
-          }
         ]
       }
     }
