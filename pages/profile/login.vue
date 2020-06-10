@@ -15,17 +15,21 @@
               <v-toolbar-title>Login form</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form>
+              <v-form v-model="isValid">
                 <v-text-field label="Login"
                               name="login"
                               prepend-icon="mdi-account"
                               type="text"
+                              v-model="formFields.login.input"
+                              :rules="formFields.login.rules"
                 ></v-text-field>
                 <v-text-field id="password"
                               label="Password"
                               name="password"
                               prepend-icon="mdi-lock"
                               type="password"
+                              v-model="formFields.password.input"
+                              :rules="formFields.password.rules"
                 ></v-text-field>
               </v-form>
             </v-card-text>
@@ -58,7 +62,26 @@
 
 <script>
   export default {
-    name: "login"
+    name: "login",
+    data() {
+      return {
+        isValid: false,
+        formFields: {
+          login: {
+            input: '',
+            rules: [
+              v => !!v || 'Login is required'
+            ]
+          },
+          password: {
+            input: '',
+            rules: [
+              v => !!v || 'Password is required'
+            ]
+          }
+        }
+      }
+    }
   }
 </script>
 
