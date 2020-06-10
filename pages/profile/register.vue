@@ -85,7 +85,7 @@
     name: "register",
     data() {
       return {
-        isValid: 'true',
+        isValid: false,
         formFields: {
           email: {
             input: '',
@@ -98,7 +98,7 @@
             input: '',
             rules: [
               v => !!v || 'Name is required',
-              v => (v && v.length <= 32) || 'Name must be less than 32 characters'
+              v => (v && v.length <= 32) || 'Name must be 32 characters or less'
             ]
           },
           password1: {
@@ -112,7 +112,7 @@
             input: '',
             rules: [
               v => !!v || 'Password is required',
-              v => (v && v.length >= 8) || 'Name must be 8 characters or more'
+              v => v === this.formFields.password1.input || "Passwords don't match"
             ]
           }
         }
