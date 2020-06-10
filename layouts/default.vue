@@ -15,7 +15,7 @@
       </router-link>
       <v-spacer />
       <span v-if="$auth.loggedIn">
-        Logged in as ____ <!-- TODO: add user login here -->
+        Logged in as {{ $auth.user.login }}
       </span>
       <span v-else>
         Not logged in <v-icon>mdi-arrow-right</v-icon>
@@ -43,7 +43,7 @@
           <v-avatar size="100" color="info">
             <!--suppress HtmlUnknownTarget -->
             <img
-              src="/avatar-default.webp"
+              src="/img/avatar-default.webp"
               alt="avatar-default.webp"
             >
           </v-avatar>
@@ -54,10 +54,8 @@
           <div v-if="$auth.loggedIn">
             <v-list-item v-for="n in drawerAuthedItems"
                          :key="n.title"
+                         :to="n.to"
             >
-              <!--
-                      @click.stop="n.action"
-              -->
               <v-list-item-icon>
                 <v-icon>{{ n.icon }}</v-icon>
               </v-list-item-icon>
@@ -69,7 +67,7 @@
             </v-list-item>
           </div>
           <div v-else>
-            <v-list-item>
+            <v-list-item to="/profile/login">
               <v-list-item-icon>
                 <v-icon>mdi-account-arrow-left-outline</v-icon>
               </v-list-item-icon>
@@ -83,6 +81,7 @@
           <v-divider></v-divider>
           <v-list-item v-for="n in drawerMisc"
                        :key="n.title"
+                       :to="n.to"
           >
             <v-list-item-icon>
               <v-icon>{{ n.icon }}</v-icon>
@@ -97,7 +96,6 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer fixed>
-<!--      <span>&copy; {{ new Date().getFullYear() }}</span>-->
       <v-spacer></v-spacer>
       <span>le footer</span>
     </v-footer>
@@ -116,24 +114,24 @@
           {
             icon: 'mdi-account-edit-outline',
             title: 'Edit account',
-            action: ''
+            to: '/profile/settings'
           },
           {
             icon: 'mdi-cash-usd-outline',
             title: 'Donate on Khram',
-            action: ''
+            to: '/donate'
           },
           {
             icon: 'mdi-account-arrow-right-outline',
             title: 'Sign out',
-            action: ''
+            to: '/profile/logout'
           }
         ],
         drawerMisc: [
           {
             icon: 'mdi-alert-outline',
             title: 'Sample action',
-            action: ''
+            to: '/sample-action'
           },
         ]
       }
