@@ -5,9 +5,14 @@
       fixed
       app
     >
-      <v-toolbar-title>
-        SGFX
-      </v-toolbar-title>
+      <router-link to="/" style="text-decoration: none; color: inherit;">
+        <v-row justify="center" align="center">
+          <v-img src="/sgfx_line.webp" height="2.5rem" width="2.5rem" contain></v-img>
+          <v-toolbar-title id="logo">
+            SGFX
+          </v-toolbar-title>
+        </v-row>
+      </router-link>
       <v-spacer />
       <span v-if="$auth.loggedIn">
         Logged in as ____ <!-- TODO: add user login here -->
@@ -135,3 +140,16 @@
     }
   }
 </script>
+
+<style scoped lang="less">
+  @font-face {
+    font-family: 'Kurbanistika';
+    //noinspection CssUnknownTarget
+    src: url('/fonts/kurbanistika.otf');
+  }
+
+  #logo {
+    font-family: Kurbanistika, sans-serif;
+    font-size: 2.5rem;
+  }
+</style>
