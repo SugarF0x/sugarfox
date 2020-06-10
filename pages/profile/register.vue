@@ -15,29 +15,43 @@
               <v-toolbar-title>Register form</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form>
-<!--              TODO: add append-icon based on validator result of said field-->
+              <v-form lazy-validation
+                      ref="form"
+                      v-model="isValid"
+              >
                 <v-text-field label="E-mail"
                               name="email"
                               prepend-icon="mdi-email"
-                              type="mail"
+                              type="email"
+                              v-model="formFields.email.input"
+                              :rules="formFields.email.rules"
+                              validate-on-blur
                 ></v-text-field>
                 <v-text-field label="Login"
                               name="login"
                               prepend-icon="mdi-account"
                               type="text"
+                              v-model="formFields.login.input"
+                              :rules="formFields.login.rules"
+                              validate-on-blur
                 ></v-text-field>
-                <v-text-field id="password"
+                <v-text-field id="password1"
                               label="Password"
-                              name="password"
+                              name="password1"
                               prepend-icon="mdi-lock"
                               type="password"
+                              v-model="formFields.password1.input"
+                              :rules="formFields.password1.rules"
+                              validate-on-blur
                 ></v-text-field>
-                <v-text-field id="password-repeat"
-                              label="Repeat Password"
-                              name="password-repeat"
+                <v-text-field id="password2"
+                              label="Repeat password"
+                              name="password2"
                               prepend-icon="mdi-lock"
                               type="password"
+                              v-model="formFields.password2.input"
+                              :rules="formFields.password2.rules"
+                              validate-on-blur
                 ></v-text-field>
               </v-form>
             </v-card-text>
@@ -60,7 +74,42 @@
 
 <script>
   export default {
-    name: "register"
+    name: "register",
+    data() {
+      return {
+        isValid: 'true',
+        formFields: {
+          email: {
+            input: '',
+            rules: [
+              v => !!v || 'E-mail is required',
+              v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+            ]
+          },
+          login: {
+            input: '',
+            rules: [
+              v => !!v || 'Name is required',
+              v => (v && v.length <= 32) || 'Name must be less than 32 characters'
+            ]
+          },
+          password1: {
+            input: '',
+            rules: [
+              v => !!v || 'Password is required',
+              v => (v && v.length >= 8) || 'Name must be 8 characters or more'
+            ]
+          },
+          password2: {
+            input: '',
+            rules: [
+              v => !!v || 'Password is required',
+              v => (v && v.length >= 8) || 'Name must be 8 characters or more'
+            ]
+          }
+        }
+      }
+    }
   }
 </script>
 
