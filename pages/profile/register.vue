@@ -7,16 +7,17 @@
              justify="center"
       >
         <v-col cols="12"
-               sm="9"
-               md="4"
+               sm="8"
+               md="6"
+               lg="5"
+               xl="4"
         >
           <v-card class="elevation-12">
             <v-toolbar flat>
               <v-toolbar-title>Register form</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form lazy-validation
-                      ref="form"
+              <v-form ref="form"
                       v-model="isValid"
               >
                 <v-text-field label="E-mail"
@@ -30,6 +31,7 @@
                 <v-text-field label="Login"
                               name="login"
                               prepend-icon="mdi-account"
+                              counter="32"
                               type="text"
                               v-model="formFields.login.input"
                               :rules="formFields.login.rules"
@@ -63,7 +65,13 @@
                 Back
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn disabled>Sign up</v-btn>
+              <v-btn class="success darken-1"
+                     @click="$refs.form.validate()"
+                     :disabled="!isValid"
+              >
+                Sign up
+                <v-icon right>mdi-account-plus</v-icon>
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>

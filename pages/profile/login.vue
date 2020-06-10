@@ -37,11 +37,15 @@
               <v-btn nuxt
                      to="/profile/register"
               >
+                <v-icon left>mdi-account-plus</v-icon>
                 Register
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn disabled>
+              <v-btn :disabled="!isValid"
+                     class="success darken-1"
+              >
                 Login
+                <v-icon right>mdi-account-arrow-right</v-icon>
               </v-btn>
             </v-card-actions>
             <v-divider></v-divider>
