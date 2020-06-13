@@ -12,12 +12,24 @@
       <h1 v-else>
         {{ otherError }}
       </h1>
+      <v-card-text>
+        <h3>{{ error.message }}</h3>
+        <p class="text-left mt-5 pa-2 secondary white--text">{{ error.config }}</p>
+      </v-card-text>
       <v-card-actions>
         <v-btn nuxt
                to="/"
                color="blue darken-2"
         >
+          <v-icon left>mdi-home</v-icon>
           Home Page
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn @click="reload"
+               color="blue darken-2"
+        >
+          <v-icon left>mdi-update</v-icon>
+          Reload
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -44,6 +56,11 @@
         this.error.statusCode === 404 ? this.pageNotFound : this.otherError
       return {
         title
+      }
+    },
+    methods: {
+      reload() {
+        document.location.reload()
       }
     }
   }
