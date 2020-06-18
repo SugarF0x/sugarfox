@@ -7,8 +7,10 @@
              justify="center"
       >
         <v-col cols="12"
-               sm="9"
-               md="4"
+               sm="8"
+               md="6"
+               lg="5"
+               xl="4"
         >
           <v-card class="elevation-12">
             <v-toolbar flat>
@@ -44,7 +46,7 @@
               <v-btn :disabled="!isValid"
                      class="success darken-1"
               >
-                Login
+                Sign in
                 <v-icon right>mdi-account-arrow-right</v-icon>
               </v-btn>
             </v-card-actions>
