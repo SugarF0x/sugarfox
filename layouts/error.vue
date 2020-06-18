@@ -32,6 +32,13 @@
           Reload
           <v-icon right>mdi-update</v-icon>
         </v-btn>
+        <v-btn @click="$router.go(-1)"
+               color="blue darken-2"
+               v-else
+        >
+          Go back
+          <v-icon right>mdi-undo-variant</v-icon>
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-layout>
