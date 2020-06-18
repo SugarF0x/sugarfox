@@ -29,7 +29,6 @@
                color="blue darken-2"
                v-if="error.statusCode !== 404"
         >
-          <v-icon left>mdi-update</v-icon>
           Reload
           <v-icon right>mdi-update</v-icon>
         </v-btn>
@@ -55,7 +54,7 @@
     },
     head () {
       const title =
-        this.error.statusCode === 404 ? this.pageNotFound : this.otherError
+        this.error.statusCode === 404 ? this.pageNotFound : this.otherError;
       return {
         title
       }
