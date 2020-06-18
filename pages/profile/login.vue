@@ -18,12 +18,12 @@
             </v-toolbar>
             <v-card-text>
               <v-form v-model="isValid">
-                <v-text-field label="Login"
-                              name="login"
-                              prepend-icon="mdi-account"
-                              type="text"
-                              v-model="formFields.login.input"
-                              :rules="formFields.login.rules"
+                <v-text-field label="Email"
+                              name="email"
+                              prepend-icon="mdi-email"
+                              type="email"
+                              v-model="formFields.email.input"
+                              :rules="formFields.email.rules"
                 ></v-text-field>
                 <v-text-field id="password"
                               label="Password"
@@ -73,10 +73,10 @@
       return {
         isValid: false,
         formFields: {
-          login: {
+          email: {
             input: '',
             rules: [
-              v => !!v || 'Login is required'
+              v => !!v || 'Email is required'
             ]
           },
           password: {
