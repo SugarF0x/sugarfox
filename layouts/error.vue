@@ -5,7 +5,7 @@
   >
     <v-card class="d-inline-flex flex-column text-center pa-2">
       <h1 v-if="error.statusCode === 404"
-          class="display-4"
+          class="display-3"
       >
         {{ pageNotFound }}
       </h1>
@@ -14,7 +14,7 @@
       </h1>
       <v-card-text>
         <h3>{{ error.message }}</h3>
-        <p class="text-left mt-5 pa-2 secondary white--text">{{ error.config }}</p>
+        <p v-if="error.config" class="text-left mt-5 pa-2 secondary white--text">{{ error.config }}</p>
       </v-card-text>
       <v-card-actions>
         <v-btn nuxt
@@ -27,9 +27,11 @@
         <v-spacer></v-spacer>
         <v-btn @click="reload"
                color="blue darken-2"
+               v-if="error.statusCode !== 404"
         >
           <v-icon left>mdi-update</v-icon>
           Reload
+          <v-icon right>mdi-update</v-icon>
         </v-btn>
       </v-card-actions>
     </v-card>
