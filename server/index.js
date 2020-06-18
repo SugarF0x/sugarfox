@@ -3,6 +3,34 @@ const consola = require('consola');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
 
+// Connect to MongoDB
+
+const mongoose = require('mongoose');
+mongoose.Schema.Types.Boolean.convertToFalse.add(""); // for empty value cases
+const bodyParser = require("body-parser");
+
+mongoose.connect("mongodb://localhost/sgfx", {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useFindAndModify: true,
+  useUnifiedTopology: true
+});
+
+const db = mongoose.connection;
+db.on("error", error => console.error(error));
+db.once("open", () => console.log('[+] Connected to SGFX database'));
+
+// Enable body parsers
+
+app.use(bodyParser.json());
+app.use(express.json());
+
+// Import Routes
+
+const routeAuth = require("./routes/auth");
+app.use("/api/auth", routeAuth);
+
+
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js');
 config.dev = process.env.NODE_ENV !== 'production';

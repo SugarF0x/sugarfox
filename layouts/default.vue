@@ -15,7 +15,8 @@
       </router-link>
       <v-spacer />
       <span v-if="$auth.loggedIn">
-        Logged in as {{ $auth.user.login }}
+        Logged in as
+        <span class="secondary--text">{{ $auth.user.login }}</span>
       </span>
       <span v-else>
         Not logged in <v-icon>mdi-arrow-right</v-icon>
@@ -55,6 +56,7 @@
             <v-list-item v-for="n in drawerAuthedItems"
                          :key="n.title"
                          :to="n.to"
+                         @click="exec(n.action)"
             >
               <v-list-item-icon>
                 <v-icon>{{ n.icon }}</v-icon>
@@ -112,28 +114,49 @@
          */
         drawerAuthedItems: [
           {
+            icon: 'mdi-account-outline',
+            title: 'Profile',
+            to: '/profile',
+            action: ''
+          },{
             icon: 'mdi-account-edit-outline',
-            title: 'Edit account',
-            to: '/profile/settings'
-          },
-          {
+            title: 'Edit profile',
+            to: '/profile/settings',
+            action: ''
+          },{
             icon: 'mdi-cash-usd-outline',
             title: 'Donate on Khram',
-            to: '/donate'
-          },
-          {
+            to: '/donate',
+            action: ''
+          },{
             icon: 'mdi-account-arrow-right-outline',
             title: 'Sign out',
-            to: '/profile/logout'
+            to: '',
+            action: "signOut"
           }
         ],
         drawerMisc: [
           {
             icon: 'mdi-alert-outline',
             title: 'Sample action',
-            to: '/sample-action'
+            to: '/sample-action',
+            action: ''
           },
         ]
+      }
+    },
+    methods: {
+      signOut() {
+        this.$auth.logout();
+        this.$auth.redirect('logout');
+      },
+      exec(action) {
+        // noinspection JSRedundantSwitchStatement
+        switch (action) {
+          case 'signOut':
+            this.signOut();
+            break;
+        }
       }
     }
   }

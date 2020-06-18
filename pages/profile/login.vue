@@ -45,6 +45,7 @@
               <v-spacer></v-spacer>
               <v-btn :disabled="!isValid"
                      class="success darken-1"
+                     @click="loginUser"
               >
                 Sign in
                 <v-icon right>mdi-account-arrow-right</v-icon>
@@ -86,6 +87,26 @@
             ]
           }
         }
+      }
+    },
+    methods: {
+      async loginUser() {
+        if (this.isValid) {
+          try {
+            let response = await this.$auth.loginWith('local', {data: {
+              email: this.formFields.email.input,
+              password: this.formFields.password.input
+            }});
+          } catch (err) {
+            console.log(err)
+          }
+        }
+
+        // let response = await this.$axios.post("/auth/login", {
+        //     email:    this.formFields.email.input,
+        //     password: this.formFields.password.input
+        // });
+        // console.log(response.data);
       }
     }
   }

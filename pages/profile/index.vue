@@ -7,7 +7,7 @@
             <v-card>
               <v-card-title>
                 <p class="ma-0">
-                  This is <span class="secondary--text">Primary</span> page placeholder
+                  This is <span class="secondary--text">Profile</span> page placeholder
                 </p>
               </v-card-title>
               <v-card-text>
@@ -15,6 +15,17 @@
                   This page will have info on the <span class="primary--text">logged in user</span>
                   or a prompt to login if not authed
                 </p>
+                <v-list>
+                  <v-list-item two-line
+                               v-for="(value, name) in $auth.user"
+                               :key="name"
+                  >
+                    <v-list-item-content>
+                      <v-list-item-title class="text-capitalize">{{ name }}</v-list-item-title>
+                      <v-list-item-subtitle>{{ value }}</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
               </v-card-text>
             </v-card>
           </v-col>
@@ -26,7 +37,8 @@
 
 <script>
   export default {
-    name: "index.vue"
+    name: "index.vue",
+    middleware: ['auth']
   }
 </script>
 

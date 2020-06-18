@@ -29,7 +29,11 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
+  // serverMiddleware: [
+  //   '~/api/auth',
+  // ],
   plugins: [
+
   ],
   /*
   ** Nuxt.js dev-modules
@@ -41,26 +45,41 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
+    '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
   axios: {
-
+    baseURL: 'http://localhost:3000/api'
   },
   auth: {
-
+    resetOnError: true,
+    redirect: {
+      login: '/profile/login', // User will be redirected to this path if login is required.
+      home: '/', // User will be redirect to this path after login. (rewriteRedirects will rewrite this path)
+      logout: false, // User will be redirected to this path if after logout, current route is protected.
+      user: '/profile',
+      callback: '/callback' // User will be redirect to this path by the identity provider after login. (Should match configured Allowed Callback URLs (or similar setting) in your app/client with the identity provider)
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/auth/login',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: false,
+          user: {
+            url: '/auth/me',
+            method: 'GET',
+            propertyName: 'user'
+          }
+        },
+        tokenRequired: true
+      }
+    },
   },
-  /*
-  ** vuetify module configuration
-  ** https://github.com/nuxt-community/vuetify-module
-  */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -87,5 +106,9 @@ module.exports = {
     */
     extend (config, ctx) {
     }
-  }
-}
+  },
+  // server: {
+  //   host: "192.168.1.42",
+  //   port: "3000"
+  // }
+};
