@@ -104,8 +104,8 @@
       async loginUser() {
         if (this.isValid) {
           try {
-            let response = await this.$auth.loginWith('local', {data: {
-              email: this.formFields.email.input,
+            await this.$auth.loginWith('local', {data: {
+              email:    this.formFields.email.input,
               password: this.formFields.password.input
             }});
           } catch (err) {
