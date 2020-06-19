@@ -74,7 +74,7 @@ router.post("/login", async (req, res) => {
         }
       );
     } else {
-      res.json({ message: 'Invalid username' });
+      res.status(400).json({ result: 0, message: 'Invalid username' });
     }
   });
 });
