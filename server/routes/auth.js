@@ -52,7 +52,7 @@ router.post("/verify", async (req, res) => {
       if (user.password === req.body.password) {
         res.json({ valid: true })
       } else {
-        res.json({ valid: true })
+        res.json({ valid: false })
       }
     } else {
       res.json({ valid: false })
