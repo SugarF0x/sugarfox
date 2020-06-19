@@ -102,15 +102,13 @@
     },
     methods: {
       async loginUser() {
-        if (this.isValid) {
-          try {
-            await this.$auth.loginWith('local', {data: {
-              email:    this.formFields.email.input,
-              password: this.formFields.password.input
-            }});
-          } catch (err) {
-            console.log(err)
-          }
+        try {
+          await this.$auth.loginWith('local', {data: {
+            email:    this.formFields.email.input,
+            password: this.formFields.password.input
+          }});
+        } catch (err) {
+          console.log(err)
         }
       },
       async verify() {
