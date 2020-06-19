@@ -1,7 +1,7 @@
 const express = require('express'),
       router  = express.Router(),
       jwt     = require("jsonwebtoken"),
-      Users   = require("../models/users");
+      User    = require("../models/user");
 
 const SECRET = 'frupblvke';
 
@@ -22,7 +22,7 @@ const SECRET = 'frupblvke';
 
 router.get("/getUsers", async (req, res) => {
   try {
-    const users = await Users.find();
+    const users = await User.find();
     await res.json(users);
   } catch (err) {
     res.status(500).json({message: err.message})
@@ -30,7 +30,7 @@ router.get("/getUsers", async (req, res) => {
 });
 
 router.post("/verify", async (req, res) => {
-  Users.findOne({ email: req.body.email }, (err, user) => {
+  User.findOne({ email: req.body.email }, (err, user) => {
     if (user) {
       if (user.password === req.body.password) {
         res.json({ valid: true })
@@ -44,7 +44,7 @@ router.post("/verify", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  Users.findOne({ email: req.body.email }, (err, user) => {
+  User.findOne({ email: req.body.email }, (err, user) => {
     if (user) {
       if (!user.password === req.body.password) {
         res.json({ message: 'invalid password' });
@@ -65,8 +65,7 @@ router.post("/login", async (req, res) => {
 router.get("/me", async (req, res) => {
   if (req.headers.authorization) {
     try {
-      let decoded = jwt.verify(req.headers.authorization.split(' ')[1], SECRET);
-      Users.findOne({email: decoded.email}, (err, user) => {
+      User.findById({ email: 'some@email' }, (err, user) => {
         if (!err) {
           res.json({ user });
         } else {
@@ -85,7 +84,7 @@ router.get("/me", async (req, res) => {
 
 // router.get("/setAdmin", async (req, res) => {
 //   try {
-//     const adminUser = new Users({
+//     const adminUser = new User({
 //       login: "admin",
 //       email: "admin@admin.admin",
 //       password: "123123123",
