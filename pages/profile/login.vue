@@ -45,7 +45,7 @@
               <v-spacer></v-spacer>
               <v-btn :disabled="!isValid"
                      class="success darken-1"
-                     @click="loginUser"
+                     @click="verify"
               >
                 Sign in
                 <v-icon right>mdi-account-arrow-right</v-icon>
@@ -63,6 +63,16 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-row justify="center">
+        <v-alert
+          v-model="alert"
+          dense
+          dismissible
+          type="error"
+        >
+          Bad credentials
+        </v-alert>
+      </v-row>
     </v-container>
   </v-content>
 </template>
@@ -73,6 +83,7 @@
     data() {
       return {
         isValid: false,
+        alert: false,
         formFields: {
           email: {
             input: '',
@@ -101,12 +112,21 @@
             console.log(err)
           }
         }
-
-        // let response = await this.$axios.post("/auth/login", {
-        //     email:    this.formFields.email.input,
-        //     password: this.formFields.password.input
-        // });
-        // console.log(response.data);
+      },
+      async verify() {
+        try {
+          let response = await this.$axios.post("/auth/verify", {
+            email:    this.formFields.email.input,
+            password: this.formFields.password.input
+          });
+          if (response.data.valid) {
+            this.loginUser();
+          } else {
+            this.alert = true;
+          }
+        } catch (err) {
+          console.log(err)
+        }
       }
     }
   }

@@ -29,6 +29,20 @@ router.get("/getUsers", async (req, res) => {
   }
 });
 
+router.post("/verify", async (req, res) => {
+  Users.findOne({ email: req.body.email }, (err, user) => {
+    if (user) {
+      if (user.password === req.body.password) {
+        res.json({ valid: true })
+      } else {
+        res.json({ valid: true })
+      }
+    } else {
+      res.json({ valid: false })
+    }
+  })
+});
+
 router.post("/login", async (req, res) => {
   Users.findOne({ email: req.body.email }, (err, user) => {
     if (user) {
