@@ -49,7 +49,7 @@ router.post("/login", async (req, res) => {
       if (!user.password === req.body.password) {
         res.json({ message: 'invalid password' });
       }
-      jwt.sign(
+      jwt.sign( // TODO: make this store a Users _id instead of email and in /auth/me user .findById
         { email: req.body.email },
         SECRET,
         (err, token) => {
