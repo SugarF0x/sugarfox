@@ -50,7 +50,8 @@ module.exports = {
     '@nuxtjs/auth'
   ],
   axios: {
-    baseURL: 'http://localhost:3000/api'
+    // baseURL: 'http://localhost:3000/api'
+    baseURL: 'http://sugarfox.servehttp.com/api'
   },
   auth: {
     resetOnError: true,
@@ -107,8 +108,8 @@ module.exports = {
     extend (config, ctx) {
     }
   },
-  // server: {
-  //   host: "192.168.1.42",
-  //   port: "3000"
-  // }
+  server: {
+    host: "192.168.1.42",
+    port: "3000"
+  }
 };
