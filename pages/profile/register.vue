@@ -49,7 +49,7 @@
                 <v-text-field id="password2"
                               label="Repeat password"
                               name="password2"
-                              prepend-icon="mdi-lock"
+                              prepend-icon="mdi-lock-clock"
                               type="password"
                               v-model="formFields.password2.input"
                               :rules="formFields.password2.rules"
