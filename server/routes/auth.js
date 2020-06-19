@@ -5,6 +5,23 @@ const express = require('express'),
 
 const SECRET = 'frupblvke';
 
+// this function checks if request is authorised and returns decoded user if so
+
+function isAuthed(req) {
+  if (req.headers.authorization) {
+    try {
+      // var is redundant but its better that was so as not to return error
+      // noinspection UnnecessaryLocalVariableJS
+      let decoded = jwt.verify(req.headers.authorization.split(' ')[1], SECRET);
+      return decoded;
+    } catch(err) {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
 // const app          = express(),
 //       ejwt         = require("express-jwt"),
 //       cookieParser = require('cookie-parser');
@@ -49,8 +66,8 @@ router.post("/login", async (req, res) => {
       if (!user.password === req.body.password) {
         res.json({ message: 'invalid password' });
       }
-      jwt.sign( // TODO: make this store a Users _id instead of email and in /auth/me user .findById
-        { email: req.body.email },
+      jwt.sign(
+        { id: user._id },
         SECRET,
         (err, token) => {
           res.json({ token });
@@ -63,10 +80,11 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/me", async (req, res) => {
-  if (req.headers.authorization) {
+  let token = isAuthed(req);
+  if (token) {
     try {
-      User.findById({ email: 'some@email' }, (err, user) => {
-        if (!err) {
+      User.findById(token.id, (err, user) => {
+        if (user) {
           res.json({ user });
         } else {
           res.json({message: err.message});
@@ -75,8 +93,6 @@ router.get("/me", async (req, res) => {
     } catch (err) {
       res.json({message: err.message});
     }
-  } else {
-    res.send(false);
   }
 });
 
