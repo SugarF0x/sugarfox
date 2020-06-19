@@ -37,15 +37,6 @@ function isAuthed(req) {
 
 // Handle calls
 
-router.get("/getUsers", async (req, res) => {
-  try {
-    const users = await User.find();
-    await res.json(users);
-  } catch (err) {
-    res.status(500).json({message: err.message})
-  }
-});
-
 router.post("/verify", async (req, res) => {
   User.findOne({ email: req.body.email }, (err, user) => {
     if (user) {
@@ -56,6 +47,36 @@ router.post("/verify", async (req, res) => {
       }
     } else {
       res.json({ valid: false })
+    }
+  })
+});
+
+router.post("/verifyRegister", async (req, res) => {
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (user) {
+      res.json({ valid: false })
+    } else {
+      res.json({ valid: true })
+    }
+  })
+});
+
+router.post("/register", async (req, res) => {
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (user) {
+      res.status(400).json({ result: 0, message: "User with that E-mail is already registered" })
+    } else {
+      try {
+        const user = new User({
+          login: req.body.login,
+          email: req.body.email,
+          password: req.body.password
+        });
+        user.save();
+        res.json({ result: 1 });
+      } catch (err) {
+        res.status(500).json({ result: 0, message: err.message })
+      }
     }
   })
 });
@@ -95,22 +116,5 @@ router.get("/me", async (req, res) => {
     }
   }
 });
-
-  // an instance of successfully adding a new user to the database
-
-// router.get("/setAdmin", async (req, res) => {
-//   try {
-//     const adminUser = new User({
-//       login: "admin",
-//       email: "admin@admin.admin",
-//       password: "123123123",
-//       permission: "admin",
-//     });
-//     adminUser.save();
-//     await res.send("added admin user");
-//   } catch (err) {
-//     res.status(500).json({message: err.message})
-//   }
-// });
 
 module.exports = router;

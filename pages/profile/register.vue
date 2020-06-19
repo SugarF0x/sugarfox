@@ -66,7 +66,7 @@
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn class="success darken-1"
-                     @click="$refs.form.validate()"
+                     @click="verify"
                      :disabled="!isValid"
               >
                 Sign up
@@ -75,6 +75,16 @@
             </v-card-actions>
           </v-card>
         </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-alert
+          v-model="alert"
+          dense
+          dismissible
+          type="error"
+        >
+          This E-mail is already registered
+        </v-alert>
       </v-row>
     </v-container>
   </v-content>
@@ -86,6 +96,7 @@
     data() {
       return {
         isValid: false,
+        alert: false,
         formFields: {
           email: {
             input: '',
@@ -115,6 +126,47 @@
               v => v === this.formFields.password1.input || "Passwords don't match"
             ]
           }
+        }
+      }
+    },
+    methods: {
+      async verify() {
+        try {
+          let response = await this.$axios.post("/auth/verifyRegister", {
+            email:    this.formFields.email.input,
+            login:    this.formFields.login.input,
+            password: this.formFields.password1.input
+          });
+          if (response.data.valid) {
+            this.register();
+          } else {
+            this.alert = true;
+          }
+        } catch (err) {
+          console.log(err)
+        }
+      },
+      async register() {
+        try {
+          let response = await this.$axios.post("/auth/register", {
+            email:    this.formFields.email.input,
+            login:    this.formFields.login.input,
+            password: this.formFields.password1.input
+          });
+          if (response.data.result) {
+            try {
+              await this.$auth.loginWith('local', {data: {
+                  email:    this.formFields.email.input,
+                  password: this.formFields.password1.input
+                }});
+            } catch (err) {
+              console.log(err)
+            }
+          } else {
+            this.alert = true;
+          }
+        } catch (err) {
+          console.log(err)
         }
       }
     }
