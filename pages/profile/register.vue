@@ -41,6 +41,7 @@
                               label="Password"
                               name="password1"
                               prepend-icon="mdi-lock"
+                              counter
                               type="password"
                               v-model="formFields.password1.input"
                               :rules="formFields.password1.rules"
@@ -50,6 +51,7 @@
                               label="Repeat password"
                               name="password2"
                               prepend-icon="mdi-lock-clock"
+                              counter
                               type="password"
                               v-model="formFields.password2.input"
                               :rules="formFields.password2.rules"
@@ -78,12 +80,12 @@
       </v-row>
       <v-row justify="center">
         <v-alert
-          v-model="alert"
+          v-model="alert.visible"
           dense
           dismissible
           type="error"
         >
-          This E-mail is already registered
+          {{ alert.message }}
         </v-alert>
       </v-row>
     </v-container>
@@ -96,33 +98,48 @@
     data() {
       return {
         isValid: false,
-        alert: false,
+        alert: {
+          visible: false,
+          message: ''
+        },
         formFields: {
           email: {
             input: '',
             rules: [
-              v => !!v || 'E-mail is required',
-              v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+              v => !!v                                     || 'E-mail is required',
+              v => /^[a-z0-9.-@]*$/i.test(v)               || 'Only digits, latin letters as well as . and - are allowed',
+              v => /^[a-z0-9].*$/i.test(v)                 || 'Email must begin with digit or a latin letter',
+              v => /^.*@.*$/i.test(v)                      || 'Email must contain @ symbol',
+              v => /^([a-z0-9]+[-.]?)*@.*$/i.test(v)       || 'Symbol repetition is not allowed',
+              v => /^.*[a-z0-9]@.*$/i.test(v)              || 'A digit or a latin letter is to be before @ symbol',
+              v => /^.*@[a-z0-9].*$/i.test(v)              || 'Domain is to begin with a digit or a latin letter',
+              v => /^.*@(.+\.+)+.*$/i.test(v)              || 'Domain must contain at least one dot',
+              v => /^.*@([a-z0-9]+[-.]?)*[a-z]*$/i.test(v) || 'Domain symbol repetition is not allowed',
+              v => /^.*[0-9a-z]$/i.test(v)                 || 'Domain must end with either a digit or a latin letter'
             ]
           },
           login: {
             input: '',
             rules: [
-              v => !!v || 'Name is required',
-              v => (v && v.length <= 32) || 'Name must be 32 characters or less'
+              v => !!v                           || 'Login is required',
+              v => (v && v.length <= 32)         || 'Login must be 32 characters or less',
+              v => /^[а-яёa-z0-9].*$/i.test(v)   || 'Login must begin with a letter or a digit',
+              v => /^.[а-яёa-z0-9-_]*$/i.test(v) || 'Login may only contain letters and digits as well as - and _ symbols',
+              v => /^.*[а-яёa-z0-9]$/i.test(v)   || 'Login must end with a letter or a digit'
             ]
           },
           password1: {
             input: '',
             rules: [
-              v => !!v || 'Password is required',
-              v => (v && v.length >= 8) || 'Name must be 8 characters or more'
+              v => !!v                  || 'Password is required',
+              v => (v && v.length >= 8) || 'Password must be 8 characters or more',
+              v => /^\S+$/.test(v)      || 'No spaces are allowed'
             ]
           },
           password2: {
             input: '',
             rules: [
-              v => !!v || 'Password is required',
+              v => !!v                                   || 'Password is required',
               v => v === this.formFields.password1.input || "Passwords don't match"
             ]
           }
@@ -136,11 +153,14 @@
             email:    this.formFields.email.input,
             login:    this.formFields.login.input,
             password: this.formFields.password1.input
+          }).catch(err => {
+            this.alert.visible = true;
+            this.alert.message = err.response.data.message;
           });
-          if (response.data.valid) {
-            this.register();
-          } else {
-            this.alert = true;
+          if (response) {
+            if (response.data.valid) {
+              this.register();
+            }
           }
         } catch (err) {
           console.log(err)

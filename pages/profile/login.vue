@@ -65,12 +65,12 @@
       </v-row>
       <v-row justify="center">
         <v-alert
-          v-model="alert"
+          v-model="alert.visible"
           dense
           dismissible
           type="error"
         >
-          Bad credentials
+          {{ alert.message }}
         </v-alert>
       </v-row>
     </v-container>
@@ -83,18 +83,32 @@
     data() {
       return {
         isValid: false,
-        alert: false,
+        alert: {
+          visible: false,
+          message: ''
+        },
         formFields: {
           email: {
             input: '',
             rules: [
-              v => !!v || 'Email is required'
+              v => !!v                                     || 'E-mail is required',
+              v => /^[a-z0-9.-@]*$/i.test(v)               || 'Only digits, latin letters as well as . and - are allowed',
+              v => /^[a-z0-9].*$/i.test(v)                 || 'Email must begin with digit or a latin letter',
+              v => /^.*@.*$/i.test(v)                      || 'Email must contain @ symbol',
+              v => /^([a-z0-9]+[-.]?)*@.*$/i.test(v)       || 'Symbol repetition is not allowed',
+              v => /^.*[a-z0-9]@.*$/i.test(v)              || 'A digit or a latin letter is to be before @ symbol',
+              v => /^.*@[a-z0-9].*$/i.test(v)              || 'Domain is to begin with a digit or a latin letter',
+              v => /^.*@(.+\.+)+.*$/i.test(v)              || 'Domain must contain at least one dot',
+              v => /^.*@([a-z0-9]+[-.]?)*[a-z]*$/i.test(v) || 'Domain symbol repetition is not allowed',
+              v => /^.*[0-9a-z]$/i.test(v)                 || 'Domain must end with either a digit or a latin letter'
             ]
           },
           password: {
             input: '',
             rules: [
-              v => !!v || 'Password is required'
+              v => !!v                  || 'Password is required',
+              v => (v && v.length >= 8) || 'Password must be 8 characters or more',
+              v => /^\S+$/.test(v)      || 'No spaces are allowed'
             ]
           }
         }
@@ -116,11 +130,14 @@
           let response = await this.$axios.post("/auth/verify", {
             email:    this.formFields.email.input,
             password: this.formFields.password.input
+          }).catch((err) => {
+            this.alert.visible = true;
+            this.alert.message = err.response.data.message;
           });
-          if (response.data.valid) {
-            this.loginUser();
-          } else {
-            this.alert = true;
+          if (response) {
+            if (response.data.result) {
+              this.loginUser();
+            }
           }
         } catch (err) {
           console.log(err)
