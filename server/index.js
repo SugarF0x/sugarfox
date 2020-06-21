@@ -28,7 +28,7 @@ app.use(express.json());
 // Import Routes
 
 const routeAuth = require("./routes/auth");
-app.use("/api/auth", routeAuth);
+app.use("/api/auth", routeAuth(app));
 
 
 // Import and Set Nuxt.js options

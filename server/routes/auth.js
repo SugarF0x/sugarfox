@@ -31,23 +31,6 @@ const rules = {
   ]
 };
 
-// this function checks if request is authorised and returns decoded user if so
-
-function isAuthed(req) {
-  if (req.headers.authorization) {
-    try {
-      // var is redundant but its better that was so as not to return error
-      // noinspection UnnecessaryLocalVariableJS
-      let decoded = jwt.verify(req.headers.authorization.split(' ')[1], SECRET);
-      return decoded;
-    } catch(err) {
-      return false;
-    }
-  } else {
-    return false;
-  }
-}
-
 function validate(req) {
   let isValid = true;
   if (req.body.email && isValid) {
@@ -69,115 +52,135 @@ function validate(req) {
   return isValid;
 }
 
-// const app          = express(),
-//       ejwt         = require("express-jwt"),
-//       cookieParser = require('cookie-parser');
+  // response bad credentials
+function rbc(res) {
+  res.status(400).json({ result: 0, message: "Bad credentials" })
+}
 
-// app.use(cookieParser());
-// app.use(
-//   ejwt({
-//     secret: SECRET
-//   }).unless({
-//     path: "api/auth/login"
-//   })
-// );
+module.exports = (app) => {
+/*
+  this middleware parses headers and query for token
+  if successful, it queries db for user data and appends it to req
+  thus passing req.user data to following wares
+ */
+  app.use(async (req,res,next) => {
+    let token = null;
+    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+      token = req.headers.authorization.split(' ')[1];
+    } else if (req.query && req.query.token) {
+      token = req.query.token;
+    }
+
+    if (token) {
+      try {
+        let decoded = jwt.verify(token, SECRET);
+        if (decoded) {
+          try {
+            await User.findById(decoded.id, (err, user) => {
+              if (user) {
+                req.user = user;
+              }
+            });
+          } catch (err) {
+            console.log(err.message)
+          }
+        }
+      } catch(err) {
+
+      }
+    }
+
+    next();
+  });
 
 // Handle calls
 
-router.post("/verify", async (req, res) => {
-  if (validate(req)) {
-    User.findOne({ email: req.body.email }, (err, user) => {
-      if (user) {
-        if (user.password === req.body.password) {
-          res.json({ result: 1, message: 'Success' })
-        } else {
-          res.status(400).json({ result: 0, message: 'Bad credentials' })
-        }
-      } else {
-        res.status(400).json({ result: 0, message: 'Bad credentials' })
-      }
-    })
-  } else {
-    res.status(400).json({ result: 0, message: 'Bad credentials' })
-  }
-});
-
-router.post("/verifyRegister", async (req, res) => {
-  if (validate(req)) {
-    User.findOne({ email: req.body.email }, (err, user) => {
-      if (!user) {
-        res.json({ result: 1, valid: true })
-      } else {
-        res.status(400).json({ result: 0, message: 'User already exists' })
-      }
-    });
-  } else {
-    res.status(400).json({ result: 0, message: 'Bad credentials' })
-  }
-});
-
-router.post("/register", async (req, res) => {
-  if (validate(req)) {
-    User.findOne({ email: req.body.email }, (err, user) => {
-      if (!user) {
-        try {
-          const user = new User({
-            login: req.body.login,
-            email: req.body.email,
-            password: req.body.password
-          });
-          user.save();
-          res.json({ result: 1, message: 'Successfully registered'});
-        } catch (err) {
-          res.status(500).json({ result: 0, message: err.message })
-        }
-      } else {
-        res.status(400).json({ result: 0, message: "User with that E-mail is already registered" })
-      }
-    });
-  } else {
-    res.status(400).json({ result: 0, message: 'Bad credentials' })
-  }
-});
-
-router.post("/login", async (req, res) => {
-  if (validate(req)) {
-    User.findOne({ email: req.body.email }, (err, user) => {
-      if (user) {
-        if (!user.password === req.body.password) {
-          res.status(400).json({ result: 0, message: 'Bad credentials' });
-        }
-        jwt.sign(
-          { id: user._id },
-          SECRET,
-          (err, token) => {
-            res.json({ token });
-          }
-        );
-      } else {
-        res.status(400).json({ result: 0, message: 'User does not exist' });
-      }
-    });
-  } else {
-    res.status(400).json({ result: 0, message: 'Bad credentials' })
-  }
-});
-
-router.get("/me", async (req, res) => {
-  let token = isAuthed(req);
-  if (token) {
-    try {
-      User.findById(token.id, (err, user) => {
+  router.post("/verify", async (req, res) => {
+    if (validate(req)) {
+      await User.findOne({ email: req.body.email }, (err, user) => {
         if (user) {
-          res.json({ user });
+          if (user.password === req.body.password) {
+            res.json({ result: 1, message: 'Success' })
+          } else {
+            rbc(res);
+          }
         } else {
-          res.json({message: err.message});
+          rbc(res);
+        }
+      })
+    } else {
+      rbc(res);
+    }
+  });
+
+  router.post("/verifyRegister", async (req, res) => {
+    if (validate(req)) {
+      await User.findOne({ email: req.body.email }, (err, user) => {
+        if (!user) {
+          res.json({ result: 1, valid: true })
+        } else {
+          res.status(400).json({ result: 0, message: 'User already exists' })
         }
       });
-    } catch (err) {
-      res.json({message: err.message});
+    } else {
+      rbc(res);
     }
-  }
-});
+  });
 
-module.exports = router;
+  router.post("/register", async (req, res) => {
+    if (validate(req)) {
+      await User.findOne({ email: req.body.email }, (err, user) => {
+        if (!user) {
+          try {
+            const user = new User({
+              login:    req.body.login,
+              email:    req.body.email,
+              password: req.body.password
+            });
+            user.save();
+            res.json({ result: 1, message: 'Successfully registered'});
+          } catch (err) {
+            res.status(500).json({ result: 0, message: err.message })
+          }
+        } else {
+          res.status(400).json({ result: 0, message: "User with that E-mail is already registered" })
+        }
+      });
+    } else {
+      rbc(res);
+    }
+  });
+
+  router.post("/login", async (req, res) => {
+    if (validate(req)) {
+      await User.findOne({ email: req.body.email }, (err, user) => {
+        if (user) {
+          if (!user.password === req.body.password) {
+            rbc(res);
+          }
+          jwt.sign(
+            { id: user._id },
+            SECRET,
+            (err, token) => {
+              res.json({ token });
+            }
+          );
+        } else {
+          res.status(400).json({ result: 0, message: 'User does not exist' });
+        }
+      });
+    } else {
+      rbc(res);
+    }
+  });
+
+  router.get("/me", async (req, res) => {
+    if (req.user) {
+      res.json({ user: req.user })
+    } else {
+      rbc(res);
+    }
+  });
+
+  return router;
+};
