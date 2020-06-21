@@ -24,6 +24,7 @@
                               type="email"
                               v-model="formFields.email.input"
                               :rules="formFields.email.rules"
+                              validate-on-blur
                 ></v-text-field>
                 <v-text-field id="password"
                               label="Password"
@@ -32,6 +33,7 @@
                               type="password"
                               v-model="formFields.password.input"
                               :rules="formFields.password.rules"
+                              validate-on-blur
                 ></v-text-field>
               </v-form>
             </v-card-text>
