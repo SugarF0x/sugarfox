@@ -17,7 +17,9 @@
               <v-toolbar-title>Login form</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form v-model="isValid">
+              <v-form v-model="isValid"
+                      ref="form"
+              >
                 <v-text-field label="Email"
                               name="email"
                               prepend-icon="mdi-email"
@@ -25,6 +27,7 @@
                               v-model="formFields.email.input"
                               :rules="formFields.email.rules"
                               validate-on-blur
+                              @keypress.enter="verify"
                 ></v-text-field>
                 <v-text-field id="password"
                               label="Password"
@@ -34,6 +37,7 @@
                               v-model="formFields.password.input"
                               :rules="formFields.password.rules"
                               validate-on-blur
+                              @keypress.enter="verify"
                 ></v-text-field>
               </v-form>
             </v-card-text>
@@ -128,21 +132,24 @@
         }
       },
       async verify() {
-        try {
-          let response = await this.$axios.post("/auth/verify", {
-            email:    this.formFields.email.input,
-            password: this.formFields.password.input
-          }).catch((err) => {
-            this.alert.visible = true;
-            this.alert.message = err.response.data.message;
-          });
-          if (response) {
-            if (response.data.result) {
-              this.loginUser();
+        await this.$refs.form.validate();
+        if (this.isValid) {
+          try {
+            let response = await this.$axios.post("/auth/verify", {
+              email:    this.formFields.email.input,
+              password: this.formFields.password.input
+            }).catch((err) => {
+              this.alert.visible = true;
+              this.alert.message = err.response.data.message;
+            });
+            if (response) {
+              if (response.data.result) {
+                this.loginUser();
+              }
             }
+          } catch (err) {
+            console.log(err)
           }
-        } catch (err) {
-          console.log(err)
         }
       }
     }

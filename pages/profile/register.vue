@@ -27,6 +27,7 @@
                               v-model="formFields.email.input"
                               :rules="formFields.email.rules"
                               validate-on-blur
+                              @keypress.enter="verify"
                 ></v-text-field>
                 <v-text-field label="Login"
                               name="login"
@@ -36,6 +37,7 @@
                               v-model="formFields.login.input"
                               :rules="formFields.login.rules"
                               validate-on-blur
+                              @keypress.enter="verify"
                 ></v-text-field>
                 <v-text-field id="password1"
                               label="Password"
@@ -46,6 +48,7 @@
                               v-model="formFields.password1.input"
                               :rules="formFields.password1.rules"
                               validate-on-blur
+                              @keypress.enter="verify"
                 ></v-text-field>
                 <v-text-field id="password2"
                               label="Repeat password"
@@ -56,6 +59,7 @@
                               v-model="formFields.password2.input"
                               :rules="formFields.password2.rules"
                               validate-on-blur
+                              @keypress.enter="verify"
                 ></v-text-field>
               </v-form>
             </v-card-text>
@@ -148,22 +152,25 @@
     },
     methods: {
       async verify() {
-        try {
-          let response = await this.$axios.post("/auth/verifyRegister", {
-            email:    this.formFields.email.input,
-            login:    this.formFields.login.input,
-            password: this.formFields.password1.input
-          }).catch(err => {
-            this.alert.visible = true;
-            this.alert.message = err.response.data.message;
-          });
-          if (response) {
-            if (response.data.valid) {
-              this.register();
+        await this.$refs.form.validate();
+        if (this.isValid) {
+          try {
+            let response = await this.$axios.post("/auth/verifyRegister", {
+              email:    this.formFields.email.input,
+              login:    this.formFields.login.input,
+              password: this.formFields.password1.input
+            }).catch(err => {
+              this.alert.visible = true;
+              this.alert.message = err.response.data.message;
+            });
+            if (response) {
+              if (response.data.valid) {
+                this.register();
+              }
             }
+          } catch (err) {
+            console.log(err)
           }
-        } catch (err) {
-          console.log(err)
         }
       },
       async register() {
