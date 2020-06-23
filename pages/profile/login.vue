@@ -1,86 +1,82 @@
 <template>
-  <v-content>
-    <v-container class="fill-height"
-                 fluid
+  <v-layout column>
+    <v-row align="center"
+           justify="center"
     >
-      <v-row align="center"
-             justify="center"
+      <v-col cols="12"
+             sm="8"
+             md="6"
+             lg="5"
+             xl="4"
       >
-        <v-col cols="12"
-               sm="8"
-               md="6"
-               lg="5"
-               xl="4"
-        >
-          <v-card class="elevation-12">
-            <v-toolbar flat>
-              <v-toolbar-title>Login form</v-toolbar-title>
-            </v-toolbar>
-            <v-card-text>
-              <v-form v-model="isValid"
-                      ref="form"
-              >
-                <v-text-field label="Email"
-                              name="email"
-                              prepend-icon="mdi-email"
-                              type="email"
-                              v-model="formFields.email.input"
-                              :rules="formFields.email.rules"
-                              validate-on-blur
-                              @keypress.enter="verify"
-                ></v-text-field>
-                <v-text-field id="password"
-                              label="Password"
-                              name="password"
-                              prepend-icon="mdi-lock"
-                              type="password"
-                              v-model="formFields.password.input"
-                              :rules="formFields.password.rules"
-                              validate-on-blur
-                              @keypress.enter="verify"
-                ></v-text-field>
-              </v-form>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn nuxt
-                     to="/profile/register"
-              >
-                <v-icon left>mdi-account-plus</v-icon>
-                Register
-              </v-btn>
-              <v-spacer></v-spacer>
-              <v-btn :disabled="!isValid"
-                     class="success darken-1"
-                     @click="verify"
-              >
-                Sign in
-                <v-icon right>mdi-account-arrow-right</v-icon>
-              </v-btn>
-            </v-card-actions>
-            <v-divider></v-divider>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn disabled><v-icon>mdi-vk</v-icon></v-btn>
-              <v-btn disabled><v-icon>mdi-facebook</v-icon></v-btn>
-              <v-btn disabled><v-icon>mdi-twitter</v-icon></v-btn>
-              <v-btn disabled><v-icon>mdi-google</v-icon></v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row justify="center">
-        <v-alert
-          v-model="alert.visible"
-          dense
-          dismissible
-          type="error"
-        >
-          {{ alert.message }}
-        </v-alert>
-      </v-row>
-    </v-container>
-  </v-content>
+        <v-card class="elevation-12">
+          <v-toolbar flat>
+            <v-toolbar-title>Login form</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <v-form v-model="isValid"
+                    ref="form"
+            >
+              <v-text-field label="Email"
+                            name="email"
+                            prepend-icon="mdi-email"
+                            type="email"
+                            v-model="formFields.email.input"
+                            :rules="formFields.email.rules"
+                            validate-on-blur
+                            @keypress.enter="verify"
+              ></v-text-field>
+              <v-text-field id="password"
+                            label="Password"
+                            name="password"
+                            prepend-icon="mdi-lock"
+                            type="password"
+                            v-model="formFields.password.input"
+                            :rules="formFields.password.rules"
+                            validate-on-blur
+                            @keypress.enter="verify"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn nuxt
+                   to="/profile/register"
+            >
+              <v-icon left>mdi-account-plus</v-icon>
+              Register
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn :disabled="!isValid"
+                   class="success darken-1"
+                   @click="verify"
+            >
+              Sign in
+              <v-icon right>mdi-account-arrow-right</v-icon>
+            </v-btn>
+          </v-card-actions>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn @click="$auth.loginWith('vk')"><v-icon>mdi-vk</v-icon></v-btn>
+            <v-btn disabled><v-icon>mdi-facebook</v-icon></v-btn>
+            <v-btn disabled><v-icon>mdi-twitter</v-icon></v-btn>
+            <v-btn disabled><v-icon>mdi-google</v-icon></v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-alert
+        v-model="alert.visible"
+        dense
+        dismissible
+        type="error"
+      >
+        {{ alert.message }}
+      </v-alert>
+    </v-row>
+  </v-layout>
 </template>
 
 <script>

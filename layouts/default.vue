@@ -28,8 +28,8 @@
         <v-icon>mdi-account-cog-outline</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-content>
-      <v-container>
+    <v-content app>
+      <v-container fluid>
         <nuxt />
       </v-container>
     </v-content>
@@ -97,7 +97,7 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-footer fixed>
+    <v-footer app absolute>
       <v-spacer></v-spacer>
       <span>le footer</span>
     </v-footer>
