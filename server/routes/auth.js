@@ -89,15 +89,16 @@ module.exports = (app) => {
               await User.findById(decoded.id, (err, user) => {
                 if (user) {
                   req.user = user;
-                  next();
                 }
+                next();
               });
             } catch (err) {
-              console.log(err.message)
+              console.log(err.message);
+              next();
             }
           }
         } catch(err) {
-
+          next();
         }
       } else if (req.cookies["auth.strategy"] === 'vk') {
         request(addQueryToUrl('https://api.vk.com/method/users.get', {
@@ -231,6 +232,9 @@ module.exports = (app) => {
           break;
         case 'vk':
           res.json(req.user);
+          break;
+        default:
+          rbc(res);
           break;
       }
     } else {
