@@ -1,9 +1,9 @@
 const express = require('express'),
       router  = express.Router(),
+      request = require('request'),
       jwt     = require("jsonwebtoken"),
       User    = require("../models/user");
 
-const SECRET = 'frupblvke';
 const rules = {
   email: [
     v => !!v                                     || 'E-mail is required',
@@ -57,7 +57,16 @@ function rbc(res) {
   res.status(400).json({ result: 0, message: "Bad credentials" })
 }
 
+function addQueryToUrl(url, query) {
+  return url + '?' + Object.keys(query).map(function(k) {
+    return encodeURIComponent(k) + "=" + encodeURIComponent(query[k]);
+  }).join('&')
+}
+
 module.exports = (app) => {
+  const cookieParser = require("cookie-parser");
+  app.use(cookieParser());
+
 /*
   this middleware parses headers and query for token
   if successful, it queries db for user data and appends it to req
@@ -72,25 +81,48 @@ module.exports = (app) => {
     }
 
     if (token) {
-      try {
-        let decoded = jwt.verify(token, SECRET);
-        if (decoded) {
-          try {
-            await User.findById(decoded.id, (err, user) => {
-              if (user) {
-                req.user = user;
-              }
-            });
-          } catch (err) {
-            console.log(err.message)
+      if (req.cookies["auth.strategy"] === 'local') {
+        try {
+          let decoded = jwt.verify(token, process.env.AUTH_SECRET);
+          if (decoded) {
+            try {
+              await User.findById(decoded.id, (err, user) => {
+                if (user) {
+                  req.user = user;
+                  next();
+                }
+              });
+            } catch (err) {
+              console.log(err.message)
+            }
           }
+        } catch(err) {
+
         }
-      } catch(err) {
-
+      } else if (req.cookies["auth.strategy"] === 'vk') {
+        request(addQueryToUrl('https://api.vk.com/method/users.get', {
+          access_token: req.cookies["auth._token.vk"].split(' ')[1],
+          v: '5.110'
+        }), (err, response, body) => {
+          body = JSON.parse(body);
+          if (body.error) {
+            console.log('error: ', body.error.error_msg);
+          } else {
+            // TODO: link vk user to mongodb
+            // check with db for said user
+            // for now - just return the vk user data
+            req.user = {
+              login: body.response[0].first_name + ' ' + body.response[0].last_name,
+              method: 'vk',
+              permission: 'default'
+            };
+            next();
+          }
+        });
       }
+    } else {
+      next();
     }
-
-    next();
   });
 
 // Handle calls
@@ -161,7 +193,7 @@ module.exports = (app) => {
           }
           jwt.sign(
             { id: user._id },
-            SECRET,
+            process.env.AUTH_SECRET,
             (err, token) => {
               res.json({ token });
             }
@@ -175,9 +207,32 @@ module.exports = (app) => {
     }
   });
 
+  router.get("/login/vk", async (req, res) => {
+    await request(addQueryToUrl('https://oauth.vk.com/access_token', {
+      client_id:     process.env.VK_CLIENT_ID,
+      client_secret: process.env.VK_SECRET,
+      redirect_uri:  process.env.BASE_URL+ '/profile/auth/vk',
+      code:          req.query.code
+    }), (error, response, body) => {
+      body = JSON.parse(body);
+      if (body.error) {
+        res.status(400).json({ result: 0, message: body.error_description });
+      } else {
+        res.json({ access_token: body.access_token })
+      }
+    });
+  });
+
   router.get("/me", async (req, res) => {
     if (req.user) {
-      res.json({ user: req.user })
+      switch (req.user.method) {
+        case 'local':
+          res.json({ user: req.user });
+          break;
+        case 'vk':
+          res.json(req.user);
+          break;
+      }
     } else {
       rbc(res);
     }

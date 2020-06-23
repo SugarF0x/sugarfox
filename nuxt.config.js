@@ -1,4 +1,5 @@
 const colors = require('vuetify/es5/util/colors').default;
+require('dotenv').config();
 
 module.exports = {
   mode: 'universal',
@@ -51,7 +52,7 @@ module.exports = {
   ],
   axios: {
     // baseURL: 'http://localhost:3000/api'
-    baseURL: 'http://sugarfox.servehttp.com/api'
+    baseURL: process.env.BASE_URL + '/api'
   },
   auth: {
     resetOnError: true,
@@ -78,6 +79,18 @@ module.exports = {
           }
         },
         tokenRequired: true
+      },
+      vk: {
+        _scheme: 'oauth2',
+        authorization_endpoint: 'https://oauth.vk.com/authorize',
+        redirect_uri: process.env.BASE_URL + '/profile/auth/vk',
+        userinfo_endpoint: process.env.BASE_URL + '/api/auth/me',
+        scope: ['friends','groups','status','offline'],
+        response_type: 'code',
+        access_type: 'offline',
+        access_token_endpoint: '/auth/login/test',
+        token_type: 'Bearer',
+        client_id: process.env.VK_CLIENT_ID
       }
     },
   },
