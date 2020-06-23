@@ -1,0 +1,29 @@
+{
+  "local": [
+    {
+      "type": "local",
+      "id": 1,
+      "login": "admin",
+      "email": "admin",
+      "password": "1234",
+      "role": "admin"
+    }
+  ],
+  "VK": [
+    {
+      "type":"VK",
+      "id":31505083,
+      "login":"Ilya Ilya",
+      "role":"admin"
+    },{
+      "type":"VK",
+      "id":161639740,
+      "login":"Максим Смиян",
+      "role":"admin"
+    },{
+      "type":"VK",
+      "id":52060918,
+      "login":"Алексей Тузов",
+      "role":"admin"
+    }]
+}

@@ -1,0 +1,43 @@
+@font-face {
+  font-family: 'Kurbanistika';
+  src: url('../fonts/kurbanistika.otf');
+}
+@font-face {
+  font-family: 'Jura';
+  src: url('../fonts/Jura-Regular.ttf');
+}
+@media (min-width: 320px) {
+  html,
+  body {
+    font-size: 16px;
+  }
+}
+@media (min-width: 992px) {
+  html,
+  body {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1200px) {
+  html,
+  body {
+    font-size: 22px;
+  }
+}
+body {
+  min-height: 100vh;
+  position: relative;
+}
+* {
+  font-family: Jura, sans-serif;
+}
+.noHighlight {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+/*# sourceMappingURL=main.css.map */
