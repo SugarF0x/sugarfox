@@ -18,7 +18,7 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-## Enviroment variables
+## Environment variables
 
 In order to run auth module and anything related you will need to create a .env file with following content:
 
@@ -29,4 +29,4 @@ VP_CLIENT_ID = 'your vk client id'
 VK_SECRET    = 'your vk secret'
 ```
 
--[ ] TODO: i should probably add checks to account for missing .env variables...
+- [ ] TODO: i should probably add checks to account for missing .env variables...
