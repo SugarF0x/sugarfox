@@ -1,271 +1,195 @@
-// header and footer    #445161
-// section1             ##ffffff
-// section2             #f5f5f5
-
-//-------------------- Misc --------------------\\
-
-.owo {
-    position: absolute;
-    height: 80%;
-    width: 100%;
-    left: 0;
-    top: 10%;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    h1 {
-        font-size: 88px;
-    }
-    p {
-        margin: 30px 0;
-        font-size: 44px;
-    }
+@font-face {
+  font-family: 'Kurbanistika';
+  src: url('../fonts/kurbanistika.otf');
+}
+@font-face {
+  font-family: 'Jura';
+  src: url('../fonts/Jura-Regular.ttf');
 }
 
-//-------------------- Global --------------------\\
+@actionColor: #00BFFF;
+@tooltip-background: #c5dbff;
+@actionColorInteract: #0086ff;
 
+//------------------------------------------------------------------------------------tooltip-settings------------------
 
-
-* {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
+.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+  border-bottom-color: @tooltip-background !important;
+}
+.bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+  border-top-color: @tooltip-background !important;
+}
+.bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+  border-left-color: @tooltip-background !important;
+}
+.bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+  border-right-color: @tooltip-background !important;
 }
 
-body,html {
+.tooltip > .tooltip-inner {
+  background-color: @tooltip-background;
+  color: black;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+html,body {
+  // vertical phones
+  @media (min-width: 320px) {
+    font-size: 16px;
+    .insert {
+      justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) {
+    font-size: 18px;
+    .insert {
+      justify-content: left;
+    }
+  }
+
+  // Extra large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) {
+    font-size: 22px;
+  }
+}
+
+body {
   min-height: 100vh;
   position: relative;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
+body:after {
+  content: '';
+  height: 2rem;
+  display: block;
 }
 
-.cls {
-    clear: both;
+* {
+  font-family: Jura, sans-serif;
+}
+
+#main {
+  > * {
+    padding: 1rem 1.5rem;
+  }
+  > .row {
+    margin: 0;
+  }
+  > section:nth-of-type(2n) {
+    background-color: aliceblue;
+  }
 }
 
 header, footer {
-    background-color: #445161;
-    color: #ffffff;
-    padding: 15px 30px;
-    box-sizing: border-box;
-    font-size: 26px;
+  padding: 0.5rem;
+  background-color: steelblue;
+  color: white;
 }
-
-main {
-    flex: 1 0 auto;
-}
-
-section {
-    padding: 2%;
-}
-
-.popout-ul {
-    -webkit-box-shadow: 8px 8px 35px 5px #47464A;
-    box-shadow: 8px 8px 35px 5px #47464A;
-    padding: 15px;
-    margin: 15px;
-    list-style: none;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    li {
-        margin: 5px 0;
-    }
-}
-
-button {
-    display: inline-block;
-    text-decoration: none;
-    color: #666;
-    background-color: #eee;
-    text-transform: uppercase;
-    font-size: 20px;
-    padding: 2px 7px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border: 1px solid rgba(0,0,0,0.3);
-    border-bottom-width: 3px;
-    margin: 5px 10px;
-    transition: .3s ease;
-}
-
-button:hover {
-    background-color: #e3e3e3;
-    border-color: rgba(0,0,0,0.5);
-    cursor:pointer;
-}
-
-button[disabled], button[disabled]:hover {
-    background-color: #B2B2B2;
-    cursor:not-allowed;
-    border-color: rgba(0,0,0,0.3);
-}
-
-button:active {
-    background-color: #CCC;
-    border-color: rgba(0,0,0,0.9);
-}
-
-.clickable-image {
-    transition: 1s ease;
-}
-
-.clickable-image:hover {
-    transform: scale(1.05) rotate(5deg);
-    cursor: pointer;
-}
-
-.button-image {
-    width: 125px;
-    height: 125px;
-}
-
-.wrapper-section {
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-}
-
-//-------------------- Header --------------------\\
 
 header {
-    height: 50px;
-    box-sizing: content-box;
-}
-
-header > a {
-    display: inline-block;
-}
-
-.header__logo {
-    float: left;
-    width: 50px;
-    height: 50px;
-    margin-right: 15px;
-}
-
-.header__name {
-    float:left;
-    line-height: 50px;
-    vertical-align: middle;
-    text-transform: uppercase;
-    color: #ffffff;
-}
-
-.header__section {
-    float:right;
-    line-height: 50px;
-    vertical-align: middle;
-    text-transform: uppercase;
-}
-
-//-------------------- Main --------------------\\
-
-.main > section:nth-of-type(2n-1) {
-    background-color: #ffffff;
-}
-
-.main > section:nth-of-type(2n) {
-    background-color: #f5f5f5;
-}
-
-.main > section > h1 {
-    margin-bottom: 30px;
-    font-size: 28px;
-    margin-left: 45px;
-}
-
-.main > section {
-    > p {
-    margin: 15px 0;
-    font-size: 20px;
+  height: 4rem;
+  #logo {
+    height: 100%;
+    line-height: 3rem;
+    text-decoration: none;
+    color: white;
+    img {
+      height: 2.5rem;
     }
-    > li {
-        font-size: 20px;
+    span {
+      font-family: Kurbanistika, sans-serif;
+      font-size: 2.5rem;
     }
+  }
+  #page-title {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  #header-login {
+    button {
+      border: none;
+      background-color: @actionColor;
+      color: white;
+      transition: ease-in-out;
+      transition-duration: .25s;
+      outline: 1px solid white;
+    }
+    button:hover {
+      background-color: @actionColorInteract;
+      outline: 2px solid white;
+    }
+  }
 }
-
-//-------------------- Footer --------------------\\
 
 footer {
-    flex-shrink: 0;
-    max-height: 50px;
+  height: 2rem;
+  line-height: 1rem;
+  position: absolute;
+  bottom: 0;
+  #quotes {
+    #quotes-text {
+      transition-timing-function: ease-in-out;
+      transition-duration: 0.25s;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    #quotes-number {
+      color: white;
+      font-size: 0.65em;
+      opacity: 0.5;
+    }
+  }
+  #quotes:hover {
+    cursor: pointer;
+  }
+}
+
+.pentaLink {
+  display: inline-block;
+  position: relative;
+  height: 6rem;
+  width: 6rem;
+  margin: 0.5rem;
+  //background-color: cyan;
+  border-radius: 50%;
+  img, object, svg {
+    position: absolute;
+    height: 100%;
     width: 100%;
-    font-size: 16px;
-    .footer__quotes {
-        line-height: 20px;
-        vertical-align: middle;
-        float: right;
-    }
+  }
+  .pL__fg {
+    padding: 20%;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+  }
+  .pL__bg {
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    transform: rotate(0deg);
+    fill: @actionColor;
+  }
 }
 
-//-------------------- Minecraft --------------------\\
-
-.minecraft {
-    display: flex;
-    justify-content: space-around;
-    align-items: baseline;
-    flex-wrap: wrap;
-    padding: 15px 30px;
-    ul {
-        min-width: 350px;
-        max-width: 400px;
-        vertical-align: top;
-        background-color: #FFFFFF;
-        margin: 30px 15px;
-        li {
-            margin: 10px 0;
-            text-align: center;
-        }
-    }
+.pentaLink[disabled] {
+  .pL__bg, .pL__fg {
+    fill: gray;
+  }
+  cursor: not-allowed;
 }
 
-.minecraft__name {
-    vertical-align: middle;
-    font-size: 24px;
-    line-height: 26px;
-    margin: 20px 0 !important;
-}
-
-.minecraft__image {
-    img {
-        padding: 0 25px;
-        max-width: 350px;
-        box-sizing: border-box;
-    }
-}
-
-.minecraft__desc {
-    margin: 10px 25px !important;
-    padding: 10px 0;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-}
-
-//-------------------- Geekbrains --------------------\\
-
-.geekbrains {
-    
-}
-
-.gb__name {
-    font-size: 24px;
-    line-height: 26px;
-}
-
-.gb__img {
-    img {
-        max-height: 180px;
-        max-width: 320px;
-        margin: 15px;
-    }
+.pentaLink:not([disabled]):hover {
+  .pL__bg, .pL__fg {
+    transform: rotate(0deg) !important;
+    fill: @actionColorInteract;
+  }
 }
