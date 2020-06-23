@@ -30,3 +30,12 @@ VK_SECRET    = 'your vk secret'
 ```
 
 - [ ] TODO: i should probably add checks to account for missing .env variables...
+
+## Commit syntax 
+
+* :blue_book: Documentation
+* :white_check_mark: Feature
+* :hammer_and_wrench: Fix
+* :corn: Miscellaneous
+* :recycle: Refactor
+* :art: Style
