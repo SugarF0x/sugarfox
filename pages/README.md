@@ -1,6 +1,6 @@
-# PAGES
+# Pages
 
-This directory contains your Application Views and Routes.
-The framework reads all the `*.vue` files inside this directory and creates the router of your application.
+Generally, just the index page and other routes are stored here
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/guide/routing).
+`sample.vue` is here only as a reference just in case
+while I'm still learning Nuxt and Vuetify

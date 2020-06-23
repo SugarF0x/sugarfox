@@ -1,6 +1,6 @@
 # nuxt-port
 
-> Express + Vue project port to Nuxt
+> A complete rewrite of by other branch (webpack-remake) using Nuxt
 
 ## Build Setup
 
@@ -18,5 +18,15 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
+## Enviroment variables
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+In order to run auth module and anything related you will need to create a .env file with following content:
+
+```text
+BASE_URL     = 'your base url'
+AUTH_SECRET  = 'your secret'
+VP_CLIENT_ID = 'your vk client id'
+VK_SECRET    = 'your vk secret'
+```
+
+-[ ] TODO: i should probably add checks to account for missing .env variables...

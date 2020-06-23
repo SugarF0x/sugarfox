@@ -1,7 +1,7 @@
-# LAYOUTS
+# Layouts
 
-**This directory is not required, you can delete it if you don't want to use it.**
+Project layouts are stored here
 
-This directory contains your Application Layouts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/guide/views#layouts).
+* `default.vue` - the all-purpose layout
+* `sample.vue` - just for the reference
+* [ ] centered layout - TODO for use in elements like Login and Register 
