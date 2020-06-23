@@ -133,6 +133,7 @@ module.exports = (app) => {
         if (!user) {
           try {
             const user = new User({
+              method:   'local',
               login:    req.body.login,
               email:    req.body.email,
               password: req.body.password
