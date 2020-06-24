@@ -23,10 +23,11 @@ $ npm run generate
 In order to run auth module and anything related you will need to create a .env file with following content:
 
 ```text
-BASE_URL     = 'your base url'
-AUTH_SECRET  = 'your secret'
-VP_CLIENT_ID = 'your vk client id'
-VK_SECRET    = 'your vk secret'
+LOCAL_MACHINE = 'your local machine ip'
+BASE_URL      = 'your base url'
+AUTH_SECRET   = 'your secret'
+VP_CLIENT_ID  = 'your vk client id'
+VK_SECRET     = 'your vk secret'
 ```
 
 ## Commit syntax 
