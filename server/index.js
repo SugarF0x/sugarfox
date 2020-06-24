@@ -17,8 +17,8 @@ mongoose.connect("mongodb://localhost/sgfx", {
 });
 
 const db = mongoose.connection;
-db.on("error", error => console.error(error));
-db.once("open", () => console.log('[+] Connected to SGFX database'));
+db.on("error", error => console.error('\x1b[31mX\x1b[0m', error));
+db.once("open", () => console.log('\x1b[32m√\x1b[0m', 'Connected to SGFX database'));
 
 // Enable body parsers
 
