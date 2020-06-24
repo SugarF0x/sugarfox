@@ -1,13 +1,33 @@
 const colors = require('vuetify/es5/util/colors').default;
 require('dotenv').config();
 
+/*
+  this portion of code checks for .env variables
+  if said variables are not present, a default value is passed
+
+  !> this section is to be updated with each new .env variable
+ */
+
+let env = [
+  ['LOCAL_MACHINE','localhost'],
+  ['BASE_URL','localhost'],
+  ['AUTH_SECRET','false'],
+  ['VK_CLIENT_ID','false'],
+  ['VK_SECRET','false']
+];
+env.forEach(entry => {
+  if (process.env[entry[0]] === undefined) {
+    process.env[entry[0]] = entry[1]
+  }
+});
+env = null;
+
 module.exports = {
   mode: 'universal',
   /*
   ** Headers of the page
   */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
     title: 'Fox lair',
     meta: [
       { charset: 'utf-8' },
@@ -122,7 +142,7 @@ module.exports = {
     }
   },
   server: {
-    host: "192.168.1.42",
+    host: process.env.LOCAL_MACHINE,
     port: "3000"
   }
 };

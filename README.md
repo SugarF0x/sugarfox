@@ -29,8 +29,6 @@ VP_CLIENT_ID = 'your vk client id'
 VK_SECRET    = 'your vk secret'
 ```
 
-- [ ] TODO: i should probably add checks to account for missing .env variables...
-
 ## Commit syntax 
 
 * :blue_book: Documentation
