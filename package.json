@@ -1,7 +1,7 @@
 {
-  "name": "nuxt-port",
+  "name": "fox-lair",
   "version": "1.0.0",
-  "description": "Express + Vue project port to Nuxt",
+  "description": "Sugar_F0x web page",
   "author": "Sugar_F0x",
   "private": true,
   "scripts": {

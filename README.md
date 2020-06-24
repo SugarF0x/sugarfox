@@ -1,6 +1,6 @@
-# nuxt-port
+# For Lair
 
-> A complete rewrite of by other branch (webpack-remake) using Nuxt
+My personal web page where I fiddle around learning web dev
 
 ## Build Setup
 
@@ -8,7 +8,8 @@
 # install dependencies
 $ npm install
 
-# open serve with hot reload at .42 machine
+# open serve with hot reload on localhost
+# or on local machine IP if one is present in .env
 $ npm run dev
 
 # build for production and launch server
