@@ -43,10 +43,13 @@
         <v-row align="center" justify="center">
           <v-avatar size="100">
             <!--suppress HtmlUnknownTarget -->
-            <img
-              src="/img/avatar-default.webp"
-              alt="avatar-default.webp"
+            <img v-if="!$auth.user || $auth.user.avatar === undefined"
+                 src="/img/avatar-default.webp"
+                 alt="avatar-default.webp"
             >
+            <img v-else
+                 :src="$auth.user.avatar"
+                 alt="avatar-user.jpg">
           </v-avatar>
         </v-row>
       </v-container>

@@ -108,6 +108,7 @@ module.exports = (app) => {
       } else if (req.cookies["auth.strategy"] === 'vk') {
         request(addQueryToUrl('https://api.vk.com/method/users.get', {
           access_token: req.cookies["auth._token.vk"].split(' ')[1],
+          fields: 'photo_50',
           v: '5.110'
         }), (err, response, body) => {
           body = JSON.parse(body);
@@ -120,7 +121,8 @@ module.exports = (app) => {
             req.user = {
               login: body.response[0].first_name + ' ' + body.response[0].last_name,
               method: 'vk',
-              permission: 'default'
+              permission: 'default',
+              avatar: body.response[0].photo_50
             };
             next();
           }
