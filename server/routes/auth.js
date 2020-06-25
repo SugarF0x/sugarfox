@@ -87,7 +87,12 @@ module.exports = (app) => {
           if (decoded) {
             try {
               await User.findById(decoded.id, (err, user) => {
+                  // this line unlinks user object from db and lets me edit it before sending
+                user = JSON.parse(JSON.stringify(user));
                 if (user) {
+                  ['_id','permission','password','__v','created_date'].forEach(entry => {
+                    delete user[entry]
+                  });
                   req.user = user;
                 }
                 next();
