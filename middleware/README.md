@@ -1,3 +1,3 @@
 # Middleware
 
-Custom middleware to be included in **nuxt.config.js**
+Custom middleware to be included in `nuxt.config.js`

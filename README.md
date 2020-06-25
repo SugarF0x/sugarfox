@@ -1,4 +1,4 @@
-# For Lair
+# Fox Lair
 
 My personal web page where I fiddle around learning web dev
 
