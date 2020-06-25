@@ -41,7 +41,7 @@
     >
       <v-container>
         <v-row align="center" justify="center">
-          <v-avatar size="100" color="info">
+          <v-avatar size="100">
             <!--suppress HtmlUnknownTarget -->
             <img
               src="/img/avatar-default.webp"
