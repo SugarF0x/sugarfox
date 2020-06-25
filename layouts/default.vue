@@ -15,7 +15,6 @@
       </router-link>
       <v-spacer />
       <span v-if="$auth.loggedIn">
-        Logged in as
         <span class="secondary--text">{{ $auth.user.login }}</span>
       </span>
       <span v-else>
