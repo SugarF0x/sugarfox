@@ -7,11 +7,17 @@ const userSchema = new mongoose.Schema({
   },
   created_date: {
     type: Date,
-    default: Date.now
+    default: Date.now(),
+    immutable: true
+  },
+  publicID: {
+    type: String,
+    default: Date.now()
   },
   method: {
     type: String,
-    required: true
+    required: true,
+    immutable: true
   },
   login: {
     type: String,
@@ -24,6 +30,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  avatar: {
+    type: String,
+    default: '/img/avatar-default.webp'
   }
 });
 
