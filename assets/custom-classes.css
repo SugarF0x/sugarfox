@@ -1,0 +1,83 @@
+/*
+    Hides scroll while keeping scroll function
+*/
+
+.hide-scroll {
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+.hide-scroll::-webkit-scrollbar {
+  width: 0 !important
+}
+
+/*
+    Custom scrollbar
+*/
+
+.theme--dark::-webkit-scrollbar { /* 1 - скроллбар */
+    width: 10px;
+    background: hsl(0, 0%, 26%);
+}
+.theme--dark::-webkit-scrollbar-button { /* 2 - кнопка */
+    display: none;
+}
+.theme--dark::-webkit-scrollbar-track { /* 3 - трек */
+
+}
+.theme--dark::-webkit-scrollbar-track-piece  { /* 4 - видимая часть трека */ }
+.theme--dark::-webkit-scrollbar-thumb { /* 5 - ползунок */
+    height: 150px;
+    background: hsl(0, 0%, 40%);
+}
+.theme--dark::-webkit-scrollbar-corner       { /* 6 - уголок */ }
+.theme--dark::-webkit-resizer                { /* 7 - изменение размеров */ }
+
+/*
+    Vuebar styles
+*/
+
+.vb > .vb-dragger {
+    z-index: 5;
+    width: 120px;
+    right: 0;
+}
+
+.vb > .vb-dragger > .vb-dragger-styler {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: rotate3d(0,0,0,0);
+    transform: rotate3d(0,0,0,0);
+    -webkit-transition:
+            background-color 100ms ease-out,
+            margin 100ms ease-out,
+            height 100ms ease-out;
+    transition:
+            background-color 100ms ease-out,
+            margin 100ms ease-out,
+            height 100ms ease-out;
+    background-color: rgba(48, 121, 244,.1);
+    margin: 5px 5px 5px 0;
+    border-radius: 20px;
+    height: calc(100% - 10px);
+    display: block;
+}
+
+.vb.vb-scrolling-phantom > .vb-dragger > .vb-dragger-styler {
+    background-color: rgba(48, 121, 244,.3);
+}
+
+.vb > .vb-dragger:hover > .vb-dragger-styler {
+    background-color: rgba(48, 121, 244,.5);
+    margin: 0px;
+    height: 100%;
+}
+
+.vb.vb-dragging > .vb-dragger > .vb-dragger-styler {
+    background-color: rgba(48, 121, 244,.5);
+    margin: 0px;
+    height: 100%;
+}
+
+.vb.vb-dragging-phantom > .vb-dragger > .vb-dragger-styler {
+    background-color: rgba(48, 121, 244,.5);
+}

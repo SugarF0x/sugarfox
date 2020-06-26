@@ -28,6 +28,10 @@ module.exports = {
   ** Headers of the page
   */
   head: {
+    htmlAttrs: {
+      lang: 'en',
+      class: 'theme--dark'
+    },
     title: 'Fox lair',
     meta: [
       { charset: 'utf-8' },
@@ -46,6 +50,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    "@/assets/custom-classes"
   ],
   /*
   ** Plugins to load before mounting the App
@@ -54,7 +59,7 @@ module.exports = {
   //   '~/api/auth',
   // ],
   plugins: [
-
+    '@/plugins/vuebar'
   ],
   /*
   ** Nuxt.js dev-modules

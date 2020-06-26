@@ -23,7 +23,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.19",
     "nuxt": "^2.0.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "vuebar": "0.0.20"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0",
