@@ -1,1 +1,0 @@
-mongod --dbpath L:\MongoDB\db
