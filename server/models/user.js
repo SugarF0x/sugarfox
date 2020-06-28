@@ -10,9 +10,14 @@ const userSchema = new mongoose.Schema({
     default: Date.now(),
     immutable: true
   },
-  publicID: {
+  publicId: {
     type: String,
-    default: Date.now()
+    required: true
+  },
+  id: {
+    type: String,
+    required: true,
+    immutable: true
   },
   method: {
     type: String,
@@ -25,11 +30,13 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    default: 'Not Assigned'
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    default: 'Not Assigned'
   },
   avatar: {
     type: String,

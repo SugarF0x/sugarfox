@@ -114,17 +114,33 @@ module.exports = (app) => {
           body = JSON.parse(body);
           if (body.error) {
             console.log('error: ', body.error.error_msg);
-          } else {
-            // TODO: link vk user to mongodb
-            // check with db for said user
-            // for now - just return the vk user data
-            req.user = {
-              login: body.response[0].first_name + ' ' + body.response[0].last_name,
-              method: 'vk',
-              permission: 'default',
-              avatar: body.response[0].photo_50
-            };
             next();
+          } else {
+            User.findOne({ id: body.response[0].id }, (err, user) => {
+              // this line unlinks user object from db and lets me edit it before sending
+              user = JSON.parse(JSON.stringify(user));
+              if (user) {
+                ['_id','permission','password','__v','created_date'].forEach(entry => {
+                  delete user[entry]
+                });
+                req.user = user;
+                next();
+              } else {
+                User.find({}, (err, user) => {
+                  const newUserData = {
+                    method:   'vk',
+                    id:       body.response[0].id,
+                    publicId: 'id' + (user.length + 1),
+                    login:    body.response[0].first_name + ' ' + body.response[0].last_name,
+                    avatar:   body.response[0].photo_50
+                  };
+                  const newUser = new User(newUserData);
+                  newUser.save();
+                  req.user = newUserData;
+                  next();
+                });
+              }
+            });
           }
         });
       }
@@ -169,16 +185,22 @@ module.exports = (app) => {
 
   router.post("/register", async (req, res) => {
     if (validate(req)) {
+      let newId = '';
+      await User.find({}, (err, user) => {
+        newId = user.length + 1;
+      });
       await User.findOne({ email: req.body.email }, (err, user) => {
         if (!user) {
           try {
-            const user = new User({
+            const newUser = new User({
               method:   'local',
+              id:       Date.now(),
+              publicId: 'id' + newId,
               login:    req.body.login,
               email:    req.body.email,
               password: req.body.password
             });
-            user.save();
+            newUser.save();
             res.json({ result: 1, message: 'Successfully registered'});
           } catch (err) {
             res.status(500).json({ result: 0, message: err.message })
