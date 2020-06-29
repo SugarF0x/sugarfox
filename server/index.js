@@ -10,16 +10,20 @@ const mongoose = require('mongoose');
 mongoose.Schema.Types.Boolean.convertToFalse.add(""); // for empty value cases
 const bodyParser = require("body-parser");
 
-mongoose.connect(process.env.MONGO_DB, {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useFindAndModify: true,
-  useUnifiedTopology: true
-});
+if (process.env.MONGO_DB !== 'false') {
+  mongoose.connect(process.env.MONGO_DB, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useFindAndModify: true,
+    useUnifiedTopology: true
+  });
 
-const db = mongoose.connection;
-db.on("error", error => console.error('\x1b[31mX\x1b[0m', error));
-db.once("open", () => console.log('\x1b[32m√\x1b[0m', 'Connected to SGFX database'));
+  const db = mongoose.connection;
+  db.on("error", error => console.error('\x1b[31mX\x1b[0m', error));
+  db.once("open", () => console.log('\x1b[32m√\x1b[0m', 'Connected to SGFX database'));
+} else {
+  console.log('\x1b[31mX\x1b[0m', 'MongoDB disabled')
+}
 
 // Enable body parsers
 

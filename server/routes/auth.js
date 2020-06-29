@@ -57,6 +57,11 @@ function rbc(res) {
   res.status(400).json({ result: 0, message: "Bad credentials" })
 }
 
+  // auth strategy disabled
+function asd(res, strat) {
+  res.status(500).json({ result: 0, message: `${strat} auth Strategy disabled` })
+}
+
 function addQueryToUrl(url, query) {
   return url + '?' + Object.keys(query).map(function(k) {
     return encodeURIComponent(k) + "=" + encodeURIComponent(query[k]);
@@ -67,91 +72,112 @@ module.exports = (app) => {
   const cookieParser = require("cookie-parser");
   app.use(cookieParser());
 
-/*
-  this middleware parses headers and query for token
-  if successful, it queries db for user data and appends it to req
-  thus passing req.user data to following wares
- */
+  /*
+    this middleware parses headers and query for token
+    if successful, it queries db for user data and appends it to req
+    thus passing req.user data to following wares
+   */
   app.use(async (req,res,next) => {
-    let token = null;
-    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-      token = req.headers.authorization.split(' ')[1];
-    } else if (req.query && req.query.token) {
-      token = req.query.token;
-    }
+    if (process.env.MONGO_DB !== 'false') {
+      let token = null;
+      if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+        token = req.headers.authorization.split(' ')[1];
+      } else if (req.query && req.query.token) {
+        token = req.query.token;
+      }
 
-    if (token) {
-      if (req.cookies["auth.strategy"] === 'local') {
-        try {
-          let decoded = jwt.verify(token, process.env.AUTH_SECRET);
-          if (decoded) {
+      if (token) {
+        if (req.cookies["auth.strategy"] === 'local') {
+          if (process.env.AUTH_SECRET !== 'false') {
             try {
-              await User.findById(decoded.id, (err, user) => {
-                  // this line unlinks user object from db and lets me edit it before sending
+              let decoded = jwt.verify(token, process.env.AUTH_SECRET);
+              if (decoded) {
+                try {
+                  await User.findById(decoded.id, (err, user) => {
+                    // this line unlinks user object from db and lets me edit it before sending
+                    user = JSON.parse(JSON.stringify(user));
+                    if (user) {
+                      ['_id','permission','password','__v','created_date'].forEach(entry => {
+                        delete user[entry]
+                      });
+                      req.user = user;
+                    }
+                    next();
+                  });
+                } catch (err) {
+                  console.log('error: ', err.message);
+                  next();
+                }
+              }
+            } catch(err) {
+              next();
+            }
+          } else {
+            console.log('\x1b[31mX\x1b[0m', 'Local auth Strategy disabled, user set to NULL');
+            next();
+          }
+        } else if (req.cookies["auth.strategy"] === 'vk') {
+          request(addQueryToUrl('https://api.vk.com/method/users.get', {
+            access_token: req.cookies["auth._token.vk"].split(' ')[1],
+            fields: 'photo_50',
+            v: '5.110'
+          }), (err, response, body) => {
+            body = JSON.parse(body);
+            if (body.error) {
+              console.log('error: ', body.error.error_msg);
+              next();
+            } else {
+              User.findOne({ id: body.response[0].id }, (err, user) => {
+                // this line unlinks user object from db and lets me edit it before sending
                 user = JSON.parse(JSON.stringify(user));
                 if (user) {
                   ['_id','permission','password','__v','created_date'].forEach(entry => {
                     delete user[entry]
                   });
                   req.user = user;
-                }
-                next();
-              });
-            } catch (err) {
-              console.log(err.message);
-              next();
-            }
-          }
-        } catch(err) {
-          next();
-        }
-      } else if (req.cookies["auth.strategy"] === 'vk') {
-        request(addQueryToUrl('https://api.vk.com/method/users.get', {
-          access_token: req.cookies["auth._token.vk"].split(' ')[1],
-          fields: 'photo_50',
-          v: '5.110'
-        }), (err, response, body) => {
-          body = JSON.parse(body);
-          if (body.error) {
-            console.log('error: ', body.error.error_msg);
-            next();
-          } else {
-            User.findOne({ id: body.response[0].id }, (err, user) => {
-              // this line unlinks user object from db and lets me edit it before sending
-              user = JSON.parse(JSON.stringify(user));
-              if (user) {
-                ['_id','permission','password','__v','created_date'].forEach(entry => {
-                  delete user[entry]
-                });
-                req.user = user;
-                next();
-              } else {
-                User.find({}, (err, user) => {
-                  const newUserData = {
-                    method:   'vk',
-                    id:       body.response[0].id,
-                    publicId: 'id' + (user.length + 1),
-                    login:    body.response[0].first_name + ' ' + body.response[0].last_name,
-                    avatar:   body.response[0].photo_50
-                  };
-                  const newUser = new User(newUserData);
-                  newUser.save();
-                  req.user = newUserData;
                   next();
-                });
-              }
-            });
-          }
-        });
+                } else {
+                  User.find({}, (err, user) => {
+                    const newUserData = {
+                      method:   'vk',
+                      id:       body.response[0].id,
+                      publicId: 'id' + (user.length + 1),
+                      login:    body.response[0].first_name + ' ' + body.response[0].last_name,
+                      avatar:   body.response[0].photo_50
+                    };
+                    const newUser = new User(newUserData);
+                    newUser.save();
+                    req.user = newUserData;
+                    next();
+                  });
+                }
+              });
+            }
+          });
+        }
+      } else {
+        next();
       }
     } else {
-      next();
+      next()
+    }
+  });
+
+  router.use(async (req,res,next) => {
+    if (process.env.MONGO_DB === 'false') {
+      res.status(500).json({ result: 0, message: 'Authorization unavailable - database disabled' })
+    } else {
+      next()
     }
   });
 
 // Handle calls
 
   router.post("/verify", async (req, res) => {
+    if (process.env.AUTH_SECRET === 'false') {
+      asd(res, 'Local');
+    } else
+
     if (validate(req)) {
       await User.findOne({ email: req.body.email }, (err, user) => {
         if (user) {
@@ -170,6 +196,10 @@ module.exports = (app) => {
   });
 
   router.post("/verifyRegister", async (req, res) => {
+    if (process.env.AUTH_SECRET === 'false') {
+      asd(res, 'Local');
+    } else
+
     if (validate(req)) {
       await User.findOne({ email: req.body.email }, (err, user) => {
         if (!user) {
@@ -184,6 +214,10 @@ module.exports = (app) => {
   });
 
   router.post("/register", async (req, res) => {
+    if (process.env.AUTH_SECRET === 'false') {
+      asd(res, 'Local');
+    } else
+
     if (validate(req)) {
       let newId = '';
       await User.find({}, (err, user) => {
@@ -215,6 +249,10 @@ module.exports = (app) => {
   });
 
   router.post("/login", async (req, res) => {
+    if (process.env.AUTH_SECRET === 'false') {
+      asd(res, 'Local');
+    } else
+
     if (validate(req)) {
       await User.findOne({ email: req.body.email }, (err, user) => {
         if (user) {
@@ -238,6 +276,10 @@ module.exports = (app) => {
   });
 
   router.get("/login/vk", async (req, res) => {
+    if (process.env.VK_SECRET === 'false' || process.env.VK_CLIENT_ID === 'false') {
+      asd(res, 'VK');
+    } else
+
     await request(addQueryToUrl('https://oauth.vk.com/access_token', {
       client_id:     process.env.VK_CLIENT_ID,
       client_secret: process.env.VK_SECRET,
@@ -267,7 +309,9 @@ module.exports = (app) => {
           break;
       }
     } else {
-      rbc(res);
+      if (process.env.AUTH_SECRET === 'false') {
+        asd(res, 'Local');
+      } else rbc(res);
     }
   });
 

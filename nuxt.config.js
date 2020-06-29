@@ -85,7 +85,9 @@ module.exports = {
       },
       vk: {
         _scheme: 'oauth2',
-        authorization_endpoint: 'https://oauth.vk.com/authorize',
+        authorization_endpoint: process.env.VK_CLIENT_ID === 'false'
+          ? '/error?message=VK%20Auth%20Strategy%20disabled&title=Auth%20disabled&'
+          : 'https://oauth.vk.com/authorize',
         redirect_uri: process.env.BASE_URL + '/profile/auth/vk',
         userinfo_endpoint: process.env.BASE_URL + '/api/auth/me',
         scope: ['friends','groups','status','offline'],
