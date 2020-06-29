@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 mongoose.Schema.Types.Boolean.convertToFalse.add(""); // for empty value cases
 const bodyParser = require("body-parser");
 
-mongoose.connect("mongodb://localhost/sgfx", {
+mongoose.connect(process.env.MONGO_DB, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useFindAndModify: true,

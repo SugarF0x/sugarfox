@@ -29,6 +29,7 @@ BASE_URL      = 'your base url'         || 'localhost'
 AUTH_SECRET   = 'your secret'           || 'false'
 VP_CLIENT_ID  = 'your vk client id'     || 'false'
 VK_SECRET     = 'your vk secret'        || 'false'
+MONGO_DB      = 'your DB url'           || 'false'
 ```
 
 ## Commit syntax 

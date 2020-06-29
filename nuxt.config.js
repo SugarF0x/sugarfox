@@ -13,7 +13,8 @@ let env = [
   ['BASE_URL','localhost'],
   ['AUTH_SECRET','false'],
   ['VK_CLIENT_ID','false'],
-  ['VK_SECRET','false']
+  ['VK_SECRET','false'],
+  ['MONGO_DB','false'],
 ];
 env.forEach(entry => {
   if (process.env[entry[0]] === undefined) {
