@@ -21,16 +21,13 @@ $ npm run generate
 ```
 ## Environment variables
 
-In order to run auth module and anything related you will need to create a .env file with following content:
+`.env.defauls` contains all the environment variables required
+with _default values_ set, where `false` disabled said functionality.
+In order to enable said function, one is to create a new `.env`
+file with required variables of appropriate value
 
-```text
-LOCAL_MACHINE = 'your local machine ip' || 'localhost'
-BASE_URL      = 'your base url'         || 'localhost'
-AUTH_SECRET   = 'your secret'           || 'false'
-VP_CLIENT_ID  = 'your vk client id'     || 'false'
-VK_SECRET     = 'your vk secret'        || 'false'
-MONGO_DB      = 'your DB url'           || 'false'
-```
+Not all variables have to be present in `.env` - missing ones
+will set to _default value_ automatically
 
 ## Commit syntax 
 

@@ -1,27 +1,5 @@
 const colors = require('vuetify/es5/util/colors').default;
-require('dotenv').config();
-
-/*
-  this portion of code checks for .env variables
-  if said variables are not present, a default value is passed
-
-  !> this section is to be updated with each new .env variable
- */
-
-let env = [
-  ['LOCAL_MACHINE','localhost'],
-  ['BASE_URL','localhost'],
-  ['AUTH_SECRET','false'],
-  ['VK_CLIENT_ID','false'],
-  ['VK_SECRET','false'],
-  ['MONGO_DB','false'],
-];
-env.forEach(entry => {
-  if (process.env[entry[0]] === undefined) {
-    process.env[entry[0]] = entry[1]
-  }
-});
-env = null;
+require('dotenv-defaults').config();
 
 module.exports = {
   mode: 'universal',
@@ -72,7 +50,6 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/dotenv',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
