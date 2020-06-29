@@ -111,19 +111,11 @@
     data () {
       return {
         drawer: false,
-        /* TODO: add actions and introduce them in template elements
-            > the location is commented in the template
-         */
         drawerAuthedItems: [
           {
             icon: 'mdi-account-outline',
             title: 'Profile',
             to: '/profile',
-            action: ''
-          },{
-            icon: 'mdi-account-edit-outline',
-            title: 'Edit profile',
-            to: '/profile/settings',
             action: ''
           },{
             icon: 'mdi-cash-usd-outline',
