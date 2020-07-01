@@ -58,6 +58,7 @@
             <v-list-item v-for="n in drawerAuthedItems"
                          :key="n.title"
                          :to="n.to"
+                         exact
                          @click="exec(n.action)"
             >
               <v-list-item-icon>
@@ -115,7 +116,12 @@
           {
             icon: 'mdi-account-outline',
             title: 'Profile',
-            to: '/profile',
+            to: this.$auth.loggedIn ? `/profile/${this.$auth.user.publicId}` : '/profile',
+            action: ''
+          },{
+            icon: 'mdi-account-cog-outline',
+            title: 'Edit profile',
+            to: '/profile/settings',
             action: ''
           },{
             icon: 'mdi-cash-usd-outline',
