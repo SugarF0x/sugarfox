@@ -58,6 +58,11 @@ module.exports = {
     baseURL: process.env.BASE_URL + '/api'
   },
   auth: {
+    cookie: {
+      options: {
+        expires: 365
+      }
+    },
     resetOnError: true,
     redirect: {
       login: '/profile/login', // User will be redirected to this path if login is required.
