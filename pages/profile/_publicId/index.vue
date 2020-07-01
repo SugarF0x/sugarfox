@@ -6,6 +6,7 @@
              md="8"
              lg="7"
              xl="6"
+             class="pa-0"
       >
         <v-row justify="center">
           <v-col cols="12" md="3">
@@ -52,31 +53,73 @@
         </v-row>
       </v-col>
     </v-row>
-    <v-row justify="center" align="center">
+    <v-row justify="center">
       <v-col cols="12"
              sm="10"
              md="8"
              lg="7"
              xl="6"
-             class="pt-0"
+             class="pa-0"
       >
-        <v-card>
-          <v-card-title>
-            User data
-          </v-card-title>
-          <v-card-text>
-            or perhaps user activity feed? question mark?
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn @click="$router.go(-1)"
-                   color="primary"
-            >
-              FUCK GO BACK
-              <v-icon right>mdi-undo-variant</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <v-row justify="center">
+          <v-col cols="12" md="3">
+            <v-card>
+              <v-card-title>
+                Friends
+                <v-spacer></v-spacer>
+                <v-tooltip top v-if="isOwner">
+                  <template v-slot:activator="{ on }">
+                    <v-btn fab small v-on="on">
+                      <v-icon>
+                        mdi-account-plus-outline
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Add Friend</span>
+                </v-tooltip>
+              </v-card-title>
+              <v-card-text class="pa-0">
+                <v-list flat dense>
+                  <v-list-item-group>
+                    <v-list-item v-for="n in 3" :key="n">
+                      <v-list-item-avatar size="35">
+                        <v-img :src="'http://placehold.it/50x50?text=' + n"></v-img>
+                      </v-list-item-avatar>
+                      <v-list-item-content>
+                        Friend {{ n }}
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list-item-group>
+                </v-list>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn nuxt :to="'/profile/' + user.publicId + '/friends'">
+                  View all
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="12" md="9">
+            <v-card>
+              <v-card-title>
+                User data
+              </v-card-title>
+              <v-card-text>
+                or perhaps user activity feed? question mark?
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn @click="$router.go(-1)"
+                       color="primary"
+                >
+                  FUCK GO BACK
+                  <v-icon right>mdi-undo-variant</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-layout>
