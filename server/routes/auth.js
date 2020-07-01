@@ -18,11 +18,12 @@ const rules = {
     v => /^.*[0-9a-z]$/i.test(v)                 || 'Domain must end with either a digit or a latin letter'
   ],
   login: [
-    v => !!v                           || 'Name is required',
-    v => (v && v.length <= 32)         || 'Name must be 32 characters or less',
-    v => /^[а-яёa-z0-9].*$/i.test(v)   || 'Login must begin with a letter or a digit',
-    v => /^.[а-яёa-z0-9-_]*$/i.test(v) || 'Login may only contain letters and digits as well as - and _ symbols',
-    v => /^.*[а-яёa-z0-9]$/i.test(v)   || 'Login must end with a letter or a digit'
+    v => !!v                                     || 'Name is required',
+    v => (v && v.length <= 32)                   || 'Name must be 32 characters or less',
+    v => /^[а-яА-ЯёЁa-z0-9].*$/i.test(v)         || 'Login must begin with a letter or a digit',
+    v => /^.[а-яА-ЯёЁa-z0-9-_ ]*$/i.test(v)      || 'Login may only contain letters and digits as well as - _ symbols and space bar',
+    v => /^([а-яА-ЯёЁa-z0-9]+[-. ]?)*$/i.test(v) || 'Login may not contain repetitions of special symbols',
+    v => /^.*[а-яА-ЯёЁa-z0-9]$/i.test(v)         || 'Login must end with a letter or a digit'
   ],
   password: [
     v => !!v                  || 'Password is required',
