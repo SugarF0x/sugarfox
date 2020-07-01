@@ -1,5 +1,5 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <v-layout column>
+  <v-layout column v-if="user">
     <v-row justify="center">
       <v-col cols="12"
              sm="10"
@@ -117,7 +117,7 @@
     },
     mounted() {
       if (!this.user) {
-        this.$router.push('/error?title=User%20not%20found&message=Failed%20to%20fetch%20user%20data')
+        this.$nuxt.error({ statusCode: 404, message: 'A user with such id does not exist' })
       }
     }
   }
