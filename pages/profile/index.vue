@@ -14,7 +14,7 @@
     name: "index.vue",
     middleware: ['auth'],
     mounted() {
-      this.$router.push(`/profile/${this.$auth.user.publicId}`)
+      this.$router.replace(`/profile/${this.$auth.user.publicId}`)
     }
   }
 </script>
