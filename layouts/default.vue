@@ -58,7 +58,7 @@
             <v-list-item v-for="n in drawerAuthedItems"
                          :key="n.title"
                          :to="n.to"
-                         exact
+                         :exact="n.exact || false"
                          @click="exec(n.action)"
             >
               <v-list-item-icon>
@@ -117,7 +117,8 @@
             icon: 'mdi-account-outline',
             title: 'Profile',
             to: this.$auth.loggedIn ? `/profile/${this.$auth.user.publicId}` : '/profile',
-            action: ''
+            action: '',
+            exact: true
           },{
             icon: 'mdi-account-cog-outline',
             title: 'Edit profile',
