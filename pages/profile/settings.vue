@@ -1,60 +1,75 @@
 <template>
   <v-layout column>
-    <v-row justify="center" align="center">
-      <v-col cols="6">
-        <v-card>
-          <v-card-title>
-            This is a profile settings placeholder page
-          </v-card-title>
-          <v-card-text>
-            Here you will be able to set such things as:
-            <v-list two-line>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    Profile Username
-                  </v-list-item-title>
-                  <v-list-item-subtitle>
-                    login
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    Public ID
-                  </v-list-item-title>
-                  <v-list-item-subtitle>
-                    link to your profile
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    Password
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    Profile picture
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-card-text>
-        </v-card>
+    <v-row justify="center">
+      <v-col cols="12"
+             sm="10"
+             md="8"
+             lg="7"
+             xl="6"
+             class="pa-0"
+      >
+        <v-row>
+          <v-col cols="12">
+            <v-card>
+              <v-card-title>
+                <v-spacer></v-spacer>
+                <span>
+              <span class="secondary--text">{{ $auth.user.login }}</span>
+              settings page
+            </span>
+                <v-spacer></v-spacer>
+              </v-card-title>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="12"
+             sm="10"
+             md="8"
+             lg="7"
+             xl="6"
+             class="pa-0"
+      >
+        <v-row>
+          <v-col cols="3">
+            <v-card>
+              <v-list class="py-0">
+                <v-list-item-group>
+                  <v-list-item to="personalization">Personalization</v-list-item>
+                  <v-list-item to="privacy">Privacy</v-list-item>
+                  <v-list-item to="danger-zone">Danger zone</v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-card>
+          </v-col>
+          <v-col cols="9">
+            <v-card>
+              <nuxt-child keep-alive :key="$route.path"></nuxt-child>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-layout>
 </template>
 
 <script>
+  /* TODO: add sync button to VK authed users
+      > that being a button that refetches user data from VK
+        thus updating avatar, frields, name and whatever
+          all these fields to be updated are to be checklisted
+   */
+
   export default {
     name: "settings",
-    middleware: ['auth']
+    middleware: ['auth'],
+    beforeCreate() {
+      if (this.$route.path === '/profile/settings') {
+        this.$router.replace('settings/personalization')
+      }
+    }
   }
 </script>
 

@@ -126,6 +126,12 @@
 </template>
 
 <script>
+  /* TODO: move all user related (his page, his friends, all that jazz)
+      pages to pages/user so as to not mix up preset routes with
+      custom user set :publicId ones
+        ?question mark?
+        ?perhaps /u/:publicId?
+   */
   export default {
     name: "publicId.vue",
     middleware: ['auth'],
