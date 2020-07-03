@@ -1,9 +1,31 @@
+/**
+ * Authentication module
+ * @category server
+ * @module auth
+ *
+ * @requires express
+ * @requires express.Router
+ * @requires request
+ * @requires jwt
+ * @requires models/user
+ *
+ * @author {@link https://github.com/SugarF0x Sugar_F0x}
+ */
+
 const express = require('express'),
       router  = express.Router(),
       request = require('request'),
       jwt     = require("jsonwebtoken"),
       User    = require("../models/user");
 
+/**
+ * A req.body object is ran through these rules on validate(req)<br>
+ * validate(req) is used in local verification, register and login calls<br>
+ * On success it returns TRUE<br>
+ * On failure it returns fail condition statement
+ *
+ * @type {object}
+ */
 const rules = {
   email: [
     v => !!v                                     || 'E-mail is required',
@@ -32,6 +54,12 @@ const rules = {
   ]
 };
 
+/**
+ * Run validation tests of given request body based on rules object
+ *
+ * @param {object} req - request object
+ * @returns {boolean}
+ */
 function validate(req) {
   let isValid = true;
   if (req.body.email && isValid) {
@@ -53,30 +81,64 @@ function validate(req) {
   return isValid;
 }
 
-  // response bad credentials
+/**
+ * Return bad credentials
+ *
+ * @param {object} res - Response object
+ * @returns {void} JSON to the client
+ */
 function rbc(res) {
   res.status(400).json({ result: 0, message: "Bad credentials" })
 }
 
-  // auth strategy disabled
+/**
+ * Auth strategy disabled
+ *
+ * @param {object} res - Response object
+ * @param {string} strat - What strategy is disabled
+ * @returns {void} JSON to the client
+ */
 function asd(res, strat) {
   res.status(500).json({ result: 0, message: `${strat} auth Strategy disabled` })
 }
 
+/**
+ * Append query object as url GET parameters <br>
+ *   Keys will be used as GET parameters
+ *
+ * @param {string} url - URL to append query to
+ * @param {object} query - Object to be appended to URL as GET parameters
+ * @returns {string} Full path with query
+ */
 function addQueryToUrl(url, query) {
   return url + '?' + Object.keys(query).map(function(k) {
     return encodeURIComponent(k) + "=" + encodeURIComponent(query[k]);
   }).join('&')
 }
 
+/**
+ * Express Router for Auth module that will be exported to main express app
+ *
+ * @namespace router
+ */
 module.exports = (app) => {
   const cookieParser = require("cookie-parser");
   app.use(cookieParser());
 
-  /*
-    this middleware parses headers and query for token
-    if successful, it queries db for user data and appends it to req
-    thus passing req.user data to following wares
+  /**
+   * This middleware parses headers and query for token<br>
+   * If successful, it queries db for user data and appends it to req<br>
+   * thus passing req.user data to following wares<br>
+   * <br>
+   * This middleware is NOT restricted to this module
+   *
+   * @name Append user middleware
+   * @function
+   * @inner
+   * @memberOf module:auth~router
+   * @param {object} req
+   * @param {object} res
+   * @param {object} next
    */
   app.use(async (req,res,next) => {
     if (process.env.MONGO_DB !== 'false') {
@@ -164,6 +226,19 @@ module.exports = (app) => {
     }
   });
 
+  /**
+   * This middleware checks to see if database is available<br>
+   * as no authorization method will work without one
+   * <br>
+   * This middleware IS restricted to this module
+   *
+   * @name Database availability middleware
+   * @function
+   * @memberOf module:auth~router
+   * @inner
+   * @param {callback} middleware - Middleware function
+   * @returns {void}
+   */
   router.use(async (req,res,next) => {
     if (process.env.MONGO_DB === 'false') {
       res.status(500).json({ result: 0, message: 'Authorization unavailable - database disabled' })
@@ -172,8 +247,19 @@ module.exports = (app) => {
     }
   });
 
-// Handle calls
-
+  /**
+   * This POST route validates user form and searches for stated user in database<br>
+   * In case of successful validation and if such a user is found and password is a match,<br>
+   * {result: 1} is returned and client can proceed with authorization
+   *
+   * @name /verify
+   * @function
+   * @memberOf module:auth~router
+   * @inner
+   * @param {string} path - Express path
+   * @param {callback} middleware - Express middleware
+   * @returns {void} JSON to client
+   */
   router.post("/verify", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
       asd(res, 'Local');
@@ -196,6 +282,19 @@ module.exports = (app) => {
     }
   });
 
+  /**
+   * This POST route validates user form and searches for stated user in database<br>
+   * In case of successful validation and if such a user does not already exist,<br>
+   * {result: 1} is sent and client can proceed with registration
+   *
+   * @name /verifyRegister
+   * @function
+   * @memberOf module:auth~router
+   * @inner
+   * @param {string} path - Express path
+   * @param {callback} middleware - Express middleware
+   * @returns {void} JSON to client
+   */
   router.post("/verifyRegister", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
       asd(res, 'Local');
@@ -214,6 +313,19 @@ module.exports = (app) => {
     }
   });
 
+  /**
+   * This route validates client form and in case of a success,<br>
+   * a new user entry is created in the database<br>
+   * and said user data is returned to the client
+   *
+   * @name /register
+   * @function
+   * @memberOf module:auth~router
+   * @inner
+   * @param {string} path - Express path
+   * @param {callback} middleware - Express middleware
+   * @returns {void} JSON to client
+   */
   router.post("/register", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
       asd(res, 'Local');
@@ -249,6 +361,19 @@ module.exports = (app) => {
     }
   });
 
+  /**
+   * This route validates client form and in case of a success,<br>
+   * access token gets signed and sent to the client.<br>
+   * The client will be able to use said token to proceed with authorization
+   *
+   * @name /login
+   * @function
+   * @memberOf module:auth~router
+   * @inner
+   * @param {string} path - Express path
+   * @param {callback} middleware - Express middleware
+   * @returns {void} JSON to client
+   */
   router.post("/login", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
       asd(res, 'Local');
@@ -276,6 +401,19 @@ module.exports = (app) => {
     }
   });
 
+  /**
+   * This route is a VK strategy auth callback from VK oauth page.<br>
+   * User gets redirected here bearing a code, that is then used to request access token,<br>
+   * that then gets sent back to the client, who wil be able to use it to proceed with authorization
+   *
+   * @name /login/vk
+   * @function
+   * @memberOf module:auth~router
+   * @inner
+   * @param {string} path - Express path
+   * @param {callback} middleware - Express middleware
+   * @returns {void} JSON to client
+   */
   router.get("/login/vk", async (req, res) => {
     if (process.env.VK_SECRET === 'false' || process.env.VK_CLIENT_ID === 'false') {
       asd(res, 'VK');
@@ -296,6 +434,17 @@ module.exports = (app) => {
     });
   });
 
+  /**
+   * This route returns req.user object if one is present
+   *
+   * @name /me
+   * @function
+   * @memberOf module:auth~router
+   * @inner
+   * @param {string} path - Express path
+   * @param {callback} middleware - Express middleware
+   * @returns {void} JSON to client
+   */
   router.get("/me", async (req, res) => {
     if (req.user) {
       switch (req.user.method) {
@@ -316,6 +465,17 @@ module.exports = (app) => {
     }
   });
 
+  /**
+   * This route searches for a user by his publicId and sends his data is one is found
+   *
+   * @name /getUsers
+   * @function
+   * @memberOf module:auth~router
+   * @inner
+   * @param {string} path - Express path
+   * @param {callback} middleware - Express middleware
+   * @returns {void} JSON to client
+   */
   router.post('/getUser', async (req,res) => {
     await User.findOne({ publicId: req.body.publicId }, (err, user) => {
       res.json({ result: 1, user: user });
