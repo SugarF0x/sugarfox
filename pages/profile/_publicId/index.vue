@@ -6,7 +6,7 @@
              md="8"
              lg="7"
              xl="6"
-             class="pa-0"
+             class="py-0"
       >
         <v-row justify="center">
           <v-col cols="12" md="3">
@@ -59,7 +59,7 @@
              md="8"
              lg="7"
              xl="6"
-             class="pa-0"
+             class="py-0"
       >
         <v-row justify="center">
           <v-col cols="12" md="3">

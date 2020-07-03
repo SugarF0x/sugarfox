@@ -6,7 +6,7 @@
              md="8"
              lg="7"
              xl="6"
-             class="pa-0"
+             class="py-0"
       >
         <v-row>
           <v-col cols="12">
@@ -30,10 +30,10 @@
              md="8"
              lg="7"
              xl="6"
-             class="pa-0"
+             class="py-0"
       >
         <v-row>
-          <v-col cols="3">
+          <v-col cols="12" md="3">
             <v-card>
               <v-list class="py-0">
                 <v-list-item-group>
@@ -44,7 +44,7 @@
               </v-list>
             </v-card>
           </v-col>
-          <v-col cols="9">
+          <v-col cols="12" md="9">
             <v-card>
               <nuxt-child keep-alive :key="$route.path"></nuxt-child>
             </v-card>
