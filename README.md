@@ -18,11 +18,14 @@ $ npm run start
 
 # generate static project
 $ npm run generate
+
+# generate jsdoc documentation at ~/docs
+$ npm run doc
 ```
 ## Environment variables
 
 `.env.defauls` contains all the environment variables required
-with _default values_ set, where `false` disabled said functionality.
+with _default values_ set, where `false` disables said functionality.
 In order to enable said function, one is to create a new `.env`
 file with required variables of appropriate value
 

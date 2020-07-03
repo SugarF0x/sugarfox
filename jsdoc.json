@@ -1,0 +1,20 @@
+{
+  "source": {
+    "include": [""],
+    "exclude": [".nuxt", "coverage", "node_modules", "docs"],
+    "includePattern": ".+\\.(js|vue)(doc|x)?$"
+  },
+  "plugins": [
+    "node_modules/jsdoc-vuejs",
+    "node_modules/better-docs/category"
+  ],
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true
+  },
+  "opts": {
+    "recurse": true,
+    "destination": "./docs/",
+    "template": "node_modules/better-docs"
+  }
+}
