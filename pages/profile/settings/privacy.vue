@@ -1,14 +1,65 @@
 <template>
   <v-row>
-    <v-col cols="12">
-      <v-card-title class="headline">This is a privacy child component</v-card-title>
+    <v-col cols="12" class="py-0">
+      <v-card-title class="headline">
+        <span>
+          This is a <span class="primary--text">privacy</span> child component
+        </span>
+      </v-card-title>
+      <v-card-text class="pa-0">
+        <v-row no-gutters v-for="(value, name) in options" :key="name">
+          <v-col cols="12" v-if="value !== 'Disabled'">
+            <v-divider></v-divider>
+            <v-row no-gutters align="center">
+              <v-col cols="4">
+                <v-card-text class="text-center text-capitalize">
+                  {{ name }}
+                </v-card-text>
+              </v-col>
+              <v-col cols="4">
+                <v-card-text class="text-center">
+                  {{ value }}
+                </v-card-text>
+              </v-col>
+              <v-col cols="4" class="text-center">
+                <v-btn text
+                       @click="change(name)"
+                >
+                  Change
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="primary">
+          save changes
+        </v-btn>
+      </v-card-actions>
     </v-col>
   </v-row>
 </template>
 
 <script>
   export default {
-    name: "privacy"
+    name: "privacy",
+    data() {
+      return {
+        options: {
+          profile:  'public',
+          activity: 'public',
+          friends:  'public',
+          inbox:    'public'
+        }
+      }
+    },
+    methods: {
+      change(prop) {
+        console.log(prop);
+      }
+    }
   }
 </script>
 
