@@ -119,6 +119,7 @@ function addQueryToUrl(url, query) {
 /**
  * Express Router for Auth module that will be exported to main express app
  *
+ * @category server
  * @namespace router
  */
 module.exports = (app) => {
