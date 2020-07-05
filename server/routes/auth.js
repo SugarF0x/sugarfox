@@ -466,7 +466,7 @@ module.exports = (app) => {
   });
 
   /**
-   * This route searches for a user by his publicId and sends his data is one is found
+   * This route searches for a user by his publicId and sends his data if one is found
    *
    * @name /getUsers
    * @function
