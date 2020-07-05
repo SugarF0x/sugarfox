@@ -1,14 +1,32 @@
+/**
+ * Server index script
+ *
+ * @category server
+ * @module index
+ *
+ * @requires express
+ * @requires console
+ * @requires nuxt
+ * @requires dotenv-defaults
+ *
+ * @author {@link https://github.com/SugarF0x Sugar_F0x}
+ */
+
 const express = require('express');
 const consola = require('consola');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
+const bodyParser = require("body-parser");
 require('dotenv-defaults').config();
 
-// Connect to MongoDB
-
+/**
+ * Establish MongoDB connection
+ *
+ * @name MongoDB connect
+ * @type Database
+ */
 const mongoose = require('mongoose');
 mongoose.Schema.Types.Boolean.convertToFalse.add(""); // for empty value cases
-const bodyParser = require("body-parser");
 
 if (process.env.MONGO_DB !== 'false') {
   mongoose.connect(process.env.MONGO_DB, {
@@ -25,21 +43,40 @@ if (process.env.MONGO_DB !== 'false') {
   console.log('\x1b[31mX\x1b[0m', 'MongoDB disabled')
 }
 
-// Enable body parsers
-
+/**
+ * bodyParser and native express JSON parsers
+ *
+ * @name Body parsers
+ */
 app.use(bodyParser.json());
 app.use(express.json());
 
-// Import Routes
-
+/**
+ * Routes import
+ *
+ * @name Routes
+ * @type Route
+ */
 const routeAuth = require("./routes/auth");
 app.use("/api/auth", routeAuth(app));
 
 
-// Import and Set Nuxt.js options
+/**
+ * Import and Set Nuxt.js options
+ *
+ * @name Nuxt options
+ * @type Nuxt
+ */
 const config = require('../nuxt.config.js');
 config.dev = process.env.NODE_ENV !== 'production';
 
+/**
+ * Start server
+ *
+ * @name Start
+ * @function
+ * @returns {void}
+ */
 async function start () {
   // Init Nuxt.js
   const nuxt = new Nuxt(config);
