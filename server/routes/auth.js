@@ -24,6 +24,7 @@ const express = require('express'),
  * On success it returns TRUE<br>
  * On failure it returns fail condition statement
  *
+ * @name Validation rules
  * @type {object}
  */
 const rules = {
@@ -116,12 +117,6 @@ function addQueryToUrl(url, query) {
   }).join('&')
 }
 
-/**
- * Express Router for Auth module that will be exported to main express app
- *
- * @category server
- * @namespace router
- */
 module.exports = (app) => {
   const cookieParser = require("cookie-parser");
   app.use(cookieParser());
@@ -134,12 +129,8 @@ module.exports = (app) => {
    * This middleware is NOT restricted to this module
    *
    * @name Append user middleware
-   * @function
-   * @inner
-   * @memberOf module:auth~router
-   * @param {object} req
-   * @param {object} res
-   * @param {object} next
+   * @type Middleware
+   * @static
    */
   app.use(async (req,res,next) => {
     if (process.env.MONGO_DB !== 'false') {
@@ -234,11 +225,7 @@ module.exports = (app) => {
    * This middleware IS restricted to this module
    *
    * @name Database availability middleware
-   * @function
-   * @memberOf module:auth~router
-   * @inner
-   * @param {callback} middleware - Middleware function
-   * @returns {void}
+   * @type Middleware
    */
   router.use(async (req,res,next) => {
     if (process.env.MONGO_DB === 'false') {
@@ -254,12 +241,7 @@ module.exports = (app) => {
    * {result: 1} is returned and client can proceed with authorization
    *
    * @name /verify
-   * @function
-   * @memberOf module:auth~router
-   * @inner
-   * @param {string} path - Express path
-   * @param {callback} middleware - Express middleware
-   * @returns {void} JSON to client
+   * @type Route
    */
   router.post("/verify", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
@@ -289,12 +271,7 @@ module.exports = (app) => {
    * {result: 1} is sent and client can proceed with registration
    *
    * @name /verifyRegister
-   * @function
-   * @memberOf module:auth~router
-   * @inner
-   * @param {string} path - Express path
-   * @param {callback} middleware - Express middleware
-   * @returns {void} JSON to client
+   * @type Route
    */
   router.post("/verifyRegister", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
@@ -320,12 +297,7 @@ module.exports = (app) => {
    * and said user data is returned to the client
    *
    * @name /register
-   * @function
-   * @memberOf module:auth~router
-   * @inner
-   * @param {string} path - Express path
-   * @param {callback} middleware - Express middleware
-   * @returns {void} JSON to client
+   * @type Route
    */
   router.post("/register", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
@@ -368,12 +340,7 @@ module.exports = (app) => {
    * The client will be able to use said token to proceed with authorization
    *
    * @name /login
-   * @function
-   * @memberOf module:auth~router
-   * @inner
-   * @param {string} path - Express path
-   * @param {callback} middleware - Express middleware
-   * @returns {void} JSON to client
+   * @type Route
    */
   router.post("/login", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
@@ -408,12 +375,7 @@ module.exports = (app) => {
    * that then gets sent back to the client, who wil be able to use it to proceed with authorization
    *
    * @name /login/vk
-   * @function
-   * @memberOf module:auth~router
-   * @inner
-   * @param {string} path - Express path
-   * @param {callback} middleware - Express middleware
-   * @returns {void} JSON to client
+   * @type Route
    */
   router.get("/login/vk", async (req, res) => {
     if (process.env.VK_SECRET === 'false' || process.env.VK_CLIENT_ID === 'false') {
@@ -439,12 +401,7 @@ module.exports = (app) => {
    * This route returns req.user object if one is present
    *
    * @name /me
-   * @function
-   * @memberOf module:auth~router
-   * @inner
-   * @param {string} path - Express path
-   * @param {callback} middleware - Express middleware
-   * @returns {void} JSON to client
+   * @type Route
    */
   router.get("/me", async (req, res) => {
     if (req.user) {
@@ -470,12 +427,7 @@ module.exports = (app) => {
    * This route searches for a user by his publicId and sends his data if one is found
    *
    * @name /getUsers
-   * @function
-   * @memberOf module:auth~router
-   * @inner
-   * @param {string} path - Express path
-   * @param {callback} middleware - Express middleware
-   * @returns {void} JSON to client
+   * @type Route
    */
   router.post('/getUser', async (req,res) => {
     await User.findOne({ publicId: req.body.publicId }, (err, user) => {
