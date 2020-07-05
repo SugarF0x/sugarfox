@@ -1,5 +1,20 @@
-const mongoose = require("mongoose");
+/**
+ * MongoDB schema
+ *
+ * @category server
+ * @namespace schema
+ *
+ * @author {@link https://github.com/SugarF0x Sugar_F0x}
+ */
 
+/**
+ * User Database schema
+ *
+ * @memberOf schema
+ * @name User
+ * @type {Mongoose}
+ */
+const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   permission: {
     type: String,
