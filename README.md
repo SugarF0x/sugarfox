@@ -30,7 +30,7 @@ In order to enable said function, one is to create a new `.env`
 file with required variables of appropriate value
 
 Not all variables have to be present in `.env` - missing ones
-will set to _default value_ automatically
+will be set to _default value_ automatically
 
 ## Commit syntax 
 

@@ -1,7 +1,8 @@
 /**
  * Authentication module
  * @category server
- * @module auth
+ * @subcategory routes
+ * @namespace server.auth
  *
  * @requires express
  * @requires express.Router
@@ -12,17 +13,22 @@
  * @author {@link https://github.com/SugarF0x Sugar_F0x}
  */
 
-const express = require('express'),
-      router  = express.Router(),
-      request = require('request'),
-      jwt     = require("jsonwebtoken"),
-      User    = require("../models/user");
+const express = require('express');
+const router  = express.Router();
+const request = require('request');
+const jwt     = require("jsonwebtoken");
+const User    = require("../models/user");
 
 /**
  * A req.body object is ran through these rules on validate(req)<br>
  * validate(req) is used in local verification, register and login calls<br>
  * On success it returns TRUE<br>
  * On failure it returns fail condition statement
+ *
+ * @category server
+ * @subcategory routes
+ * @memberof server.auth
+ * @inner
  *
  * @name Validation rules
  * @type {object}
@@ -58,6 +64,11 @@ const rules = {
 /**
  * Run validation tests of given request body based on rules object
  *
+ * @category server
+ * @subcategory routes
+ * @memberof server.auth
+ * @inner
+ *
  * @param {object} req - request object
  * @returns {boolean}
  */
@@ -83,7 +94,12 @@ function validate(req) {
 }
 
 /**
- * Return bad credentials
+ * Send 'Bad credentials' response
+ *
+ * @category server
+ * @subcategory routes
+ * @memberof server.auth
+ * @inner
  *
  * @param {object} res - Response object
  * @returns {void} JSON to the client
@@ -93,7 +109,12 @@ function rbc(res) {
 }
 
 /**
- * Auth strategy disabled
+ * Send 'Auth strategy disabled' response
+ *
+ * @category server
+ * @subcategory routes
+ * @memberof server.auth
+ * @inner
  *
  * @param {object} res - Response object
  * @param {string} strat - What strategy is disabled
@@ -105,7 +126,12 @@ function asd(res, strat) {
 
 /**
  * Append query object as url GET parameters <br>
- *   Keys will be used as GET parameters
+ * Keys will be used as GET parameters
+ *
+ * @category server
+ * @subcategory routes
+ * @memberof server.auth
+ * @inner
  *
  * @param {string} url - URL to append query to
  * @param {object} query - Object to be appended to URL as GET parameters
@@ -122,15 +148,20 @@ module.exports = (app) => {
   app.use(cookieParser());
 
   /**
-   * This middleware parses headers and query for token<br>
+   * Middleware parsing headers and query for token<br>
    * If successful, it queries db for user data and appends it to req<br>
    * thus passing req.user data to following wares<br>
    * <br>
    * This middleware is NOT restricted to this module
    *
-   * @name Append user middleware
-   * @type Middleware
+   * @category server
+   * @subcategory routes
+   * @memberof server.auth
    * @static
+   *
+   * @name Append user
+   * @function
+   * @type {Middleware} next()
    */
   app.use(async (req,res,next) => {
     if (process.env.MONGO_DB !== 'false') {
@@ -219,13 +250,19 @@ module.exports = (app) => {
   });
 
   /**
-   * This middleware checks to see if database is available<br>
+   * Middleware checking if database is available<br>
    * as no authorization method will work without one
    * <br>
    * This middleware IS restricted to this module
    *
-   * @name Database availability middleware
-   * @type Middleware
+   * @category server
+   * @subcategory routes
+   * @memberof server.auth
+   * @inner
+   *
+   * @name Database availability
+   * @function
+   * @type {Middleware} next()
    */
   router.use(async (req,res,next) => {
     if (process.env.MONGO_DB === 'false') {
@@ -236,12 +273,20 @@ module.exports = (app) => {
   });
 
   /**
-   * This POST route validates user form and searches for stated user in database<br>
-   * In case of successful validation and if such a user is found and password is a match,<br>
-   * {result: 1} is returned and client can proceed with authorization
+   * Route serving user login form validation by rules{} as well as by searching stated user in the database
+   *
+   * @category server
+   * @subcategory routes
+   * @memberof server.auth
+   * @inner
    *
    * @name /verify
-   * @type Route
+   * @function
+   * @type {POST} { result, message }
+   *
+   * @param {object} req.body          - Payload
+   * @param {object} req.body.email    - New user email
+   * @param {object} req.body.password - New user password
    */
   router.post("/verify", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
@@ -266,12 +311,21 @@ module.exports = (app) => {
   });
 
   /**
-   * This POST route validates user form and searches for stated user in database<br>
-   * In case of successful validation and if such a user does not already exist,<br>
-   * {result: 1} is sent and client can proceed with registration
+   * Route serving user register form validation by rules{} as well as by searching stated user in the database
+   *
+   * @category server
+   * @subcategory routes
+   * @memberof server.auth
+   * @inner
    *
    * @name /verifyRegister
-   * @type Route
+   * @function
+   * @type {POST} { result, message }
+   *
+   * @param {object} req.body          - Payload
+   * @param {object} req.body.email    - New user email
+   * @param {object} req.body.password - New user password
+   * @param {object} req.body.login    - New user login
    */
   router.post("/verifyRegister", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
@@ -292,12 +346,21 @@ module.exports = (app) => {
   });
 
   /**
-   * This route validates client form and in case of a success,<br>
-   * a new user entry is created in the database<br>
-   * and said user data is returned to the client
+   * Route serving client form validation and new user DB entry creation
+   *
+   * @category server
+   * @subcategory routes
+   * @memberof server.auth
+   * @inner
    *
    * @name /register
-   * @type Route
+   * @function
+   * @type {POST} { result, message }
+   *
+   * @param {object} req.body          - Payload
+   * @param {object} req.body.email    - New user email
+   * @param {object} req.body.password - New user password
+   * @param {object} req.body.login    - New user login
    */
   router.post("/register", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
@@ -335,12 +398,21 @@ module.exports = (app) => {
   });
 
   /**
-   * This route validates client form and in case of a success,<br>
-   * access token gets signed and sent to the client.<br>
-   * The client will be able to use said token to proceed with authorization
+   * Route serving client login form validation and jwt signature<br>
+   * Client can use said token to access their user data via /me calls
+   *
+   * @category server
+   * @subcategory routes
+   * @memberof server.auth
+   * @inner
    *
    * @name /login
-   * @type Route
+   * @function
+   * @type {POST} { token } || { result, message }
+   *
+   * @param {object} req.body          - Payload
+   * @param {object} req.body.email    - User email
+   * @param {object} req.body.password - User password
    */
   router.post("/login", async (req, res) => {
     if (process.env.AUTH_SECRET === 'false') {
@@ -370,12 +442,20 @@ module.exports = (app) => {
   });
 
   /**
-   * This route is a VK strategy auth callback from VK oauth page.<br>
+   * Route serving VK auth strategy callback from VK oauth page<br>
    * User gets redirected here bearing a code, that is then used to request access token,<br>
    * that then gets sent back to the client, who wil be able to use it to proceed with authorization
    *
+   * @category server
+   * @subcategory routes
+   * @memberof server.auth
+   * @inner
+   *
    * @name /login/vk
-   * @type Route
+   * @function
+   * @type {GET} { access_token } || { result, message }
+   *
+   * @property {parameter} code - Access code granted by VK auth
    */
   router.get("/login/vk", async (req, res) => {
     if (process.env.VK_SECRET === 'false' || process.env.VK_CLIENT_ID === 'false') {
@@ -398,10 +478,19 @@ module.exports = (app) => {
   });
 
   /**
-   * This route returns req.user object if one is present
+   * Route searching for { req.user } based on strategy used (if any)
+   *
+   * @category server
+   * @subcategory routes
+   * @memberof server.auth
+   * @inner
    *
    * @name /me
-   * @type Route
+   * @function
+   * @type {GET} { user } || { result, message }
+   *
+   * @param {object} req.body          - Payload
+   * @param {object} req.body.publicId - User ID to look for in Database
    */
   router.get("/me", async (req, res) => {
     if (req.user) {
@@ -424,15 +513,46 @@ module.exports = (app) => {
   });
 
   /**
-   * This route searches for a user by his publicId and sends his data if one is found
+   * Route searching for user by publicId
+   *
+   * @category server
+   * @subcategory routes
+   * @memberof server.auth
+   * @inner
    *
    * @name /getUsers
-   * @type Route
+   * @function
+   * @type {POST} { result, user|message }
+   *
+   * @param {object} req.body          - Payload
+   * @param {object} req.body.publicId - User ID to look for in Database
    */
   router.post('/getUser', async (req,res) => {
     await User.findOne({ publicId: req.body.publicId }, (err, user) => {
       res.json({ result: 1, user: user });
     })
+  });
+
+  /**
+   * Route operating user settings
+   *
+   * @category server
+   * @subcategory routes
+   * @memberof server.auth
+   * @inner
+   *
+   * @name /editUserData
+   * @function
+   * @type {POST} { result, message }
+   *
+   * @param {object} req.body          - Payload
+   * @param {object} req.body.publicId - User ID to look for in Database
+   */
+  router.post('/editUserData', async (req, res) => {
+
+
+      //placeholder
+    res.json({ result: 0, message: 'not yet implemented!' })
   });
 
   return router;
