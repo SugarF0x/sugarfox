@@ -529,7 +529,11 @@ module.exports = (app) => {
    */
   router.post('/getUser', async (req,res) => {
     await User.findOne({ publicId: req.body.publicId }, (err, user) => {
-      res.json({ result: 1, user: user });
+      if (user) {
+        res.json({ result: 1, user: user });
+      } else {
+        res.json({ result: 0, message: 'User not found' })
+      }
     })
   });
 
