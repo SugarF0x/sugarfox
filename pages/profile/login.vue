@@ -88,9 +88,8 @@
    *     (the latter three are not implemented)
    *
    * @category client
-   * @subcategory profile
-   * @namespace login
-   * @memberOf module:profile
+   * @subcategory pages
+   * @namespace profile.login
    *
    * @vue-data {object} alert - Data handling alert message popup
    * @vue-data {boolean} alert.visible=false - Alert message state

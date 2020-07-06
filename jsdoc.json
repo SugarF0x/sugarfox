@@ -9,6 +9,9 @@
     "node_modules/better-docs/category"
   ],
   "templates": {
+    "default": {
+      "useLongnameInNav": false
+    },
     "cleverLinks": true,
     "monospaceLinks": true
   },

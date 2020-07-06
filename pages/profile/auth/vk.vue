@@ -39,9 +39,8 @@
    * Third party auth strategies
    *
    * @category client
-   * @subcategory profile
-   * @namespace auth
-   * @memberOf module:profile
+   * @subcategory pages
+   * @namespace profile.auth
    */
 
   /**
@@ -50,9 +49,8 @@
    * Said code is then sent to the server to process and proceed with authorization
    *
    * @category client
-   * @subcategory profile
-   * @namespace vk
-   * @memberOf module:profile.auth
+   * @subcategory pages
+   * @namespace profile.auth.vk
    *
    * @vue-event {void} auth - Pass VK auth code to the server for processing and subsequent authorization
    */

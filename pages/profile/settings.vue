@@ -62,9 +62,8 @@
    * All settings are listed in child-components
    *
    * @category client
-   * @subcategory profile
-   * @namespace settings
-   * @memberOf module:profile
+   * @subcategory pages
+   * @namespace profile.settings
    *
    * @vue-event {void} beforeCreate - Redirect user to personalization (default child) if none is specified
    *

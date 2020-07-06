@@ -11,9 +11,8 @@
    * @requires auth
    *
    * @category client
-   * @subcategory profile
-   * @namespace logout
-   * @memberOf module:profile
+   * @subcategory pages
+   * @namespace profile.logout
    */
   export default {
     name: "logout",

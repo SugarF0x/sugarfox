@@ -21,9 +21,8 @@
    * Friends list of (to be) specified user
    *
    * @category client
-   * @subcategory profile
-   * @namespace friends
-   * @memberOf module:profile.publicId
+   * @subcategory pages
+   * @namespace profile.publicId.friends
    */
   export default {
     name: "friends"

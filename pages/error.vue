@@ -37,7 +37,6 @@
    * @category client
    * @subcategory pages
    * @namespace error
-   * @memberOf module:pages
    *
    * @vue-data {String} [title=Undefined error] - Error message title
    * @vue-data {String} [message=Undefined message] - Error message text

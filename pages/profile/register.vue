@@ -99,9 +99,8 @@
    *   and authorizes user on success
    *
    * @category client
-   * @subcategory profile
-   * @namespace register
-   * @memberOf module:profile
+   * @subcategory pages
+   * @namespace profile.register
    *
    * @vue-data {object} alert - Data handling alert message popup
    * @vue-data {boolean} alert.visible=false - Alert message state

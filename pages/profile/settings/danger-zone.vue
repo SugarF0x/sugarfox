@@ -38,9 +38,8 @@
    * Here user can delete their profile
    *
    * @category client
-   * @subcategory profile
-   * @namespace danger-zone
-   * @memberOf module:profile.settings
+   * @subcategory pages
+   * @namespace profile.settings.danger-zone
    */
   export default {
     name: "danger-zone"

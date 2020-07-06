@@ -130,9 +130,8 @@
    * Specific user profile page
    *
    * @category client
-   * @subcategory profile
-   * @namespace publicId
-   * @memberOf module:profile
+   * @subcategory pages
+   * @namespace profile.publicId
    *
    * @todo move all user related (his page, his friends, all that jazz)<br>
    *   pages to pages/user so as to not mix up preset routes with<br>

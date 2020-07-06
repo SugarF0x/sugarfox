@@ -48,9 +48,8 @@
    * @requires auth
    *
    * @category client
-   * @subcategory profile
-   * @namespace profile-testing
-   * @memberOf module:profile
+   * @subcategory pages
+   * @namespace profile.profile-testing
    *
    * @vue-computed {string} methodIcon - Icon to be displayed based on auth strategy
    */

@@ -47,9 +47,8 @@
    * Privacy settings child component
    *
    * @category client
-   * @subcategory profile
-   * @namespace privacy
-   * @memberOf module:profile.settings
+   * @subcategory pages
+   * @namespace profile.settings.privacy
    *
    * @vue-data {string} options.profile=public  - Who can see user profile
    * @vue-data {string} options.activity=public - Who can see user activity

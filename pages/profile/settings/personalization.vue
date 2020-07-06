@@ -48,9 +48,8 @@
    * Personalization settings child component
    *
    * @category client
-   * @subcategory profile
-   * @namespace personalization
-   * @memberOf module:profile.settings
+   * @subcategory pages
+   * @namespace profile.settings.personalization
    *
    * @vue-data {string} options.language=English - Set language of choice
    * @vue-data {string} options.theme=Dark - Theme of choice
