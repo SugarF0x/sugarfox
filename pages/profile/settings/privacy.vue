@@ -43,6 +43,19 @@
 </template>
 
 <script>
+  /**
+   * Privacy settings child component
+   *
+   * @category client
+   * @subcategory profile
+   * @namespace privacy
+   * @memberOf module:profile.settings
+   *
+   * @vue-data {string} options.profile=public  - Who can see user profile
+   * @vue-data {string} options.activity=public - Who can see user activity
+   * @vue-data {string} options.friends=public  - Who can see user friends
+   * @vue-data {string} options.inbox=public    - Who can direct message user
+   */
   export default {
     name: "privacy",
     data() {

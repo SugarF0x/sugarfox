@@ -41,8 +41,22 @@
 </template>
 
 <script>
+  /**
+   * This page displays all $auth.user data<br>
+   * This here is for testing purposes only
+   *
+   * @requires auth
+   *
+   * @category client
+   * @subcategory profile
+   * @namespace profile-testing
+   * @memberOf module:profile
+   *
+   * @vue-computed {string} methodIcon - Icon to be displayed based on auth strategy
+   */
   export default {
     name: "profile-testing.vue",
+    middleware: ['auth'],
     computed: {
       methodIcon() {
         switch (this.$auth.user.method) {

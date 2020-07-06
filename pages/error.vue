@@ -30,6 +30,18 @@
 </template>
 
 <script>
+  /**
+   * Redirect here to display error embedded in GET params<br>
+   * Currently is to be terminated as layouts/error is a better alternative
+   *
+   * @category client
+   * @subcategory pages
+   * @namespace error
+   * @memberOf module:pages
+   *
+   * @vue-data {String} [title=Undefined error] - Error message title
+   * @vue-data {String} [message=Undefined message] - Error message text
+   */
   export default {
     name: 'empty',
     data () {

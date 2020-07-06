@@ -126,11 +126,19 @@
 </template>
 
 <script>
-  /* TODO: move all user related (his page, his friends, all that jazz)
-      pages to pages/user so as to not mix up preset routes with
-      custom user set :publicId ones
-        ?question mark?
-        ?perhaps /u/:publicId?
+  /**
+   * Specific user profile page
+   *
+   * @category client
+   * @subcategory profile
+   * @namespace publicId
+   * @memberOf module:profile
+   *
+   * @todo move all user related (his page, his friends, all that jazz)<br>
+   *   pages to pages/user so as to not mix up preset routes with<br>
+   *   custom user set :publicId ones<br>
+   *   ?question mark?<br>
+   *   ?perhaps /u/:publicId?<br>
    */
   export default {
     name: "publicId.vue",

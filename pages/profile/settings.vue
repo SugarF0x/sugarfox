@@ -56,12 +56,23 @@
 </template>
 
 <script>
-  /* TODO: add sync button to VK authed users
-      > that being a button that refetches user data from VK
-        thus updating avatar, frields, name and whatever
-          all these fields to be updated are to be checklisted
+  /**
+   * Profile settings page<br>
+   * User can adjust his settings here<br>
+   * All settings are listed in child-components
+   *
+   * @category client
+   * @subcategory profile
+   * @namespace settings
+   * @memberOf module:profile
+   *
+   * @vue-event {void} beforeCreate - Redirect user to personalization (default child) if none is specified
+   *
+   * @todo add sync button to VK authed users<br>
+   *   that being a button that refetches user data from VK<br>
+   *   thus updating avatar, frields, name and whatever<br>
+   *   all these fields to be updated are to be checklisted
    */
-
   export default {
     name: "settings",
     middleware: ['auth'],

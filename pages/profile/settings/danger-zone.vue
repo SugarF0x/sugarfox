@@ -33,6 +33,15 @@
 </template>
 
 <script>
+  /**
+   * Danger-zone settings child component<br>
+   * Here user can delete their profile
+   *
+   * @category client
+   * @subcategory profile
+   * @namespace danger-zone
+   * @memberOf module:profile.settings
+   */
   export default {
     name: "danger-zone"
   }

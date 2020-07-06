@@ -80,6 +80,27 @@
 </template>
 
 <script>
+  /**
+   * Login page<br>
+   * Performs authorization based on local strategy<br>
+   *   as well as third-party oauth2 strategies<br>
+   *   like VK, FB, Google and Github<br>
+   *     (the latter three are not implemented)
+   *
+   * @category client
+   * @subcategory profile
+   * @namespace login
+   * @memberOf module:profile
+   *
+   * @vue-data {object} alert - Data handling alert message popup
+   * @vue-data {boolean} alert.visible=false - Alert message state
+   * @vue-data {string} alert.message='' - Alert message text
+   * @vue-data {String} formFields.FIELD.input='' - Form field input data
+   * @vue-data {Array<function>} formFields.(email|password).rules=Regexp - Set of validation rules that return boolean true on success and error string on failure
+   *
+   * @vue-event {void} verifyUser - Verify user based on input field data via /api/auth/verify call. Execute loginUser on success
+   * @vue-event {void} loginUser - Authorize user based on formFields data
+   */
   export default {
     name: "login",
     data() {

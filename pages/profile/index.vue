@@ -10,6 +10,24 @@
 </template>
 
 <script>
+  /**
+   * @category client
+   * @subcategory pages
+   * @module profile
+   */
+
+  /**
+   * Profile redirect page<br>
+   * Redirects to user profile by their publicId if authed<br>
+   * Otherwise redirects to login page
+   *
+   * @requires auth
+   *
+   * @category client
+   * @subcategory profile
+   * @namespace redirect
+   * @memberOf module:profile
+   */
   export default {
     name: "index.vue",
     middleware: ['auth'],

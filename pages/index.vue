@@ -14,3 +14,28 @@
     </v-row>
   </v-layout>
 </template>
+
+<script>
+  /**
+   * @category client
+   * @subcategory pages
+   * @module pages
+   */
+
+  /**
+   * Home page<br>
+   * Currently a placeholder
+   *
+   * @category client
+   * @subcategory pages
+   * @namespace index
+   * @memberOf module:pages
+   */
+  export default {
+    name: 'index'
+  }
+</script>
+
+<style>
+
+</style>

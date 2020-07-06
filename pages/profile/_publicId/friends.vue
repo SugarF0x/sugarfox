@@ -17,6 +17,14 @@
 </template>
 
 <script>
+  /**
+   * Friends list of (to be) specified user
+   *
+   * @category client
+   * @subcategory profile
+   * @namespace friends
+   * @memberOf module:profile.publicId
+   */
   export default {
     name: "friends"
   }

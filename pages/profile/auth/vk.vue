@@ -35,6 +35,27 @@
 </template>
 
 <script>
+  /**
+   * Third party auth strategies
+   *
+   * @category client
+   * @subcategory profile
+   * @namespace auth
+   * @memberOf module:profile
+   */
+
+  /**
+   * VK auth redirect page<br>
+   * Client is redirected here with code in GET parameters after accepting VK auth<br>
+   * Said code is then sent to the server to process and proceed with authorization
+   *
+   * @category client
+   * @subcategory profile
+   * @namespace vk
+   * @memberOf module:profile.auth
+   *
+   * @vue-event {void} auth - Pass VK auth code to the server for processing and subsequent authorization
+   */
   export default {
     name: "vk-auth",
     data() {
