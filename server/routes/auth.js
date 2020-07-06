@@ -102,7 +102,7 @@ function validate(req) {
  * @inner
  *
  * @param {object} res - Response object
- * @returns {void} JSON to the client
+ * @returns {response} { result, message }
  */
 function rbc(res) {
   res.status(400).json({ result: 0, message: "Bad credentials" })
@@ -118,7 +118,7 @@ function rbc(res) {
  *
  * @param {object} res - Response object
  * @param {string} strat - What strategy is disabled
- * @returns {void} JSON to the client
+ * @returns {response} { result, message }
  */
 function asd(res, strat) {
   res.status(500).json({ result: 0, message: `${strat} auth Strategy disabled` })
