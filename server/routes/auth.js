@@ -193,7 +193,7 @@ module.exports = (app) => {
                     next();
                   });
                 } catch (err) {
-                  console.log('error: ', err.message);
+                  console.log('Middleware error: ', err.message);
                   next();
                 }
               }
@@ -212,7 +212,7 @@ module.exports = (app) => {
           }), (err, response, body) => {
             body = JSON.parse(body);
             if (body.error) {
-              console.log('error: ', body.error.error_msg);
+              console.log('Middleware error: ', body.error.error_msg);
               next();
             } else {
               User.findOne({ id: body.response[0].id }, (err, user) => {
@@ -225,19 +225,7 @@ module.exports = (app) => {
                   req.user = user;
                   next();
                 } else {
-                  User.find({}, (err, user) => {
-                    const newUserData = {
-                      method:   'vk',
-                      id:       body.response[0].id,
-                      publicId: 'id' + (user.length + 1),
-                      login:    body.response[0].first_name + ' ' + body.response[0].last_name,
-                      avatar:   body.response[0].photo_max
-                    };
-                    const newUser = new User(newUserData);
-                    newUser.save();
-                    req.user = newUserData;
-                    next();
-                  });
+                  next();
                 }
               });
             }
@@ -471,12 +459,41 @@ module.exports = (app) => {
       client_secret: process.env.VK_SECRET,
       redirect_uri:  process.env.BASE_URL+ '/profile/auth/vk',
       code:          req.query.code
-    }), (error, response, body) => {
+    }), async (error, response, body) => {
       body = JSON.parse(body);
+      let token = body.access_token;
       if (body.error) {
         res.status(400).json({ result: 0, message: body.error_description });
       } else {
-        res.json({ access_token: body.access_token })
+        await request(addQueryToUrl('https://api.vk.com/method/users.get', {
+          access_token: token,
+          fields: 'photo_max',
+          v: '5.110'
+        }), async (err, response, body) => {
+          body = JSON.parse(body);
+          if (body.error) {
+            res.status(500).json({ result: 0, message: body.error.error_msg });
+          } else {
+            await User.findOne({ id: body.response[0].id }, async (err, user) => {
+              if (!user) {
+                await User.find({}, (err, user) => {
+                  const newUserData = {
+                    method:   'vk',
+                    id:       body.response[0].id,
+                    publicId: 'id' + (user.length + 1),
+                    login:    body.response[0].first_name + ' ' + body.response[0].last_name,
+                    avatar:   body.response[0].photo_max
+                  };
+                  const newUser = new User(newUserData);
+                  newUser.save();
+                  res.json({ access_token: token })
+                });
+              } else {
+                res.json({ access_token: token })
+              }
+            });
+          }
+        });
       }
     });
   });
