@@ -38,7 +38,7 @@
    * @subcategory pages
    * @namespace error
    *
-   * @vue-data {String} [title=Undefined error] - Error message title
+   * @vue-data {String} [title=Undefined error]     - Error message title
    * @vue-data {String} [message=Undefined message] - Error message text
    */
   export default {

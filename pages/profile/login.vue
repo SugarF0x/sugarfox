@@ -91,14 +91,14 @@
    * @subcategory pages
    * @namespace profile.login
    *
-   * @vue-data {object} alert - Data handling alert message popup
-   * @vue-data {boolean} alert.visible=false - Alert message state
-   * @vue-data {string} alert.message='' - Alert message text
-   * @vue-data {String} formFields.FIELD.input='' - Form field input data
+   * @vue-data {object} alert                                             - Data handling alert message popup
+   * @vue-data {boolean} alert.visible=false                              - Alert message state
+   * @vue-data {string} alert.message=''                                  - Alert message text
+   * @vue-data {String} formFields.FIELD.input=''                         - Form field input data
    * @vue-data {Array<function>} formFields.(email|password).rules=Regexp - Set of validation rules that return boolean true on success and error string on failure
    *
    * @vue-event {void} verifyUser - Verify user based on input field data via /api/auth/verify call. Execute loginUser on success
-   * @vue-event {void} loginUser - Authorize user based on formFields data
+   * @vue-event {void} loginUser  - Authorize user based on formFields data
    */
   export default {
     name: "login",

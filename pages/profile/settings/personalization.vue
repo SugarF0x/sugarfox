@@ -52,11 +52,11 @@
    * @namespace profile.settings.personalization
    *
    * @vue-data {string} options.language=English - Set language of choice
-   * @vue-data {string} options.theme=Dark - Theme of choice
-   * @vue-data {string} options.email - Profile email bind
-   * @vue-data {string} options.password - Profile access password
-   * @vue-data {string} options.username - Profile display name of choice
-   * @vue-data {string} options.address - URL address to profile access
+   * @vue-data {string} options.theme=Dark       - Theme of choice
+   * @vue-data {string} options.email            - Profile email bind
+   * @vue-data {string} options.password         - Profile access password
+   * @vue-data {string} options.username         - Profile display name of choice
+   * @vue-data {string} options.address          - URL address to profile access
    */
   export default {
     name: "personalization",
