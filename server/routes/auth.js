@@ -9,6 +9,7 @@
  * @requires request
  * @requires jwt
  * @requires models/user
+ * @requires bcrypt
  *
  * @author {@link https://github.com/SugarF0x Sugar_F0x}
  */
@@ -18,6 +19,7 @@ const router  = express.Router();
 const request = require('request');
 const jwt     = require("jsonwebtoken");
 const User    = require("../models/user");
+const bcrypt  = require('bcrypt');
 
 /**
  * A req.body object is ran through these rules on validate(req)<br>
@@ -296,11 +298,13 @@ module.exports = (app) => {
     if (validate(req)) {
       await User.findOne({ email: req.body.email }, (err, user) => {
         if (user) {
-          if (user.password === req.body.password) {
-            res.json({ result: 1, message: 'Success' })
-          } else {
-            rbc(res);
-          }
+          bcrypt.compare(req.body.password, user.password, (err, result) => {
+            if (result) {
+              res.json({ result: 1, message: 'Success' })
+            } else {
+              rbc(res);
+            }
+          });
         } else {
           rbc(res);
         }
@@ -381,7 +385,7 @@ module.exports = (app) => {
               publicId: 'id' + newId,
               login:    req.body.login,
               email:    req.body.email,
-              password: req.body.password
+              password: bcrypt.hashSync(req.body.password, 7)
             });
             newUser.save();
             res.json({ result: 1, message: 'Successfully registered'});
