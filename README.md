@@ -40,3 +40,12 @@ will be set to _default value_ automatically
 * :corn: Miscellaneous
 * :recycle: Refactor
 * :art: Style
+
+## Documentation
+
+`$ npm run doc` will generate all available documentation in `~/docs` folder,
+as is stated in **Build Setup**. By default, the documentation side bar navigation
+will display documented namespaces in their tree order, yet only display the
+end path of said namespaces _(e.g. `test` instead of `my.class.test`)_. To enable
+full path display, set `templates.default.useLongnameInNav` to `true` in `jsdoc.json`
+configuration file located in root directory
