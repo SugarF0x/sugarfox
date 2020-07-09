@@ -38,7 +38,8 @@ module.exports = {
   //   '~/api/auth',
   // ],
   plugins: [
-    '@/plugins/vuebar'
+    '@/plugins/vuebar',
+    { src: '@/plugins/theme-store', mode: 'client' }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -107,7 +108,6 @@ module.exports = {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
       themes: {
         dark: {
           primary: colors.blue.darken2,     // #1976d2
