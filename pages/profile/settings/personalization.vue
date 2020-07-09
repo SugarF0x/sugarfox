@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-row>
     <v-col cols="12" class="py-0">
       <v-card-title class="headline">
@@ -6,9 +6,18 @@
           This is a <span class="primary--text">personalization</span> child component
         </span>
       </v-card-title>
-      <v-card-text class="pa-0">
-        <v-row no-gutters v-for="(value, name, index) in options" :key="name">
-          <v-col cols="12" v-if="value !== 'Disabled'">
+      <v-card-text class="pa-0"
+                   v-for="(optionsValue, optionsName) in options"
+                   :key="optionsName"
+      >
+        <v-row>
+          <v-spacer></v-spacer>
+          <v-col cols="11" class="title">
+            <span class="primary--text text-capitalize">{{ optionsName }}</span> options
+          </v-col>
+        </v-row>
+        <v-row no-gutters v-for="(value, name, index) in options[optionsName]" :key="name">
+          <v-col cols="12" v-if="value.state !== 'Disabled'">
             <v-divider></v-divider>
             <v-row no-gutters align="center">
               <v-col cols="4">
@@ -18,18 +27,18 @@
               </v-col>
               <v-col cols="4">
                 <v-card-text class="text-center">
-                  {{ value }}
+                  {{ value.state }}
                 </v-card-text>
               </v-col>
               <v-col cols="4" class="text-center">
                 <v-btn text
-                       @click="change(name)"
+                       @click="options[optionsName][name].action"
                 >
                   Change
                 </v-btn>
               </v-col>
             </v-row>
-            <v-divider v-if="index===Object.keys(options).length-1"></v-divider>
+            <v-divider v-if="index===Object.keys(options[optionsName]).length-1"></v-divider>
           </v-col>
         </v-row>
       </v-card-text>
@@ -51,30 +60,71 @@
    * @subcategory pages
    * @namespace profile.settings.personalization
    *
-   * @vue-data {string} options.language=English - Set language of choice
-   * @vue-data {string} options.theme=Dark       - Theme of choice
-   * @vue-data {string} options.email            - Profile email bind
-   * @vue-data {string} options.password         - Profile access password
-   * @vue-data {string} options.username         - Profile display name of choice
-   * @vue-data {string} options.address          - URL address to profile access
+   * @vue-data {object} options - User configuration object
+   *
+   * @vue-data {object} options.local                  - User configuration stored locally
+   * @vue-data {string} options.local.language=English   - Set language of choice
+   * @vue-data {string} options.local.theme=Dark         - Theme of choice
+   *
+   * @vue-data {object} options.account           - User configuration stored on server
+   * @vue-data {string} options.account.email       - Profile email bind
+   * @vue-data {string} options.account.password    - Profile access password
+   * @vue-data {string} options.account.username    - Profile display name of choice
+   * @vue-data {string} options.account.address     - URL address to profile access
+   *
+   * @todo turn value.state into input/dropdown fields
+   * @todo disable CHANGE button for as long as said state fields remain unchanged
+   * @todo move Language and Theme selection to the profile drawer footer? question mark?
+   * @todo store language and theme states in Local Storage
    */
   export default {
     name: "personalization",
     data() {
       return {
         options: {
-          language: 'English',
-          theme:    this.$vuetify.theme.isDark ? 'Dark' : 'Light',
-          email:    this.$auth.method === 'local' ? this.$auth.email : 'Disabled',
-          password: this.$auth.method === 'local' ? '********' : 'Disabled',
-          username: this.$auth.user.login,
-          address:  this.$auth.user.publicId
+          local: {
+            language: {
+              type: 'dropdown',
+              dropdown: [
+                'English',
+                'Russian'
+              ],
+              state: 'English',
+              action: () => {}
+            },
+            theme: {
+              type: 'dropdown',
+              dropdown: [
+                'Dark',
+                'Light'
+              ],
+              state: this.$vuetify.theme.isDark ? 'Dark' : 'Light',
+              action: () => {}
+            }
+          },
+          account: {
+            email: {
+              type: 'input',
+              state: this.$auth.method === 'local' ? this.$auth.email : 'Disabled',
+              action: () => {}
+            },
+            password: {
+              type: 'input',
+              state:  this.$auth.method === 'local' ? '********' : 'Disabled',
+              action: () => {}
+            },
+            username: {
+              type: 'input',
+              state: this.$auth.user.login,
+              action: () => {}
+            },
+            address: {
+              type: 'input',
+              state: this.$auth.user.publicId,
+              action: () => {}
+            }
+          }
         }
-      }
-    },
-    methods: {
-      change(prop) {
-        console.log(prop);
       }
     }
   }
