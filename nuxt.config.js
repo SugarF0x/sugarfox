@@ -110,13 +110,13 @@ module.exports = {
       dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          primary: colors.blue.darken2,     // #1976d2
+          accent: colors.grey.darken3,      // #37474f
+          secondary: colors.amber.darken3,  // #ff8f00
+          info: colors.teal.lighten1,       // #26a69a
+          warning: colors.amber.base,       // #ffc107
+          error: colors.deepOrange.accent4, // #dd2c00
+          success: colors.green.accent3     // #00e676
         }
       }
     }
