@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-app>
     <v-app-bar
       clipped-left
@@ -52,7 +52,8 @@
           </v-avatar>
         </v-row>
       </v-container>
-      <v-list>
+      <v-divider></v-divider>
+      <v-list class="py-0">
         <v-list-item-group>
           <div v-if="$auth.loggedIn">
             <v-list-item v-for="n in drawerAuthedItems"
@@ -99,10 +100,28 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
+
+      <template v-slot:append>
+        <v-divider></v-divider>
+        <v-container>
+          <v-row>
+            <v-col cols="12"
+                   v-for="(value, name) in drawerFooter"
+                   :key="name"
+            >
+              <v-select v-model="value.input"
+                        :items="value.dropdown"
+                        :label="name"
+                        hide-details
+              ></v-select>
+            </v-col>
+          </v-row>
+        </v-container>
+      </template>
     </v-navigation-drawer>
     <v-footer app absolute>
       <v-spacer></v-spacer>
-      <span>le footer</span>
+      <span>quotes be here</span>
     </v-footer>
   </v-app>
 </template>
@@ -143,7 +162,51 @@
             to: '/sample-action',
             action: ''
           },
-        ]
+        ],
+        drawerFooter: {
+          language: {
+            dropdown: [
+              'English',
+              'Russian'
+            ],
+            input: 'English', // fetch currently selected from Local Storage
+            state: 'English',
+            action: () => {}
+          },
+          theme: {
+            dropdown: [
+              'Dark',
+              'Light'
+            ],
+            input: '',
+            state: this.$vuetify.theme.isDark ? 'Dark' : 'Light',
+            action: () => {
+              let isDark = this.options.local.theme.input === 'Dark';
+              localStorage.setItem('dark', isDark);
+              this.$vuetify.theme.dark = isDark;
+              this.options.local.theme.state = this.options.local.theme.input;
+            }
+          }
+        }
+      }
+    },
+    computed: {
+      theme() {
+        return this.drawerFooter.theme.input
+      },
+      lang() {
+        return this.drawerFooter.language.input
+      }
+    },
+    watch: {
+      theme(val) {
+        let isDark = val === 'Dark';
+        localStorage.setItem('dark', isDark);
+        this.$vuetify.theme.dark = isDark;
+        this.drawerFooter.theme.state = val;
+      },
+      lang(val) {
+        // TODO: language setter be here
       }
     },
     methods: {
@@ -159,6 +222,9 @@
             break;
         }
       }
+    },
+    mounted() {
+      this.drawerFooter.theme.input = localStorage.getItem('dark') === 'true' ? 'Dark' : 'Light'
     }
   }
 </script>
