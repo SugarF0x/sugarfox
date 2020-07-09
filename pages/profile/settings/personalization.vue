@@ -105,7 +105,12 @@
               ],
               input: '',
               state: this.$vuetify.theme.isDark ? 'Dark' : 'Light',
-              action: () => {}
+              action: () => {
+                let isDark = this.options.local.theme.input === 'Dark';
+                localStorage.setItem('dark', isDark);
+                this.$vuetify.theme.dark = isDark;
+                this.options.local.theme.state = this.options.local.theme.input;
+              }
             }
           },
           account: {
@@ -148,6 +153,9 @@
           }
         }
       }
+    },
+    mounted() {
+      this.options.local.theme.input = localStorage.getItem('dark') === 'true' ? 'Dark' : 'Light'
     }
   }
 </script>
