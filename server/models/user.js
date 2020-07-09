@@ -25,6 +25,26 @@ const userSchema = new mongoose.Schema({
     default: Date.now(),
     immutable: true
   },
+  options: {
+    privacy: {
+      profile: {
+        type: String,
+        default: 'public'
+      },
+      activity: {
+        type: String,
+        default: 'public'
+      },
+      friends: {
+        type: String,
+        default: 'public'
+      },
+      inbox: {
+        type: String,
+        default: 'public'
+      },
+    }
+  },
   publicId: {
     type: String,
     required: true
