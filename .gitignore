@@ -91,3 +91,9 @@ sw.*
 
 # Generated documentation
 docs
+
+# PWA components
+sw.*
+
+# HTTPS keys
+ssl

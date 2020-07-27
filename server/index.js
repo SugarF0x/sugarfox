@@ -16,6 +16,7 @@ const express = require('express');
 const consola = require('consola');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
+const https = require('https');
 const bodyParser = require("body-parser");
 require('dotenv-defaults').config();
 
@@ -60,7 +61,6 @@ app.use(express.json());
 const routeAuth = require("./routes/auth");
 app.use("/api/auth", routeAuth(app));
 
-
 /**
  * Import and Set Nuxt.js options
  *
@@ -81,7 +81,7 @@ async function start () {
   // Init Nuxt.js
   const nuxt = new Nuxt(config);
 
-  const { host, port } = nuxt.options.server;
+  const { host, port, ssl } = nuxt.options.server;
 
   await nuxt.ready();
   // Build only in dev mode
@@ -93,11 +93,22 @@ async function start () {
   // Give nuxt middleware to express
   app.use(nuxt.render);
 
-  // Listen the server
-  app.listen(port, host);
+  if (process.env.HTTPS === 'true') {
+    // Pass express to https server as well as ssl key and cert
+    const httpsOptions = {
+      key : ssl.key,
+      cert : ssl.cert
+    };
+    let server = https.createServer(httpsOptions, app);
+    server.listen(port, host);
+  } else {
+    // Listen the server as http
+    app.listen(port, host);
+  }
   consola.ready({
-    message: `Server listening on http://${host}:${port}`,
+    message: `Server listening on http${process.env.HTTPS==='true'?'s':''}://${host}:${port}`,
     badge: true
   });
 }
+
 start();

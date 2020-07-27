@@ -1,8 +1,12 @@
 const colors = require('vuetify/es5/util/colors').default;
 require('dotenv-defaults').config();
+let fs = require('fs');
 
 module.exports = {
   mode: 'universal',
+  generate: {
+    fallback: true
+  },
   /*
   ** Headers of the page
   */
@@ -46,6 +50,7 @@ module.exports = {
   */
   buildModules: [
     '@nuxtjs/vuetify',
+    '@nuxtjs/pwa'
   ],
   /*
   ** Nuxt.js modules
@@ -54,8 +59,16 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
+  pwa: {
+    manifest: {
+      name: 'Sugar_F0x Progressive Web App',
+      short_name: 'SGFX PWA',
+      description: 'An attempt at converting my wep page into a progressive web app',
+      lang: 'en',
+      display: 'standalone'
+    }
+  },
   axios: {
-    // baseURL: 'http://localhost:3000/api'
     baseURL: process.env.BASE_URL + '/api'
   },
   auth: {
