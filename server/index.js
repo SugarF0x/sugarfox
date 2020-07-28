@@ -16,6 +16,7 @@ const express = require('express');
 const consola = require('consola');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
+const http  = require('http');
 const https = require('https');
 const bodyParser = require("body-parser");
 require('dotenv-defaults').config();
@@ -99,8 +100,14 @@ async function start () {
       key : ssl.key,
       cert : ssl.cert
     };
-    let server = https.createServer(httpsOptions, app);
-    server.listen(port.https, host);
+    https.createServer(httpsOptions, app)
+      .listen(port.https, host);
+
+      // Redirects to HTTPS
+    express().get('*', (req, res) => {
+      res.redirect('https://' + req.headers.host + req.url);
+    })
+      .listen(port.http,  host);
   } else {
     // Listen the server as http
     app.listen(port.http, host);
