@@ -146,7 +146,15 @@ module.exports = {
     }
   },
   server: {
+    ssl: process.env.HTTPS === 'true'
+      ? {
+          key:  fs.readFileSync('static/ssl/server-key.pem'),
+          cert: fs.readFileSync('static/ssl/server-crt.pem')
+        }
+      : undefined,
     host: process.env.LOCAL_MACHINE,
-    port: "3000"
+    port: process.env.HTTPS === 'true'
+      ? "3000"
+      : "8080"
   }
 };

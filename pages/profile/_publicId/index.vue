@@ -83,7 +83,7 @@
                   <v-list-item-group>
                     <v-list-item v-for="n in 3" :key="n">
                       <v-list-item-avatar size="35">
-                        <v-img :src="'http://placehold.it/50x50?text=' + n"></v-img>
+                        <v-img :src="'https://placehold.it/50x50?text=' + n"></v-img>
                       </v-list-item-avatar>
                       <v-list-item-content>
                         Friend {{ n }}
