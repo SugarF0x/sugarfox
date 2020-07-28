@@ -61,11 +61,11 @@ module.exports = {
   ],
   pwa: {
     manifest: {
-      name: 'Sugar_F0x Progressive Web App',
-      short_name: 'SGFX PWA',
+      name:        'Sugar_F0x Progressive Web App',
+      short_name:  'SGFX PWA',
       description: 'An attempt at converting my wep page into a progressive web app',
-      lang: 'en',
-      display: 'standalone'
+      lang:        'en',
+      display:     'standalone'
     }
   },
   axios: {
@@ -80,24 +80,24 @@ module.exports = {
     },
     resetOnError: true,
     redirect: {
-      login: '/profile/login', // User will be redirected to this path if login is required.
-      home: '/', // User will be redirect to this path after login. (rewriteRedirects will rewrite this path)
-      logout: '/', // User will be redirected to this path if after logout, current route is protected.
-      user: '/profile',
-      callback: '/callback' // User will be redirect to this path by the identity provider after login. (Should match configured Allowed Callback URLs (or similar setting) in your app/client with the identity provider)
+      login:    '/profile/login', // User will be redirected to this path if login is required.
+      home:     '/',              // User will be redirect to this path after login. (rewriteRedirects will rewrite this path)
+      logout:   '/',              // User will be redirected to this path if after logout, current route is protected.
+      user:     '/profile',
+      callback: '/callback'       // User will be redirect to this path by the identity provider after login. (Should match configured Allowed Callback URLs (or similar setting) in your app/client with the identity provider)
     },
     strategies: {
       local: {
         endpoints: {
           login: {
-            url: '/auth/login',
-            method: 'post',
+            url:          '/auth/login',
+            method:       'post',
             propertyName: 'token'
           },
           logout: false,
           user: {
-            url: '/auth/me',
-            method: 'GET',
+            url:          '/auth/me',
+            method:       'GET',
             propertyName: 'user'
           }
         },
@@ -108,14 +108,19 @@ module.exports = {
         authorization_endpoint: process.env.VK_CLIENT_ID === 'false'
           ? '/error?message=VK%20Auth%20Strategy%20disabled&title=Auth%20disabled&'
           : 'https://oauth.vk.com/authorize',
-        redirect_uri: process.env.PROTOCOL + '://' + process.env.BASE_URL + '/profile/auth/vk',
+        redirect_uri:      process.env.PROTOCOL + '://' + process.env.BASE_URL + '/profile/auth/vk',
         userinfo_endpoint: process.env.PROTOCOL + '://' + process.env.BASE_URL + '/api/auth/me',
-        scope: ['friends','groups','status','offline'],
-        response_type: 'code',
-        access_type: 'offline',
+        scope: [
+          'friends',
+          'groups',
+          'status',
+          'offline'
+        ],
+        response_type:         'code',
+        access_type:           'offline',
         access_token_endpoint: '/auth/login/test',
-        token_type: 'Bearer',
-        client_id: process.env.VK_CLIENT_ID
+        token_type:            'Bearer',
+        client_id:             process.env.VK_CLIENT_ID
       }
     },
   },
@@ -125,13 +130,13 @@ module.exports = {
       dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,     // #1976d2
-          accent: colors.grey.darken3,      // #37474f
-          secondary: colors.amber.darken3,  // #ff8f00
-          info: colors.teal.lighten1,       // #26a69a
-          warning: colors.amber.base,       // #ffc107
-          error: colors.deepOrange.accent4, // #dd2c00
-          success: colors.green.accent3     // #00e676
+          primary:   colors.blue.darken2,       // #1976d2
+          accent:    colors.grey.darken3,       // #37474f
+          secondary: colors.amber.darken3,      // #ff8f00
+          info:      colors.teal.lighten1,      // #26a69a
+          warning:   colors.amber.base,         // #ffc107
+          error:     colors.deepOrange.accent4, // #dd2c00
+          success:   colors.green.accent3       // #00e676
         }
       }
     }
