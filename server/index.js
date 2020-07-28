@@ -93,20 +93,25 @@ async function start () {
   // Give nuxt middleware to express
   app.use(nuxt.render);
 
-  if (process.env.HTTPS === 'true') {
+  if (process.env.PROTOCOL === 'https') {
     // Pass express to https server as well as ssl key and cert
     const httpsOptions = {
       key : ssl.key,
       cert : ssl.cert
     };
     let server = https.createServer(httpsOptions, app);
-    server.listen(port, host);
+    server.listen(port.https, host);
   } else {
     // Listen the server as http
-    app.listen(port, host);
+    app.listen(port.http, host);
   }
   consola.ready({
-    message: `Server listening on http${process.env.HTTPS==='true'?'s':''}://${host}:${port}`,
+    message:
+      'Server listening on ' +
+      process.env.PROTOCOL + '://' +
+      host + ':' +
+      (process.env.PROTOCOL === 'https' ? port.https : port.http)
+    ,
     badge: true
   });
 }

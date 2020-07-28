@@ -69,12 +69,13 @@ module.exports = {
     }
   },
   axios: {
-    baseURL: process.env.BASE_URL + '/api'
+    baseURL: process.env.PROTOCOL + '://' + process.env.BASE_URL + '/api'
   },
   auth: {
     cookie: {
       options: {
-        expires: 365
+        expires: 365,
+        secure:  true
       }
     },
     resetOnError: true,
@@ -107,8 +108,8 @@ module.exports = {
         authorization_endpoint: process.env.VK_CLIENT_ID === 'false'
           ? '/error?message=VK%20Auth%20Strategy%20disabled&title=Auth%20disabled&'
           : 'https://oauth.vk.com/authorize',
-        redirect_uri: process.env.BASE_URL + '/profile/auth/vk',
-        userinfo_endpoint: process.env.BASE_URL + '/api/auth/me',
+        redirect_uri: process.env.PROTOCOL + '://' + process.env.BASE_URL + '/profile/auth/vk',
+        userinfo_endpoint: process.env.PROTOCOL + '://' + process.env.BASE_URL + '/api/auth/me',
         scope: ['friends','groups','status','offline'],
         response_type: 'code',
         access_type: 'offline',
@@ -146,15 +147,16 @@ module.exports = {
     }
   },
   server: {
-    ssl: process.env.HTTPS === 'true'
+    ssl: process.env.PROTOCOL === 'https'
       ? {
           key:  fs.readFileSync('static/ssl/server-key.pem'),
           cert: fs.readFileSync('static/ssl/server-crt.pem')
         }
       : undefined,
     host: process.env.LOCAL_MACHINE,
-    port: process.env.HTTPS === 'true'
-      ? "3000"
-      : "8080"
+    port: {
+      http:  process.env.PORT_HTTP,
+      https: process.env.PORT_HTTPS
+    }
   }
 };

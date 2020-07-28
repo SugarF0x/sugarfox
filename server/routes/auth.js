@@ -457,7 +457,7 @@ module.exports = (app) => {
     await request(addQueryToUrl('https://oauth.vk.com/access_token', {
       client_id:     process.env.VK_CLIENT_ID,
       client_secret: process.env.VK_SECRET,
-      redirect_uri:  process.env.BASE_URL+ '/profile/auth/vk',
+      redirect_uri:  process.env.PROTOCOL + '://' + process.env.BASE_URL+ '/profile/auth/vk',
       code:          req.query.code
     }), async (error, response, body) => {
       body = JSON.parse(body);
