@@ -3,7 +3,7 @@ require('dotenv-defaults').config();
 let fs = require('fs');
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
   generate: {
     fallback: true
   },
@@ -38,12 +38,9 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  // serverMiddleware: [
-  //   '~/api/auth',
-  // ],
   plugins: [
     '@/plugins/vuebar',
-    { src: '@/plugins/theme-store', mode: 'client' }
+    { src: '@/middleware/theme-store',   mode: 'client' }
   ],
   /*
   ** Nuxt.js dev-modules

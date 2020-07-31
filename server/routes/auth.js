@@ -529,7 +529,8 @@ module.exports = (app) => {
     } else {
       if (process.env.AUTH_SECRET === 'false') {
         asd(res, 'Local');
-      } else rbc(res);
+      } else
+          res.status(401).json({ result: 0, message: "Unauthorized" });
     }
   });
 
