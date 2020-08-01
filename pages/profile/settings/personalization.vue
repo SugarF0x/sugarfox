@@ -68,22 +68,18 @@
    * @subcategory pages
    * @namespace profile.settings.personalization
    *
-   * @vue-data {object} options - User configuration object
+   * @vue-data {object}  alert                    - Popup alert box data object
+   * @vue-data {boolean} alert.state=false        - Alert visibility
+   * @vue-data {string}  alert.text='placeholder' - Alert text
+   * @vue-data {string}  alert.type='success'     - Alert styling by type
+   * @vue-data {object} options          - User personalization configuration
+   * @vue-data {string} options.email    - Profile email bind
+   * @vue-data {string} options.password - Profile access password
+   * @vue-data {string} options.username - Profile display name of choice
+   * @vue-data {string} options.address  - URL address to profile access
    *
-   * @vue-data {object} options.local                  - User configuration stored locally
-   * @vue-data {string} options.local.language=English   - Set language of choice
-   * @vue-data {string} options.local.theme=Dark         - Theme of choice
-   *
-   * @vue-data {object} options.account           - User configuration stored on server
-   * @vue-data {string} options.account.email       - Profile email bind
-   * @vue-data {string} options.account.password    - Profile access password
-   * @vue-data {string} options.account.username    - Profile display name of choice
-   * @vue-data {string} options.account.address     - URL address to profile access
-   *
-   * @todo turn value.state into input/dropdown fields
-   * @todo disable CHANGE button for as long as said state fields remain unchanged
-   * @todo move Language and Theme selection to the profile drawer footer? question mark?
-   * @todo store language and theme states in Local Storage
+   * @vue-event {void} editData    - Send new data to the server to be modified in the DB
+   * @vue-event {void} promptAlert - Render alert text for 2.5 seconds
    */
   export default {
     name: "personalization",
