@@ -7,9 +7,9 @@
         </span>
       </v-card-title>
       <v-card-text>
-        <v-row no-gutters v-for="(value, name) in options" :key="name">
+        <v-row no-gutters v-for="(value, name, index) in options" :key="name">
           <v-col cols="12" v-if="value.state !== 'Disabled'">
-            <v-form>
+            <v-form ref="form" @submit.prevent>
               <v-row no-gutters align="center">
                 <v-col cols="4">
                   <v-card-text class="text-center text-capitalize">
@@ -19,17 +19,26 @@
                 <v-col cols="4">
                   <v-text-field :placeholder="value.state"
                                 :name="name"
-                                :type="value.name === 'password' ? 'password' : 'text'"
-                                v-model="value.input"
+                                :type="name === 'password'
+                                       ? 'password'
+                                       : 'text'"
+                                v-model= "value.input"
                                 :counter="value.counter"
-                                :rules="value.rules"
+                                :rules=  "value.rules"
                                 validate-on-blur
+                                @keypress.enter="value.input !== value.state
+                                              && value.input !== ''
+                                              && $refs.form[index].validate()
+                                               ? value.action()
+                                               : {}"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="4" class="text-center">
                   <v-btn text
-                         @click="options[name].action"
-                         :disabled="value.input === value.state || value.input === ''"
+                         @click=   "value.action"
+                         :disabled="value.input === value.state
+                                 || value.input === ''
+                                 || !$refs.form[index].validate()"
                   >
                     Change
                   </v-btn>
@@ -39,6 +48,14 @@
           </v-col>
         </v-row>
       </v-card-text>
+      <div class="alert">
+        <v-alert :type="alert.type"
+                 v-model="alert.state"
+                 dismissible
+        >
+          {{ alert.text }}
+        </v-alert>
+      </div>
     </v-col>
   </v-row>
 </template>
@@ -72,6 +89,11 @@
     name: "personalization",
     data() {
       return {
+        alert: {
+          state: false,
+          text: 'placeholder',
+          type: 'success'
+        },
         options: {
           email: {
             type: 'input',
@@ -88,7 +110,9 @@
               v => !v || /^.*[0-9a-z]$/i.test(v)                 || 'Domain must end with either a digit or a latin letter'
             ],
             state: this.$auth.user.method === 'local' ? this.$auth.user.email : 'Disabled',
-            action: () => {}
+            action: () => {
+              this.promptAlert('success','EMAIL CHANGE');
+            }
           },
           password: {
             type: 'input',
@@ -98,7 +122,9 @@
               v => !v || /^\S+$/.test(v)      || 'No spaces are allowed'
             ],
             state:  this.$auth.user.method === 'local' ? '********' : 'Disabled',
-            action: () => {}
+            action: () => {
+              this.promptAlert('success','PASS CHANGE');
+            }
           },
           username: {
             type: 'input',
@@ -112,7 +138,9 @@
               v => !v || /^.*[а-яёa-z0-9]$/i.test(v)             || 'Login must end with a letter or a digit'
             ],
             state: this.$auth.user.login,
-            action: () => {}
+            action: () => {
+              this.promptAlert('success','USERNAME CHANGE');
+            }
           },
           address: {
             type: 'input',
@@ -122,14 +150,38 @@
               v => !v || (v && v.length <= 32) || 'Address must be 32 characters or less'
             ],
             state: this.$auth.user.publicId,
-            action: () => {}
+            action: () => {
+              this.promptAlert('success','ADDRESS CHANGE');
+            }
           }
         }
+      }
+    },
+    methods: {
+      async editData(data) {
+        // let response = await this.$axios.post('/auth/editUserData', data);
+      },
+      promptAlert(type, text) {
+        this.alert = {
+          state: true,
+          text,
+          type
+        };
+        setTimeout(() => {
+          this.alert.state=false;
+        }, 2500)
       }
     }
   }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+  .alert {
+    position: fixed;
+    width: 100vw;
+    bottom: 5%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+  }
 </style>
