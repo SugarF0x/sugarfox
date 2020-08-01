@@ -19,8 +19,12 @@ const router  = express.Router();
 const request = require('request');
 const jwt     = require("jsonwebtoken");
 const User    = require("../models/user");
-const bcrypt  = require('bcrypt');
+const bcrypt  = require('bcrypt'); // TODO: make bcrypt optional as it requires Python soft installed on server machine
 const consola = require('consola');
+
+// TODO: change the way new publicIDs are generated
+//   as for now if an existing user gets deleted, a fresh sign up
+//   will get an already reserved publicID
 
 /**
  * A req.body object is ran through these rules on validate(req)<br>
@@ -576,10 +580,9 @@ module.exports = (app) => {
    * @param {object} req.body.publicId - User ID to look for in Database
    */
   router.post('/editUserData', async (req, res) => {
-
-
-      //placeholder
-    res.json({ result: 0, message: 'not yet implemented!' })
+    setTimeout(() => {
+      res.json({ result: 1, message: req.body[Object.keys(req.body)] })
+    }, 1000)
   });
 
   return router;

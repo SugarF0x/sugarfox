@@ -26,19 +26,16 @@
                                 :counter="value.counter"
                                 :rules=  "value.rules"
                                 validate-on-blur
-                                @keypress.enter="value.input !== value.state
-                                              && value.input !== ''
-                                              && $refs.form[index].validate()
-                                               ? value.action()
+                                @keypress.enter="canCommit(value, index)
+                                               ? value.action(name, value.input)
                                                : {}"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="4" class="text-center">
                   <v-btn text
-                         @click=   "value.action"
-                         :disabled="value.input === value.state
-                                 || value.input === ''
-                                 || !$refs.form[index].validate()"
+                         :loading="value.loading"
+                         @click=  "value.action(name, value.input)"
+                         :disabled="!canCommit(value, index)"
                   >
                     Change
                   </v-btn>
@@ -106,20 +103,21 @@
               v => !v || /^.*[0-9a-z]$/i.test(v)                 || 'Domain must end with either a digit or a latin letter'
             ],
             state: this.$auth.user.method === 'local' ? this.$auth.user.email : 'Disabled',
-            action: () => {
-              this.promptAlert('success','EMAIL CHANGE');
+            action: (name, data) => {
+              this.commit(name, data)
             }
           },
           password: {
             type: 'input',
+            loading: false,
             input: '',
             rules: [
               v => !v || (v && v.length >= 8) || 'Name must be 8 characters or more',
               v => !v || /^\S+$/.test(v)      || 'No spaces are allowed'
             ],
             state:  this.$auth.user.method === 'local' ? '********' : 'Disabled',
-            action: () => {
-              this.promptAlert('success','PASS CHANGE');
+            action: (name, data) => {
+              this.commit(name, data)
             }
           },
           username: {
@@ -134,8 +132,8 @@
               v => !v || /^.*[а-яёa-z0-9]$/i.test(v)             || 'Login must end with a letter or a digit'
             ],
             state: this.$auth.user.login,
-            action: () => {
-              this.promptAlert('success','USERNAME CHANGE');
+            action: (name, data) => {
+              this.commit(name, data)
             }
           },
           address: {
@@ -146,16 +144,41 @@
               v => !v || (v && v.length <= 32) || 'Address must be 32 characters or less'
             ],
             state: this.$auth.user.publicId,
-            action: () => {
-              this.promptAlert('success','ADDRESS CHANGE');
+            action: (name, data) => {
+              this.commit(name, data)
             }
           }
         }
       }
     },
     methods: {
-      async editData(data) {
-        // let response = await this.$axios.post('/auth/editUserData', data);
+      canCommit(value, index) {
+        return value.input !== value.state
+            && value.input !== ''
+            && !value.loading
+            && this.$refs.form[index].validate()
+      },
+      editData(data) {
+        return new Promise(async (res, rej) => {
+          let test = await this.$axios.$post('/auth/editUserData', data);
+          if (test.result)
+            res(test.message);
+          else
+            rej(test.message);
+        });
+      },
+      commit(name, data) {
+        this.options[name].loading = true;
+        let newData = {};
+            newData[name] = data;
+        this.editData(newData)
+          .then(response => {
+            this.promptAlert('success', response);
+            this.options[name].loading = false;
+          }, reason => {
+            this.promptAlert('error', reason);
+            this.options[name].loading = false;
+          });
       },
       promptAlert(type, text) {
         this.alert = {
