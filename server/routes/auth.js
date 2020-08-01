@@ -20,6 +20,7 @@ const request = require('request');
 const jwt     = require("jsonwebtoken");
 const User    = require("../models/user");
 const bcrypt  = require('bcrypt');
+const consola = require('consola');
 
 /**
  * A req.body object is ran through these rules on validate(req)<br>
@@ -193,7 +194,7 @@ module.exports = (app) => {
                     next();
                   });
                 } catch (err) {
-                  console.log('Middleware error: ', err.message);
+                  consola.error('Middleware error: ' + err.message);
                   next();
                 }
               }
@@ -201,7 +202,7 @@ module.exports = (app) => {
               next();
             }
           } else {
-            console.log('\x1b[31mX\x1b[0m', 'Local auth Strategy disabled, user set to NULL');
+            consola.info('Local auth Strategy disabled, user will not be set');
             next();
           }
         } else if (req.cookies["auth.strategy"] === 'vk') {
@@ -212,7 +213,7 @@ module.exports = (app) => {
           }), (err, response, body) => {
             body = JSON.parse(body);
             if (body.error) {
-              console.log('Middleware error: ', body.error.error_msg);
+              consola.error('Middleware error: ' + body.error.error_msg);
               next();
             } else {
               User.findOne({ id: body.response[0].id }, (err, user) => {

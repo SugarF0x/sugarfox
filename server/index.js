@@ -16,7 +16,6 @@ const express = require('express');
 const consola = require('consola');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
-const http  = require('http');
 const https = require('https');
 const bodyParser = require("body-parser");
 require('dotenv-defaults').config();
@@ -39,10 +38,10 @@ if (process.env.MONGO_DB !== 'false') {
   });
 
   const db = mongoose.connection;
-  db.on("error", error => console.error('\x1b[31mX\x1b[0m', error));
-  db.once("open", () => console.log('\x1b[32m√\x1b[0m', 'Connected to SGFX database'));
+  db.on("error", error => consola.error(error));
+  db.once("open", () => consola.success('Connected to SGFX database'));
 } else {
-  console.log('\x1b[31mX\x1b[0m', 'MongoDB disabled')
+  consola.info('MongoDB disabled')
 }
 
 /**
