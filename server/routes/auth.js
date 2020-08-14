@@ -65,6 +65,10 @@ const rules = {
     v => !!v                  || 'Password is required',
     v => (v && v.length >= 8) || 'Name must be 8 characters or more',
     v => /^\S+$/.test(v)      || 'No spaces are allowed'
+  ],
+  address: [
+    v => !!v                  || 'Address is required',
+    v => (v && v.length >= 8) || 'Address must be between 1 and 32 characters long'
   ]
 };
 
@@ -580,9 +584,18 @@ module.exports = (app) => {
    * @param {object} req.body.publicId - User ID to look for in Database
    */
   router.post('/editUserData', async (req, res) => {
-    setTimeout(() => {
+    if (req.user) {
+      /*
+          1. Validate data key
+          2. Validate data value
+          3. Compare data to DB
+          4. Commit changes
+          5. Send response
+       */
+
       res.json({ result: 1, message: req.body[Object.keys(req.body)] })
-    }, 1000)
+    } else
+        res.status(401).json({ result: 0, message: "Unauthorized" });
   });
 
   return router;
