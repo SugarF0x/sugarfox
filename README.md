@@ -40,6 +40,7 @@ will be set to _default value_ automatically
 * :corn: Miscellaneous
 * :recycle: Refactor
 * :art: Style
+* :milky_way: Release
 
 ## Documentation
 
