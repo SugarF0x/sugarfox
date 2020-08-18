@@ -2,6 +2,11 @@ const colors = require('vuetify/es5/util/colors').default;
 require('dotenv-defaults').config();
 const fs = require('fs');
 
+// TODO: fix bug with production > development infinite loading
+//   when you enter a production page and then go back to development one,
+//   you are stuck at infinite load until you clear you web data
+//   i am no sure as of what's causing it, but there you have it
+
 module.exports = {
   mode: 'universal',
   target: 'server',

@@ -172,6 +172,9 @@ module.exports = (app) => {
    */
   app.use(async (req,res,next) => {
     if (process.env.MONGO_DB !== 'false') {
+
+        // TODO: redo this section to work off of cookies rather than headers - for proper SSR
+
       let token = null;
       if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
         token = req.headers.authorization.split(' ')[1];
