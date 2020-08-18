@@ -13,7 +13,6 @@
  *
  * @author {@link https://github.com/SugarF0x Sugar_F0x}
  */
-
 const express = require('express');
 const router  = express.Router();
 const request = require('request');
@@ -155,9 +154,6 @@ function addQueryToUrl(url, query) {
 }
 
 module.exports = (app) => {
-  const cookieParser = require("cookie-parser");
-  app.use(cookieParser());
-
   /**
    * Middleware parsing headers and query for token<br>
    * If successful, it queries db for user data and appends it to req<br>

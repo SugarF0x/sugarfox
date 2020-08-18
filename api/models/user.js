@@ -79,4 +79,12 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("User", userSchema);
+  // Prevent crash on hot reload as a result of duplicate schema creation
+let toExport;
+try {
+  toExport = mongoose.model('User');
+} catch (err) {
+  toExport = mongoose.model('User', userSchema);
+}
+
+module.exports = toExport;

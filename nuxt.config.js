@@ -1,9 +1,10 @@
 const colors = require('vuetify/es5/util/colors').default;
 require('dotenv-defaults').config();
-let fs = require('fs');
+const fs = require('fs');
 
 module.exports = {
-  mode: 'spa',
+  mode: 'universal',
+  target: 'server',
   generate: {
     fallback: true
   },
@@ -156,16 +157,19 @@ module.exports = {
     }
   },
   server: {
-    ssl: process.env.PROTOCOL === 'https'
-      ? {
-          key:  fs.readFileSync('static/ssl/server-key.pem'),
-          cert: fs.readFileSync('static/ssl/server-crt.pem')
-        }
-      : undefined,
+    https: process.env.PROTOCOL === 'https'
+           ? {
+               key:  fs.readFileSync('static/ssl/server-key.pem'),
+               cert: fs.readFileSync('static/ssl/server-crt.pem')
+             }
+           : undefined,
     host: process.env.LOCAL_MACHINE,
-    port: {
-      http:  process.env.PORT_HTTP,
-      https: process.env.PORT_HTTPS
-    }
+    port: process.env.PROTOCOL === 'https'
+          ? process.env.PORT_HTTPS
+          : process.env.PORT_HTTP,
+    fallbackPort: process.env.PORT_HTTP
+  },
+  serverMiddleware: {
+    '/api': '~/api'
   }
 };
