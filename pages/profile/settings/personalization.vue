@@ -91,6 +91,7 @@
         options: {
           email: {
             type: 'input',
+            loading: false,
             input: '',
             rules: [
               v => !v || /^[a-z0-9.-@]*$/i.test(v)               || 'Only digits, latin letters as well as . and - are allowed',
@@ -123,6 +124,7 @@
           },
           login: {
             type: 'input',
+            loading: false,
             input: '',
             counter: 32,
             rules: [
@@ -139,6 +141,7 @@
           },
           address: {
             type: 'input',
+            loading: false,
             input: '',
             counter: 32,
             rules: [
