@@ -84,12 +84,12 @@ const rules = {
  */
 function validate(req) {
   let isValid = true;
-  if (req.body.email && isValid) {
+  if (req.body.email    && isValid) {
     isValid = rules.email.every(rule => {
       return rule(req.body.email) === true
     });
   }
-  if (req.body.login && isValid) {
+  if (req.body.login    && isValid) {
     isValid = rules.login.every(rule => {
       return rule(req.body.login) === true
     })
@@ -97,6 +97,11 @@ function validate(req) {
   if (req.body.password && isValid) {
     isValid = rules.password.every(rule => {
       return rule(req.body.password) === true
+    })
+  }
+  if (req.body.address  && isValid) {
+    isValid = rules.publicId.every(rule => {
+      return rule(req.body.publicId) === true
     })
   }
 
@@ -592,9 +597,30 @@ module.exports = (app) => {
           5. Send response
        */
 
-      res.json({ result: 1, message: req.body[Object.keys(req.body)] })
+      const edit = {
+        email() {
+          console.log('email');
+        },
+        password() {
+          console.log('pass');
+        },
+        login() {
+          console.log('login');
+        },
+        address() {
+          console.log('addr');
+        }
+      };
+
+      if (edit.hasOwnProperty(Object.keys(req.body))) {
+        edit[Object.keys(req.body)]();
+
+        res.json({ result: 1, message: req.body[Object.keys(req.body)] }) // TODO: remove this when done
+      } else {
+        rbc(res);
+      }
     } else
-        res.status(401).json({ result: 0, message: "Unauthorized" });
+      res.status(401).json({ result: 0, message: "Unauthorized" });
   });
 
   return router;

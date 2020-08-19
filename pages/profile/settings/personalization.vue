@@ -75,8 +75,9 @@
    * @vue-data {string} options.username - Profile display name of choice
    * @vue-data {string} options.address  - URL address to profile access
    *
-   * @vue-event {void} editData    - Send new data to the server to be modified in the DB
-   * @vue-event {void} promptAlert - Render alert text for 2.5 seconds
+   * @vue-event {boolean} canCommit   - Validate commit data
+   * @vue-event {void}    commit      - Send new data to the server to be modified in the DB
+   * @vue-event {void}    promptAlert - Render alert text for 2.5 seconds
    */
   export default {
     name: "personalization",
@@ -120,7 +121,7 @@
               this.commit(name, data)
             }
           },
-          username: {
+          login: {
             type: 'input',
             input: '',
             counter: 32,
@@ -158,27 +159,17 @@
             && !value.loading
             && this.$refs.form[index].validate()
       },
-      editData(data) {
-        return new Promise(async (res, rej) => {
-          let test = await this.$axios.$post('/auth/editUserData', data);
-          if (test.result)
-            res(test.message);
-          else
-            rej(test.message);
-        });
-      },
-      commit(name, data) {
+      async commit(name, data) {
         this.options[name].loading = true;
         let newData = {};
             newData[name] = data;
-        this.editData(newData)
+        await this.$axios.post('/auth/editUserData', newData)
           .then(response => {
-            this.promptAlert('success', response);
-            this.options[name].loading = false;
+            this.promptAlert('success', response.data.message);
           }, reason => {
             this.promptAlert('error', reason);
-            this.options[name].loading = false;
           });
+        this.options[name].loading = false;
       },
       promptAlert(type, text) {
         this.alert = {

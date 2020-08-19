@@ -152,12 +152,12 @@ module.exports = {
     ** You can extend webpack config here
     */
       // this stops infinite hot-reload in dev mode with pwa enabled
-    devMiddleware: {
-      headers: {
-        'Cache-Control': 'no-store',
-        Vary: '*'
-      }
-    },
+    // devMiddleware: {
+    //   headers: {
+    //     'Cache-Control': 'no-store',
+    //     Vary: '*'
+    //   }
+    // },
     extend (config, ctx) {
     }
   },
