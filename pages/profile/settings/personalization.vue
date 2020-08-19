@@ -166,6 +166,11 @@
       /* TODO: fix bit where only error message is displayed when commit fails
           -> lookup what i did back at login/register page and do the same
        */
+
+      /* TODO: change every publicId instance to address instance for clarity
+          > many places use different keys - either address or publicId
+            should be unified
+       */
       async commit(name, data) {
         this.options[name].loading = true;
         let newData = {};
@@ -178,7 +183,9 @@
           });
         this.options[name].loading = false;
         await this.$auth.fetchUser();
-        this.options[name].state = this.$auth.user[name];
+        name === 'address'
+        ? this.options.address.state = this.$auth.user.publicId
+        : this.options[name].state = this.$auth.user[name];
       },
       promptAlert(type, text) {
         this.alert = {
