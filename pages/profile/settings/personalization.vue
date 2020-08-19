@@ -174,6 +174,8 @@
             this.promptAlert('error', reason);
           });
         this.options[name].loading = false;
+        await this.$auth.fetchUser();
+        this.options[name].state = this.$auth.user[name];
       },
       promptAlert(type, text) {
         this.alert = {

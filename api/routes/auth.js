@@ -101,8 +101,8 @@ function validate(req) {
     })
   }
   if (req.body.address  && isValid) {
-    isValid = rules.publicId.every(rule => {
-      return rule(req.body.publicId) === true
+    isValid = rules.address.every(rule => {
+      return rule(req.body.address) === true
     })
   }
 
@@ -199,7 +199,7 @@ module.exports = (app) => {
                     // this line unlinks user object from db and lets me edit it before sending
                     user = JSON.parse(JSON.stringify(user));
                     if (user) {
-                      ['_id','permission','password','__v','created_date'].forEach(entry => {
+                      ['_id','password','__v','created_date'].forEach(entry => {
                         delete user[entry]
                       });
                       req.user = user;
@@ -590,36 +590,51 @@ module.exports = (app) => {
    */
   router.post('/editUserData', async (req, res) => {
     if (req.user) {
-      /*
-          1. Validate data key
-          2. Validate data value
-          3. Compare data to DB
-          4. Commit changes
-          5. Send response
-       */
-
-      const edit = {
-        email() {
-          console.log('email');
-        },
-        password() {
-          console.log('pass');
-        },
-        login() {
-          console.log('login');
-        },
-        address() {
-          console.log('addr');
-        }
-      };
-
-      if (edit.hasOwnProperty(Object.keys(req.body))) {
-        edit[Object.keys(req.body)]();
-
-        res.json({ result: 1, message: req.body[Object.keys(req.body)] }) // TODO: remove this when done
-      } else {
+      if (validate(req)) {
+        Object.keys(req.body).forEach(async entry => {
+          try {
+            switch (entry) {
+              case 'password':
+                await User.findOneAndUpdate(
+                  { id: req.user.id },
+                  { $set: { password: bcrypt.hashSync(req.body.password, 7) } },
+                  { new: true }
+                );
+                res.json({ result: 1, message: `New password successfully set!`});
+                break;
+              case 'address':
+                await User.findOne({ publicId: req.body.address }, async (err, user) => {
+                  if (!user) {
+                    try {
+                      await User.findOneAndUpdate(
+                        { id: req.user.id },
+                        { $set: { publicId: req.body.address } },
+                        { new: true });
+                      res.json({ result: 1, message: `New address successfully set!`});
+                    } catch (err) {
+                      res.status(500).json({ result: 0, message: err.message })
+                    }
+                  } else {
+                    res.status(400).json({ result: 0, message: "User with that address already exists" })
+                  }
+                });
+                break;
+              default:
+                await User.findOneAndUpdate(
+                  { id: req.user.id },
+                  { $set: { [entry]: req.body[entry] } },
+                  { new: true }
+                );
+                res.json({ result: 1, message: `New ${entry} successfully set!`});
+                break;
+            }
+          } catch (err) {
+            consola.error(err);
+            res.status(500).json({ result: 0, message: "Oops! Something went wrong!"})
+          }
+        });
+      } else
         rbc(res);
-      }
     } else
       res.status(401).json({ result: 0, message: "Unauthorized" });
   });
