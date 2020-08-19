@@ -66,8 +66,9 @@ const rules = {
     v => /^\S+$/.test(v)      || 'No spaces are allowed'
   ],
   address: [
-    v => !!v                  || 'Address is required',
-    v => (v && v.length >= 8) || 'Address must be between 1 and 32 characters long'
+    v => !!v                               || 'Address is required',
+    v => (v.length >= 1 && v.length <= 32) || 'Address must be between 1 and 32 characters long',
+    v => /^[a-z0-9_-]*$/i.test(v)          || 'Only digits, latin letters as well as _ and - are allowed'
   ]
 };
 

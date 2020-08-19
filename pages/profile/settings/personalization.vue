@@ -145,7 +145,8 @@
             input: '',
             counter: 32,
             rules: [
-              v => !v || (v && v.length <= 32) || 'Address must be 32 characters or less'
+              v => !v || (v && v.length <= 32)    || 'Address must be 32 characters or less',
+              v => !v || /^[a-z0-9_-]*$/i.test(v) || 'Only digits, latin letters as well as _ and - are allowed'
             ],
             state: this.$auth.user.publicId,
             action: (name, data) => {
