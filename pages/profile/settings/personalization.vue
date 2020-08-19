@@ -8,7 +8,7 @@
       </v-card-title>
       <v-card-text>
         <v-row no-gutters v-for="(value, name, index) in options" :key="name">
-          <v-col cols="12" v-if="value.state !== 'Disabled'">
+          <v-col cols="12" v-show="value.state !== 'Disabled'">
             <v-form ref="form" @submit.prevent>
               <v-row no-gutters align="center">
                 <v-col cols="4">
@@ -163,6 +163,9 @@
             && !value.loading
             && this.$refs.form[index].validate()
       },
+      /* TODO: fix bit where only error message is displayed when commit fails
+          -> lookup what i did back at login/register page and do the same
+       */
       async commit(name, data) {
         this.options[name].loading = true;
         let newData = {};
