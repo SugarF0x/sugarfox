@@ -6,10 +6,9 @@
           This is a <span class="primary--text">privacy</span> child component
         </span>
       </v-card-title>
-      <v-card-text class="pa-0">
+      <v-card-text>
         <v-row no-gutters v-for="(value, name) in options" :key="name">
-          <v-col cols="12" v-if="value !== 'Disabled'">
-            <v-divider></v-divider>
+          <v-col cols="12" v-if="value.value !== 'Disabled'">
             <v-row no-gutters align="center">
               <v-col cols="4">
                 <v-card-text class="text-center text-capitalize">
@@ -18,12 +17,17 @@
               </v-col>
               <v-col cols="4">
                 <v-card-text class="text-center">
-                  {{ value }}
+                  <v-select v-model="options[name].value"
+                            :items="variants"
+                            hide-details
+                  ></v-select>
                 </v-card-text>
               </v-col>
               <v-col cols="4" class="text-center">
                 <v-btn text
-                       @click="change(name)"
+                       @click="commit(name, value.value)"
+                       :loading="value.loading"
+                       :disabled="value.value === $auth.user.options.privacy[name]"
                 >
                   Change
                 </v-btn>
@@ -32,12 +36,14 @@
           </v-col>
         </v-row>
       </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary">
-          save changes
-        </v-btn>
-      </v-card-actions>
+      <div class="alert">
+        <v-alert :type="alert.type"
+                 v-model="alert.state"
+                 dismissible
+        >
+          {{ alert.text }}
+        </v-alert>
+      </div>
     </v-col>
   </v-row>
 </template>
@@ -59,22 +65,76 @@
     name: "privacy",
     data() {
       return {
+        alert: {
+          state: false,
+          text: 'placeholder',
+          type: 'success'
+        },
         options: {
-          profile:  'public',
-          activity: 'public',
-          friends:  'public',
-          inbox:    'public'
-        }
+          profile: {
+            value: this.$auth.user.options.privacy.profile,
+            loading: false
+          },
+          activity: {
+            value: this.$auth.user.options.privacy.activity,
+            loading: false
+          },
+          friends: {
+            value: this.$auth.user.options.privacy.friends,
+            loading: false
+          },
+          inbox: {
+            value: this.$auth.user.options.privacy.inbox,
+            loading: false
+          }
+        },
+        variants: [
+          'public',
+          'private',
+          'friends-only'
+        ]
       }
     },
     methods: {
-      change(prop) {
-        console.log(prop);
+      async commit(name, data) {
+        this.options[name].loading = true;
+        let newData = {
+          options: {
+            privacy: {
+              [name]: data
+            }
+          }
+        };
+        await this.$axios.post('/auth/editUserData', newData)
+          .then(response => {
+            this.promptAlert('success', response.data.message);
+          }, reason => {
+            this.promptAlert('error', reason);
+          });
+        this.options[name].loading = false;
+        await this.$auth.fetchUser();
+      },
+      promptAlert(type, text) {
+        this.alert = {
+          state: true,
+          text,
+          type
+        };
+        setTimeout(() => {
+          this.alert.state=false;
+        }, 2500)
       }
     }
   }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+  .alert {
+    position: fixed;
+    width: 100vw;
+    bottom: 5%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+  }
 </style>

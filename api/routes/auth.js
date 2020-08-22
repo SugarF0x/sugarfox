@@ -622,36 +622,18 @@ module.exports = (app) => {
                 });
                 break;
               case 'options':
-                for (let option in entry) {
-                  // EXAMPLE STATE:
-                  /*
-                    req.body = {
-                      options: {
-                        privacy: {
-                          profile: 'public',
-                          activity: 'public',
-                          friends: 'public',
-                          inbox: 'public',
-                        }
-                      }
-                    }
-                   */
-                  // then entry[option] = {
-                  //                        profile: 'public',
-                  //                        activity: 'public',
-                  //                        friends: 'public',
-                  //                        inbox: 'public',
-                  //                      }
-                  if (entry.hasOwnProperty(option)) {
-                    for (let state in entry[option]) {
-                      if (entry[option].hasOwnProperty(state)) {
-                        let position = `${entry}.${option}.${state}`;
-                        await User.findOneAndUpdate(
-                          { id: req.user.id },
-                          { $set: { [position]: req.body[entry][option][state] } },
-                          { new: true, useFindAndModify: false }
-                        );
-                      }
+                for (let option in req.body[entry]) {
+                  for (let state in req.body[entry][option]) {
+                    let position = `${entry}.${option}.${state}`;
+                    try {
+                      await User.findOneAndUpdate(
+                        { id: req.user.id },
+                        { $set: { [position]: req.body[entry][option][state] } },
+                        { new: true, useFindAndModify: false }
+                      );
+                      res.json({ result: 1, message: `New ${state} ${option} ${entry} successfully set!`});
+                    } catch (err) {
+                      res.status(500).json({ result: 0, message: 'Oops! SOmething went wrong!' })
                     }
                   }
                 }
