@@ -21,6 +21,8 @@ const User    = require("../models/user");
 const bcrypt  = require('bcrypt'); // TODO: make bcrypt optional as it requires Python soft installed on server machine
 const consola = require('consola');
 
+// TODO: add verbose mode in .env that will log every request and everything they are going through
+
 // TODO: change the way new publicIDs are generated
 //   as for now if an existing user gets deleted, a fresh sign up
 //   will get an already reserved publicID
@@ -598,7 +600,7 @@ module.exports = (app) => {
                 await User.findOneAndUpdate(
                   { id: req.user.id },
                   { $set: { password: bcrypt.hashSync(req.body.password, 7) } },
-                  { new: true }
+                  { new: true, useFindAndModify: false }
                 );
                 res.json({ result: 1, message: `New password successfully set!`});
                 break;
@@ -609,7 +611,7 @@ module.exports = (app) => {
                       await User.findOneAndUpdate(
                         { id: req.user.id },
                         { $set: { publicId: req.body.address } },
-                        { new: true });
+                        { new: true, useFindAndModify: false });
                       res.json({ result: 1, message: `New address successfully set!`});
                     } catch (err) {
                       res.status(500).json({ result: 0, message: err.message })
@@ -619,11 +621,46 @@ module.exports = (app) => {
                   }
                 });
                 break;
+              case 'options':
+                for (let option in entry) {
+                  // EXAMPLE STATE:
+                  /*
+                    req.body = {
+                      options: {
+                        privacy: {
+                          profile: 'public',
+                          activity: 'public',
+                          friends: 'public',
+                          inbox: 'public',
+                        }
+                      }
+                    }
+                   */
+                  // then entry[option] = {
+                  //                        profile: 'public',
+                  //                        activity: 'public',
+                  //                        friends: 'public',
+                  //                        inbox: 'public',
+                  //                      }
+                  if (entry.hasOwnProperty(option)) {
+                    for (let state in entry[option]) {
+                      if (entry[option].hasOwnProperty(state)) {
+                        let position = `${entry}.${option}.${state}`;
+                        await User.findOneAndUpdate(
+                          { id: req.user.id },
+                          { $set: { [position]: req.body[entry][option][state] } },
+                          { new: true, useFindAndModify: false }
+                        );
+                      }
+                    }
+                  }
+                }
+                break;
               default:
                 await User.findOneAndUpdate(
                   { id: req.user.id },
                   { $set: { [entry]: req.body[entry] } },
-                  { new: true }
+                  { new: true, useFindAndModify: false }
                 );
                 res.json({ result: 1, message: `New ${entry} successfully set!`});
                 break;
