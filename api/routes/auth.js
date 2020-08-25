@@ -576,7 +576,7 @@ module.exports = (app) => {
   });
 
   /**
-   * Route operating user settings
+   * Route operating user settings based on req.user's id and payload data
    *
    * @category server
    * @subcategory routes
@@ -635,6 +635,41 @@ module.exports = (app) => {
                     } catch (err) {
                       res.status(500).json({ result: 0, message: 'Oops! SOmething went wrong!' })
                     }
+                  }
+                }
+                break;
+              case 'state':
+                if (req.body.state === 'deleted') {
+                  try {
+                    await User.findOneAndUpdate(
+                      { id: req.user.id },
+                      { $set: { state: 'deleted', publicId: null } },
+                      { new: true, useFindAndModify: false }
+                    );
+                    res.json({ result: 1, message: `State change successful`});
+                  } catch (err) {
+                    res.status(500).json({ result: 0, message: "Oops! Something went wrong!"})
+                  }
+                } else if (req.body.state === 'active') {
+                  try {
+                    await User.findOne({ publicId: req.user.publicId }, async (err, user) => {
+                      if (!user) {
+                        try {
+                          await User.findOneAndUpdate(
+                            { id: req.user.id },
+                            { $set: { state: 'active', publicId: req.body.publicId } },
+                            { new: true, useFindAndModify: false }
+                          );
+                          res.json({ result: 1, message: `State change successful`});
+                        } catch (err) {
+                          res.status(500).json({ result: 0, message: err.message })
+                        }
+                      } else {
+                        res.status(400).json({ result: 0, message: "This address is already taken" })
+                      }
+                    });
+                  } catch (err) {
+                    res.status(500).json({ result: 0, message: "Oops! Something went wrong!"})
                   }
                 }
                 break;

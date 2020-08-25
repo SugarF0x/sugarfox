@@ -20,6 +20,8 @@
               <v-col cols="4" class="text-center">
                 <v-btn text
                        class="error--text"
+                       :loading="button.loading"
+                       @click="commit"
                 >
                   delete
                 </v-btn>
@@ -42,7 +44,43 @@
    * @namespace profile.settings.danger-zone
    */
   export default {
-    name: "danger-zone"
+    name: "danger-zone",
+    data() {
+      return {
+        alert: {
+          state: false,
+          text: 'placeholder',
+          type: 'success'
+        },
+        button: {
+          loading: false
+        }
+      }
+    },
+    methods: {
+      async commit() {
+        this.button.loading = true;
+        let newData = { state: 'deleted' };
+        await this.$axios.post('/auth/editUserData', newData)
+          .then(response => {
+            this.promptAlert('success', response.data.message);
+          }, reason => {
+            this.promptAlert('error', reason);
+          });
+        this.button.loading = false;
+        await this.$auth.logout();
+      },
+      promptAlert(type, text) {
+        this.alert = {
+          state: true,
+          text,
+          type
+        };
+        setTimeout(() => {
+          this.alert.state=false;
+        }, 2500)
+      }
+    }
   }
 </script>
 
