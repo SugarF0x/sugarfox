@@ -3,7 +3,7 @@
     <v-col cols="12" class="py-0">
       <v-card-title class="headline">
         <span>
-          This is a <span class="error--text">danger-zone</span> child component
+          <span class="error--text">Dangerous</span> settings, take caution!
         </span>
       </v-card-title>
       <v-card-text class="pa-0">

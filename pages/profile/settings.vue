@@ -15,7 +15,7 @@
                 <v-spacer></v-spacer>
                 <span>
               <span class="secondary--text">{{ $auth.user.login }}</span>
-              settings page
+              profile settings
             </span>
                 <v-spacer></v-spacer>
               </v-card-title>

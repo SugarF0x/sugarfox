@@ -3,7 +3,7 @@
     <v-col cols="12" class="py-0">
       <v-card-title class="headline">
         <span>
-          This is a <span class="primary--text">privacy</span> child component
+          Profile <span class="primary--text">privacy</span> settings
         </span>
       </v-card-title>
       <v-card-text>
