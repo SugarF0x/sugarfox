@@ -587,8 +587,7 @@ module.exports = (app) => {
    * @function
    * @type {POST} { result, message }
    *
-   * @param {object} req.body          - Payload
-   * @param {object} req.body.publicId - User ID to look for in Database
+   * @param {object} req.body - Payload, containing all the data to be changed
    */
   router.post('/editUserData', async (req, res) => {
     if (req.user) {
