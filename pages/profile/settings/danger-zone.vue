@@ -42,6 +42,15 @@
    * @category client
    * @subcategory pages
    * @namespace profile.settings.danger-zone
+   *
+   * @vue-data {object}  alert                    - Popup alert box data object
+   * @vue-data {boolean} alert.state=false        - Alert visibility
+   * @vue-data {string}  alert.text='placeholder' - Alert text
+   * @vue-data {string}  alert.type='success'     - Alert styling by type
+   * @vue-data {boolean} button.loading - Directs button loading state
+   *
+   * @vue-event {void} commit      - Send new data to the server to be modified in the DB
+   * @vue-event {void} promptAlert - Render alert text for 2.5 seconds
    */
   export default {
     name: "danger-zone",

@@ -56,10 +56,17 @@
    * @subcategory pages
    * @namespace profile.settings.privacy
    *
+   * @vue-data {object}  alert                    - Popup alert box data object
+   * @vue-data {boolean} alert.state=false        - Alert visibility
+   * @vue-data {string}  alert.text='placeholder' - Alert text
+   * @vue-data {string}  alert.type='success'     - Alert styling by type
    * @vue-data {string} options.profile=public  - Who can see user profile
    * @vue-data {string} options.activity=public - Who can see user activity
    * @vue-data {string} options.friends=public  - Who can see user friends
    * @vue-data {string} options.inbox=public    - Who can direct message user
+   *
+   * @vue-event {void} commit      - Send new data to the server to be modified in the DB
+   * @vue-event {void} promptAlert - Render alert text for 2.5 seconds
    */
   export default {
     name: "privacy",
