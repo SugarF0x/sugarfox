@@ -70,7 +70,8 @@ const rules = {
   address: [
     v => !!v                               || 'Address is required',
     v => (v.length >= 1 && v.length <= 32) || 'Address must be between 1 and 32 characters long',
-    v => /^[a-z0-9_-]*$/i.test(v)          || 'Only digits, latin letters as well as _ and - are allowed'
+    v => /^[a-z0-9_-]*$/i.test(v)          || 'Only digits, latin letters as well as _ and - are allowed',
+    v => /^id\d+$/.test(v)                 || 'Address can not replicate default id route (e.g. /id123)'
   ]
 };
 
@@ -566,7 +567,16 @@ module.exports = (app) => {
    * @param {object} req.body.publicId - User ID to look for in Database
    */
   router.post('/getUser', async (req,res) => {
-    await User.findOne({ publicId: req.body.publicId }, (err, user) => {
+    let search = {};
+      // test if complies with 'id123456789' naming
+    if (/^id\d+$/.test(req.body.publicId)) {
+      search = { id: req.body.publicId.slice(2) };
+    } else {
+      search = { publicId: req.body.publicId };
+    }
+    consola.log(search);
+
+    await User.findOne(search, (err, user) => {
       if (user) {
         res.json({ result: 1, user: user });
       } else {

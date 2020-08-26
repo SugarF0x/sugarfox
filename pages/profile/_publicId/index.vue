@@ -159,7 +159,8 @@
     },
     data() {
       return {
-        isOwner: this.$auth.user.publicId === this.$route.params.publicId
+        isOwner: this.$auth.user.publicId  === this.$route.params.publicId
+              || 'id' + this.$auth.user.id === this.$route.params.publicId
       }
     },
     computed: {
